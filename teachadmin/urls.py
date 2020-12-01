@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from teachscores import teachscore_views
+from teachscores import views as teachscore_views
 
 urlpatterns = [
     path('', teachscore_views.index, name='index'),
