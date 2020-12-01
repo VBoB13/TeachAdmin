@@ -62,6 +62,7 @@ db.sqlite3
 db.sqlite3-journal
 # MY OWN!
 settings.py
+*.code-workspace
 
 # Flask stuff:
 instance/
