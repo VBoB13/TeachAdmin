@@ -19,6 +19,6 @@ from django.urls import path, include
 from teachscores import views as teachscore_views
 
 urlpatterns = [
-    path('', teachscore_views.index, name='index'),
+    path('teachscores/', include('teachscores.urls')),
     path('admin/', admin.site.urls),
 ]
