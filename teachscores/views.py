@@ -11,6 +11,7 @@ class IndexView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["title"] = 'Hello, World!'
+        context["title"] = 'Scores'
+        context["page_title"] = 'TeachAdmin - Scores'
         return context
     

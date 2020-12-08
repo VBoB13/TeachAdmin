@@ -17,9 +17,15 @@ class Teacher(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     # Additional Info
     country = CountryField(blank=True, blank_label='(Select Country)', help_text="Optional")
+    career_profile = models.URLField(
+        blank=True,
+        help_text="URL to your career profile. E.g. LinkedIn, Indeed etc."
+    )
 
     def __str__(self):
-        return self.user.username
+        return str(self.user.username)
 
     def get_absolute_url(self):
         return reverse("teacher_detail", kwargs={"pk": self.pk})
+
+

@@ -1,10 +1,13 @@
-{% load bootstrap4 %} {% load static %}
+{% load bootstrap4 %}
+{% load static %}
 <!DOCTYPE html>
 
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8" />
-    <title>TeachAdmin</title>
+    {% block page_title_block %}
+        <title>TeachAdmin</title>
+    {% endblock page_title_block %}
 
     <!-- Loading Bootstrap4 CSS and Javascript -->
     {% bootstrap_css %}
@@ -16,20 +19,53 @@
       type="text/css"
       href="{% static 'teachscores/css/master.css' %}"
     />
+    <script src="{% static 'teachscores/js/master.js' %}"></script>
+
+    {% block script_block %}
+        {% comment %} 
+            Making sure every template can provide their own JS-files 
+        {% endcomment %}
+    {% endblock script_block %}
+    
   </head>
   <body class="p-3 mb-2 bg-dark text-white">
     <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary">
       <div class="container">
-        <a class="navbar-brand" href="#">TeachAdmin</a>
+        <a class="navbar-brand" href="{% url 'teachscores:index' %}">
+            Home
+        </a>
         <ul class="navbar-nav">
+        {% if user.is_authenticated and user.username == "admin" %}
+        <li class="nav-item">
+            <a href="{% url 'admin:index' %}" class="nav-link">
+                Admin
+            </a>
+        </li>
+        {% endif %}
+        {% if user.is_authenticated %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
+            <a href="{% url 'teachscores:index' %}" class="nav-link">
+                Scores
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'teachscores:index' %}"
-              >TeachScores</a
-            >
+            <a href="{% url 'accounts:index' %}" 
+            class="nav-link">
+                Account
+            </a>
           </li>
+        {% else %}
+          <li class="nav-item">
+            <a href="{% url 'accounts:login' %}" class="nav-link">
+                Login
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'accounts:register' %}" class="nav-link">
+                Register
+            </a>
+          </li>
+        {% endif %}
         </ul>
       </div>
     </nav>
@@ -43,7 +79,7 @@
       <p>{% block bottom_block %} {% endblock %}</p>
 
       <p>{% block far_bottom_block %} {% endblock %}</p>
-      
+
       <p>{% block extra_block %} {% endblock %}</p>
     </div>
   </body>

@@ -19,7 +19,7 @@ from django.urls import path, include
 from teachscores import views as teachscore_views
 
 urlpatterns = [
+    path('', include('teachscores.urls')),
     path('accounts/', include('accounts.urls')),
-    path('teachscores/', include('teachscores.urls')),
     path('admin/', admin.site.urls),
 ]
