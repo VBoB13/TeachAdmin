@@ -20,15 +20,11 @@
 {% endblock view_title_block %}
 
 {% block content_block %}
-    <div class="bg-secondary rounded">
+    <div style="padding:20px" class="bg-secondary rounded">
         <form action="{% url 'accounts:register' %}" method="post" class="form">
             {% csrf_token %}
-            <div class="form-group">
                 {{ user_form.as_p }}
-            </div>
-            <div class="form-group">
                 {{ teacher_form.as_p }}
-            </div>
             <input type="submit" name="" value="Register" class="btn btn-primary">
         </form>
     </div>
