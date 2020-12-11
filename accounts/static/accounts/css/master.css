@@ -1,9 +1,9 @@
-form, div h1 {
+form, div.view_title h1 {
   padding: 15px;
   margin: 5px;
 }
 
-form {
+form, div.view_title {
   background-color: #666666;
 }
 

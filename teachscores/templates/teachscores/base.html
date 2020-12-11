@@ -59,6 +59,11 @@
                 Account
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{% url 'accounts:logout' %}" class="nav-link">
+                Logout [{{ user.username }}]
+            </a>
+          </li>
         {% else %}
           <li class="nav-item">
             <a href="{% url 'accounts:login' %}" class="nav-link">

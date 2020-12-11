@@ -20,7 +20,8 @@ $standard_text_size: 16px;
     background-color: $dark-gray;
 }
 
-div {
+div.view_title {
+    @extend %content-unit-color;
     h1 {
         @extend %unit-spacing;
     }

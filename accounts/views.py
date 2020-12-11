@@ -64,7 +64,9 @@ def login(request):
             print("Username: {} \nPassword: {}".format(username, password))
             return HttpResponse("Invalid username and/or password.")
     else:
-        return render(request, 'accounts/login.html')
+        return render(request, 'accounts/login.html', {
+            "title": "Login",
+        })
 
 def logout(request):
     django_logout(request)
