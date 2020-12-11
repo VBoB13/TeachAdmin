@@ -7,18 +7,6 @@ form {
   background-color: #666666;
 }
 
-.navbar-bg {
-  background-color: #0169a4;
-}
-
-form ul.errorlist {
-  border: #aa3434 solid 2px;
-  border-radius: 10px;
-  background-color: #ff6a6a99;
-}
-form ul.errorlist li {
-  color: #464646;
-}
 form p span {
   font-size: 12px;
   font-style: italic;

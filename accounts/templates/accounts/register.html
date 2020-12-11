@@ -6,13 +6,22 @@
     <title>TeachAdmin - Register</title>
 {% endblock page_title_block %}
 
+{% block link_block %}
+    <!-- Adding document-specific Stylesheets -->
+    <link 
+        rel="stylesheet"
+        type="text/css" 
+        href="{% static 'accounts/css/master.css' %}" 
+    />
+{% endblock link_block %}
+
 {% block script_block %}
     <!-- Adding document-specific JavaScript -->
     <script src="{% static 'accounts/js/register.js' %}"></script>
 {% endblock script_block %}
 
 {% block view_title_block %}
-    <div class="bg-secondary rounded-pill">
+    <div class="bg-secondary rounded-lg">
         <h1 align="center" class="display-4">
             {{ title }}
         </h1>
@@ -20,12 +29,16 @@
 {% endblock view_title_block %}
 
 {% block content_block %}
-    <div style="padding:20px" class="bg-secondary rounded">
-        <form action="{% url 'accounts:register' %}" method="post" class="form">
+    {% if not registered %}
+        <form action="{% url 'accounts:register' %}" method="post" class="form rounded">
             {% csrf_token %}
                 {{ user_form.as_p }}
                 {{ teacher_form.as_p }}
             <input type="submit" name="" value="Register" class="btn btn-primary">
         </form>
-    </div>
+    {% else %}
+        <h1 align="center" class="display-1">
+            Thank you for registering!
+        </h1>
+    {% endif %}
 {% endblock content_block %}

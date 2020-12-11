@@ -19,6 +19,11 @@
       type="text/css"
       href="{% static 'teachscores/css/master.css' %}"
     />
+
+    {% block link_block %}
+        <!-- Making sure every template can import their own CSS-files -->
+    {% endblock link_block %}
+
     <script src="{% static 'teachscores/js/master.js' %}"></script>
 
     {% block script_block %}
@@ -29,7 +34,7 @@
 
   </head>
   <body class="p-3 mb-2 bg-dark text-white">
-    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary rounded">
+    <nav class="navbar position-sticky navbar-expand-lg navbar-dark navbar-bg rounded">
       <div class="container">
         <a class="navbar-brand" href="{% url 'teachscores:index' %}">
             Home

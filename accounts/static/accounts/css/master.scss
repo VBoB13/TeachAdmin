@@ -1,0 +1,42 @@
+$light-blue: #3399cc;
+$standard-blue: #007dc3;
+$dark-blue: #0169a4;
+$navy-blue: #09347a;
+$orange: #f1632a;
+$dark-brown: #464646;
+$dark-gray: #666666;
+$gray: #b7b7b7;
+$light-gray: #f6f6f5;
+
+$help_text_size: 12px;
+$standard_text_size: 16px;
+
+%unit-spacing {
+    padding: 15px;
+    margin: 5px;
+}
+
+%content-unit-color {
+    background-color: $dark-gray;
+}
+
+div {
+    h1 {
+        @extend %unit-spacing;
+    }
+}
+
+form {
+    @extend %unit-spacing;
+    @extend %content-unit-color;
+    p {
+        span {
+            font-size: $help_text_size;
+            font-style: italic;
+            color: $gray;
+        }
+    }
+    input[type='submit'] {
+        background-color: $dark-blue;
+    }
+}
