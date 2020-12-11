@@ -56,7 +56,7 @@ def login(request):
         if user:
             if user.is_active:
                 django_login(request, user)
-                return HttpResponseRedirect(reverse('index'))
+                return HttpResponseRedirect(reverse('teachscores:index'))
             else:
                 HttpResponse("Account Not Active")
         else:
@@ -68,17 +68,14 @@ def login(request):
 
 def logout(request):
     django_logout(request)
-    return HttpResponseRedirect(reverse('index'))
+    return HttpResponseRedirect(reverse('accounts:login'))
 
 
 class IndexView(TemplateView, LoginRequiredMixin):
+    login_url = "/accounts/login/"
     template_name = 'accounts/index.html'
 
-    def dispatch(self, request, *args, **kwargs):
-        """ Automatically redirects user to Login page if not logged in. """
-        if not request.user.is_authenticated:
-            return reverse_lazy('accounts:login')
-        return super().dispatch(request, *args, **kwargs)
+    redirect_field_name = template_name
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
