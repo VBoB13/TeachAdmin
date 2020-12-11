@@ -29,3 +29,4 @@ class Teacher(models.Model):
         return reverse("teacher_detail", kwargs={"pk": self.pk})
 
 
+

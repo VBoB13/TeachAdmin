@@ -7,7 +7,7 @@
 {% endblock page_title_block %}
 
 {% block link_block %}
-    <!-- Adding document-specific CSS -->
+    <!-- Adding app-specific CSS -->
     <link rel="stylesheet" href="{% static 'accounts/css/master.css' %}">
 {% endblock link_block %}
 
@@ -16,7 +16,7 @@
 {% endblock script_block %}
 
 {% block view_title_block %}
-    <div class="view_title rounded-lg">
+    <div class="view_title col-12 rounded-lg">
         <h1 align="center" class="display-4">
             {{ title }}
         </h1>

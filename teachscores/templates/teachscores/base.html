@@ -61,7 +61,7 @@
           </li>
           <li class="nav-item">
             <a href="{% url 'accounts:logout' %}" class="nav-link">
-                Logout [{{ user.username }}]
+                Logout <strong>[ {{ user.username }} ]</strong>
             </a>
           </li>
         {% else %}
@@ -80,17 +80,13 @@
       </div>
     </nav>
     <div class="container">
-      <p>{% block view_title_block %} {% endblock %}</p>
+      <div id="view_title_block" class="row">
+        {% block view_title_block %} {% endblock %}
+      </div>
 
-      <p>{% block content_block %} {% endblock %}</p>
-
-      <p>{% block mid_block %} {% endblock %}</p>
-
-      <p>{% block bottom_block %} {% endblock %}</p>
-
-      <p>{% block far_bottom_block %} {% endblock %}</p>
-
-      <p>{% block extra_block %} {% endblock %}</p>
+      <div id="content_block" class="row">
+        {% block content_block %} {% endblock %}
+      </div>
     </div>
   </body>
 </html>
