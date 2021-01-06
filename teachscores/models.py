@@ -16,7 +16,7 @@ from accounts.models import Teacher
 
 # Create your models here.
 
-"""class School(models.Model):
+class School(models.Model):
     name = models.CharField(
         max_length=100,
         help_text="Up to 100 characters"
@@ -28,10 +28,15 @@ from accounts.models import Teacher
     )
     city = models.CharField(
         max_length=50,
+        blank=True,
         help_text="Up to 50 characters."
     )
+    
+    def __str__(self):
+        return self.name
 
-
+        
+"""
 class Homeroom(models.Model):
     name = models.CharField(
         max_length=30,

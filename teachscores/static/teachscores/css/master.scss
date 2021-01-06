@@ -62,3 +62,13 @@ form {
         background-color: $dark-blue;
     }
 }
+
+%icon_style {
+    fill: $navy-blue;
+}
+svg.bi {
+    @extend %icon_style;
+}
+div.menuItem svg.bi:hover {
+        fill: $light-blue;
+}

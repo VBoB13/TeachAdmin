@@ -32,4 +32,12 @@ form input[type=submit] {
   background-color: #0169a4;
 }
 
+svg.bi {
+  fill: #09347a;
+}
+
+div.menuItem svg.bi:hover {
+  fill: #3399cc;
+}
+
 /*# sourceMappingURL=master.css.map */

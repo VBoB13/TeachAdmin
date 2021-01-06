@@ -24,7 +24,9 @@
         <!-- Making sure every template can import their own CSS-files -->
     {% endblock link_block %}
 
-    <script src="{% static 'teachscores/js/master.js' %}"></script>
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
     {% block script_block %}
         {% comment %} 
@@ -43,50 +45,51 @@
         {% if user.is_authenticated and user.username == "admin" %}
         <li class="nav-item">
             <a href="{% url 'admin:index' %}" class="nav-link">
-                Admin
+              Admin
             </a>
         </li>
         {% endif %}
         {% if user.is_authenticated %}
           <li class="nav-item">
             <a href="{% url 'teachscores:index' %}" class="nav-link">
-                Scores
+              Scores
             </a>
           </li>
           <li class="nav-item">
             <a href="{% url 'accounts:index' %}" 
             class="nav-link">
-                Account
+              Account
             </a>
           </li>
           <li class="nav-item">
-            <a href="{% url 'accounts:logout' %}" class="nav-link">
-                Logout <strong>[ {{ user.username }} ]</strong>
+            <a href="{% url 'accounts:logout' %}" align="center" class="nav-link">
+              Logout <strong>[ {{ user.username }} ]</strong>
             </a>
           </li>
         {% else %}
           <li class="nav-item">
             <a href="{% url 'accounts:login' %}" class="nav-link">
-                Login
+              Login
             </a>
           </li>
           <li class="nav-item">
             <a href="{% url 'accounts:register' %}" class="nav-link">
-                Register
+              Register
             </a>
           </li>
         {% endif %}
         </ul>
       </div>
     </nav>
-    <div class="container">
-      <div id="view_title_block" class="row">
+    <div class="container-fluid">
+      <div id="view_title_block" class="row justify-content-center">
         {% block view_title_block %} {% endblock %}
       </div>
 
-      <div id="content_block" class="row">
+      <div id="content_block" class="row justify-content-center">
         {% block content_block %} {% endblock %}
       </div>
+      <script type="text/babel" src="{% static 'teachscores/js/master.js' %}"></script>
     </div>
   </body>
 </html>
