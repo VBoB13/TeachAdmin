@@ -19,10 +19,10 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from django.views.static import serve
 
-from teachscores import views as teachscore_views
-
 urlpatterns = [
-    path('', include('teachscores.urls')),
+    #path('', include('teachscores.urls')),
     path('accounts/', include('accounts.urls')),
     path('admin/', admin.site.urls),
+    path('api/', include('scores.urls')),
+    path('', include('frontend.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
