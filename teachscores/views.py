@@ -23,7 +23,7 @@ def schools(request):
     # Artificially delaying the response (for some reason?)
     # Saw this being used quite frequently so I use it too.
     # Probabaly a good practice :)
-    #time.sleep(0.5)
+    # time.sleep(0.5)
 
     return JsonResponse(
         {

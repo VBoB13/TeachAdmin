@@ -35,7 +35,9 @@ class App extends Component {
             <ul>
                 {this.state.data.map(school => {
                     return (
-                        <li key={school.id}>
+                        <li 
+                        className="listItem" 
+                        key={school.id}>
                             {school.name} - {school.city}({school.country})
                         </li>
                     );

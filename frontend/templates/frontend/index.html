@@ -1,15 +1,22 @@
+{% load bootstrap4 %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Django REST with React</title>
+    <title>TeachAdmin</title>
+    <link 
+    rel="stylesheet"
+    type="text/css"
+    href="{% static 'frontend/css/master.css' %}"/>
+
 </head>
-<body>
+<body class="p-3 mb-2 bg-dark text-white">
     <div id="app">
 
     </div>
 </body>
-{% load static %}
-<script src="{% static 'frontend/main.js' %}"></script>
+<script src="{% static 'frontend/js/main.js' %}"></script>
 </html>

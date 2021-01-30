@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from rest_framework import generics
 

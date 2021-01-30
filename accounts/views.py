@@ -1,10 +1,17 @@
+import json
+
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import (HttpResponse,
+                        HttpResponseRedirect,
+                        JsonResponse)
 from django.views.generic import TemplateView
+from django.views.decorators.csrf import ensure_csrf_cookie
+from django.views.decorators.http import require_POST
 from django.contrib.auth import (authenticate,
-                                login as django_login,
-                                logout as django_logout)
+                                login,
+                                logout)
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from . import forms
@@ -46,32 +53,52 @@ def register(request):
         "registered":registered
     })
 
-def login(request):
-    if request.method == "POST":
-        username = request.POST.get('username')
-        password = request.POST.get('password')
+@require_POST
+def login_view(request):
+    data = json.loads(request.body)
+    username = data.get('username')
+    password = data.get('password')
 
-        user = authenticate(username=username, password=password)
+    if username is None or password is None:
+        return JsonResponse(
+            {"detail": "Please provide a username and password."},
+            status=400)
 
-        if user:
-            if user.is_active:
-                django_login(request, user)
-                return HttpResponseRedirect(reverse('teachscores:index'))
-            else:
-                HttpResponse("Account Not Active")
-        else:
-            print("Someone tried to login and failed!")
-            print("Username: {} \nPassword: {}".format(username, password))
-            return HttpResponse("Invalid username and/or password.")
-    else:
-        return render(request, 'accounts/login.html', {
-            "title": "Login",
-        })
+    user = authenticate(username=username, password=password)
 
-def logout(request):
-    django_logout(request)
-    return HttpResponseRedirect(reverse('accounts:login'))
+    if user is None:
+        return JsonResponse(
+            {"detail": "Invalid credentials."},
+            status=400
+        )
+    
+    login(request, user)
+    return JsonResponse({
+        "detail": "Welcome, {}.".format(user.get_username())
+    })
 
+def logout_view(request):
+    if not request.user.is_authenticated:
+        return JsonResponse(
+            {"detail": "You're not logged in."},
+            status=400)
+    logout(request)
+    return JsonResponse(
+        {"detail": "You're amazing, {}. See you again soon.".format(request.user.get_username())}
+    )
+
+@ensure_csrf_cookie
+def session_view(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"isAuthenticated": False})
+    
+    return JsonResponse({"isAuthenticated": True})
+
+def whoami_view(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"isAuthenticated": False})
+    
+    return JsonResponse({"username": request.user.username})
 
 class IndexView(TemplateView, LoginRequiredMixin):
     login_url = "/accounts/login/"
