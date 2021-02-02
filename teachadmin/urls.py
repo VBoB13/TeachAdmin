@@ -20,7 +20,6 @@ from django.urls import path, include, re_path
 from django.views.static import serve
 
 urlpatterns = [
-    #path('', include('teachscores.urls')),
     path('accounts/', include('accounts.urls')),
     path('admin/', admin.site.urls),
     path('api/', include('scores.urls')),

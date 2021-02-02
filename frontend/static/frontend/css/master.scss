@@ -40,6 +40,14 @@ div#app{
     @extend %content-unit-color;
 }
 
+div.messages {
+    @extend %info-unit-color;
+    @extend %unit-spacing;
+    p.success {
+        background-color: $success-green;
+    }
+}
+
 form {
     @extend %unit-spacing;
     @extend %content-unit-color;

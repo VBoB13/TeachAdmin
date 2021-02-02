@@ -64,9 +64,11 @@ local_settings.py
 db.sqlite3
 db.sqlite3-journal
 */migrations/*
+
 # MY OWN!
 settings.py
 *.code-workspace
+**/frontend/main.js*
 
 # Flask stuff:
 instance/
