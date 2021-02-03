@@ -8,7 +8,7 @@ const cookies = new Cookies();
 class Accounts extends Component {
     constructor(props){
         super(props);
-        // Registering class methods
+        // Registering (Component) class methods
         this.getSession = this.getSession.bind(this);
         this.whoami = this.whoami.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);

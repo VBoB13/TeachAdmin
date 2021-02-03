@@ -19,9 +19,6 @@ from . import forms
 # Create your views here.
 
 
-def index(request):
-    return HttpResponse("Hello, World!")
-
 def register(request):
     registered = False
 
@@ -99,13 +96,3 @@ def whoami_view(request):
         return JsonResponse({"isAuthenticated": False})
     
     return JsonResponse({"username": request.user.username})
-
-class IndexView(TemplateView, LoginRequiredMixin):
-    login_url = "/accounts/login/"
-    template_name = 'accounts/index.html'
-
-    redirect_field_name = template_name
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
