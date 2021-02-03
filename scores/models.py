@@ -35,24 +35,3 @@ class School(models.Model):
 
     def __str__(self):
         return self.name
-
-
-"""
-class Homeroom(models.Model):
-    name = models.CharField(
-        max_length=30,
-        help_text="Up to 30 characters."
-    )
-    teacher = models.ForeignKey(
-        Teacher,
-        on_delete=models.CASCADE
-    )
-    school = models.ForeignKey(
-        School,
-        on_delete=models.CASCADE
-    )
- 
-
-
-class Student(models.Model):
-    pass"""
