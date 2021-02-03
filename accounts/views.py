@@ -71,6 +71,7 @@ def login_view(request):
     
     login(request, user)
     return JsonResponse({
+        "username": user.get_username(),
         "detail": "Welcome, {}.".format(user.get_username())
     })
 
