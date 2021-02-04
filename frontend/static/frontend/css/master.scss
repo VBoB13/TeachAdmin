@@ -36,10 +36,6 @@ div.view_title {
     @extend %unit-spacing;
 }
 
-div#app{
-    @extend %content-unit-color;
-}
-
 div.messages {
     @extend %info-unit-color;
     @extend %unit-spacing;
