@@ -1,6 +1,6 @@
 import json
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.http import (HttpResponse,
                         HttpResponseRedirect,
@@ -15,6 +15,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from . import forms
+from .models import Teacher
 
 # Create your views here.
 
@@ -101,4 +102,10 @@ def whoami_view(request):
     if not request.user.is_authenticated:
         return JsonResponse({"isAuthenticated": False})
     
-    return JsonResponse({"user": request.user.username})
+    teacher = get_object_or_404(Teacher, user=request.user)
+
+    return JsonResponse({
+        "user": f"{teacher}",
+        "country": f"{teacher.country}",
+        "career_profile": f"{teacher.career_profile}"
+        })

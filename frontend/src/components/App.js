@@ -25,6 +25,7 @@ class App extends Component {
       error: "",
       isAuthenticated: false,
       user: "",
+      page: "",
     };
   }
 
@@ -65,6 +66,7 @@ class App extends Component {
       .then((res) => res.json())
       .then((data) => {
         console.log("You're logged in as: " + data.user);
+        this.setState({page: "accounts"});
       })
       .catch((err) => {
         console.log(err);
