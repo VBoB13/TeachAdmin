@@ -24,6 +24,7 @@ class App extends Component {
       password: "",
       error: "",
       isAuthenticated: false,
+      user: "",
     };
   }
 
@@ -39,9 +40,14 @@ class App extends Component {
       .then((data) => {
         console.log(data);
         if (data.isAuthenticated) {
-          this.setState({ isAuthenticated: true });
+          this.setState({
+              isAuthenticated: true,
+              user: data.user
+            });
         } else {
-          this.setState({ isAuthenticated: false });
+          this.setState({ 
+            isAuthenticated: false,
+            user: "" });
         }
       })
       .catch((err) => {
@@ -58,7 +64,7 @@ class App extends Component {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("You're logged in as: " + data.username);
+        console.log("You're logged in as: " + data.user);
       })
       .catch((err) => {
         console.log(err);
@@ -102,6 +108,7 @@ class App extends Component {
           username: "",
           password: "",
           error: "",
+          user: data.user,
         });
       })
       .catch((err) => {
@@ -119,7 +126,9 @@ class App extends Component {
       .then(this.isResponseOK)
       .then((data) => {
         console.log(data);
-        this.setState({ isAuthenticated: false });
+        this.setState({ 
+          isAuthenticated: false,
+          user: "" });
       })
       .catch((err) => {
         console.log(err);
@@ -130,7 +139,8 @@ class App extends Component {
     if (!this.state.isAuthenticated) {
       return (
         <div className="container-fluid">
-          <Navbar isAuthenticated={this.state.isAuthenticated} />
+          <Navbar 
+            isAuthenticated={this.state.isAuthenticated} />
           <h1 className="display-4">Login</h1>
           <form onSubmit={this.login}>
             <div className="form-group">
@@ -167,7 +177,9 @@ class App extends Component {
     }
     return (
       <div className="container-fluid">
-        <Navbar isAuthenticated={this.state.isAuthenticated} />
+        <Navbar 
+          isAuthenticated={this.state.isAuthenticated}
+          user={this.state.user} />
         <div className="messages">
           <p className="success">You're logged in!</p>
         </div>

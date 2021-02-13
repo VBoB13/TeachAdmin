@@ -71,7 +71,7 @@ def login_view(request):
     
     login(request, user)
     return JsonResponse({
-        "username": user.get_username(),
+        "user": user.get_username(),
         "detail": "Welcome, {}.".format(user.get_username())
     })
 
@@ -80,9 +80,11 @@ def logout_view(request):
         return JsonResponse(
             {"detail": "You're not logged in."},
             status=400)
+    user = request.user
     logout(request)
-    return JsonResponse(
-        {"detail": "You're amazing, {}. See you again soon.".format(request.user.get_username())}
+    return JsonResponse({
+        "detail": "You're amazing, {}. See you again soon.".format(user)
+        }
     )
 
 @ensure_csrf_cookie
@@ -90,10 +92,13 @@ def session_view(request):
     if not request.user.is_authenticated:
         return JsonResponse({"isAuthenticated": False})
     
-    return JsonResponse({"isAuthenticated": True})
+    return JsonResponse({
+        "isAuthenticated": True,
+        "user": request.user.username
+        })
 
 def whoami_view(request):
     if not request.user.is_authenticated:
         return JsonResponse({"isAuthenticated": False})
     
-    return JsonResponse({"username": request.user.username})
+    return JsonResponse({"user": request.user.username})
