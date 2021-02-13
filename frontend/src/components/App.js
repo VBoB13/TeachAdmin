@@ -179,16 +179,12 @@ class App extends Component {
       <div className="container-fluid">
         <Navbar 
           isAuthenticated={this.state.isAuthenticated}
-          user={this.state.user} />
+          user={this.state.user}
+          account={this.whoami}
+          logout={this.logout} />
         <div className="messages">
           <p className="success">You're logged in!</p>
         </div>
-        <button className="btn btn-primary" onClick={this.whoami}>
-          Who Am I?
-        </button>
-        <button className="btn btn-danger" onClick={this.logout}>
-          Log Out
-        </button>
       </div>
     );
   }
