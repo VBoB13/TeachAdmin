@@ -4,6 +4,7 @@ import { render } from "react-dom";
 import Cookies from "universal-cookie";
 
 import Navbar from "./Navbar";
+import LoginForm from "./accounts/forms/LoginForm";
 
 const cookies = new Cookies();
 
@@ -13,19 +14,15 @@ class App extends Component {
     // Registering (Component) class methods
     this.getSession = this.getSession.bind(this);
     this.whoami = this.whoami.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleUserNameChange = this.handleUserNameChange.bind(this);
     this.isResponseOK = this.isResponseOK.bind(this);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
 
     this.state = {
-      username: "",
-      password: "",
-      error: "",
       isAuthenticated: false,
       user: "",
       page: "",
+      error: "",
     };
   }
 
@@ -42,9 +39,9 @@ class App extends Component {
         console.log(data);
         if (data.isAuthenticated) {
           this.setState({
-              isAuthenticated: true,
-              user: data.user
-            });
+            isAuthenticated: true,
+            user: data.user
+          });
         } else {
           this.setState({ 
             isAuthenticated: false,
@@ -56,7 +53,8 @@ class App extends Component {
       });
   }
 
-  whoami() {
+  whoami(event) {
+    event.preventDefault();
     fetch("/accounts/me/", {
       headers: {
         "Content-Type": "application/json",
@@ -73,13 +71,6 @@ class App extends Component {
       });
   }
 
-  handlePasswordChange(event) {
-    this.setState({ password: event.target.value });
-  }
-  handleUserNameChange(event) {
-    this.setState({ username: event.target.value });
-  }
-
   isResponseOK(response) {
     if (response.status >= 200 && response.status <= 299) {
       return response.json();
@@ -90,6 +81,8 @@ class App extends Component {
 
   login(event) {
     event.preventDefault();
+    let form_username = document.getElementById("username").value;
+    let form_password = document.getElementById("password").value;
     fetch("/accounts/login/", {
       method: "POST",
       headers: {
@@ -98,8 +91,8 @@ class App extends Component {
       },
       credentials: "same-origin",
       body: JSON.stringify({
-        username: this.state.username,
-        password: this.state.password,
+        username: form_username,
+        password: form_password,
       }),
     })
       .then(this.isResponseOK)
@@ -107,8 +100,6 @@ class App extends Component {
         console.log(data);
         this.setState({
           isAuthenticated: true,
-          username: "",
-          password: "",
           error: "",
           user: data.user,
         });
@@ -145,28 +136,7 @@ class App extends Component {
             isAuthenticated={this.state.isAuthenticated} />
           <h1 className="display-4">Login</h1>
           <form onSubmit={this.login}>
-            <div className="form-group">
-              <label htmlFor="username">Username</label>
-              <input
-                type="text"
-                name="username"
-                id="username"
-                className="form-control"
-                value={this.state.username}
-                onChange={this.handleUserNameChange}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                name="password"
-                id="password"
-                className="form-control"
-                value={this.state.password}
-                onChange={this.handlePasswordChange}
-              />
-            </div>
+            <LoginForm />
             <div className="errors">
               <small className="text-danger">{this.state.error}</small>
             </div>
