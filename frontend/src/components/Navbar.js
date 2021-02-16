@@ -18,7 +18,7 @@ function Navbar(props){
             <li className="nav-item">
               <a
                 id="navbar_account" 
-                href="#navbar_account" 
+                href="" 
                 onClick={props.account} 
                 className="nav-link">
                 Account [ {props.user} ]
@@ -27,7 +27,7 @@ function Navbar(props){
             <li className="nav-item">
               <a
                 id="navbar_logout"
-                href="#navbar_logout"
+                href=""
                 onClick={props.logout}
                 align="center"
                 className="nav-link"

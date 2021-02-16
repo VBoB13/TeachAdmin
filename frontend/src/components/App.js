@@ -4,6 +4,7 @@ import { render } from "react-dom";
 import Cookies from "universal-cookie";
 
 import Navbar from "./Navbar";
+import Accounts from "./accounts/Accounts";
 import LoginForm from "./accounts/forms/LoginForm";
 
 const cookies = new Cookies();
@@ -13,15 +14,16 @@ class App extends Component {
     super(props);
     // Registering (Component) class methods
     this.getSession = this.getSession.bind(this);
-    this.whoami = this.whoami.bind(this);
+    this.account = this.account.bind(this);
     this.isResponseOK = this.isResponseOK.bind(this);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
+    this.generate_content = this.generate_content.bind(this);
 
     this.state = {
       isAuthenticated: false,
       user: "",
-      page: "",
+      content_page: "",
       error: "",
     };
   }
@@ -53,22 +55,9 @@ class App extends Component {
       });
   }
 
-  whoami(event) {
+  account(event) {
     event.preventDefault();
-    fetch("/accounts/me/", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "same-origin",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("You're logged in as: " + data.user);
-        this.setState({page: "accounts"});
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    this.setState({content_page: "accounts"});
   }
 
   isResponseOK(response) {
@@ -128,6 +117,14 @@ class App extends Component {
       });
   }
 
+  generate_content(){
+    let content_page = null;
+    if(this.state.content_page === "accounts"){
+      content_page = <Accounts />;
+    }
+    return content_page;
+  }
+
   render() {
     if (!this.state.isAuthenticated) {
       return (
@@ -152,11 +149,12 @@ class App extends Component {
         <Navbar 
           isAuthenticated={this.state.isAuthenticated}
           user={this.state.user}
-          account={this.whoami}
+          account={this.account}
           logout={this.logout} />
         <div className="messages">
           <p className="success">You're logged in!</p>
         </div>
+        {this.generate_content()}
       </div>
     );
   }
