@@ -6,6 +6,7 @@ import Cookies from "universal-cookie";
 import Navbar from "./Navbar";
 import Accounts from "./accounts/Accounts";
 import LoginForm from "./accounts/forms/LoginForm";
+import LoginMessage from "./accounts/messages/LoginMessage";
 
 const cookies = new Cookies();
 
@@ -101,7 +102,8 @@ class App extends Component {
       });
   }
 
-  logout() {
+  logout(event) {
+    event.preventDefault();
     fetch("/accounts/logout/", {
       credentials: "same-origin",
     })
@@ -134,9 +136,7 @@ class App extends Component {
           <h1 className="display-4">Login</h1>
           <form onSubmit={this.login}>
             <LoginForm />
-            <div className="errors">
-              <small className="text-danger">{this.state.error}</small>
-            </div>
+            <LoginMessage error={this.state.error}/>
             <button type="submit" className="btn btn-primary">
               Login
             </button>
@@ -151,9 +151,7 @@ class App extends Component {
           user={this.state.user}
           account={this.account}
           logout={this.logout} />
-        <div className="messages">
-          <p className="success">You're logged in!</p>
-        </div>
+        <LoginMessage message="Welcome, awesome teacher!" />
         {this.generate_content()}
       </div>
     );
