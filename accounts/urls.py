@@ -9,5 +9,5 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('session/', views.session_view, name='session'),
-    path('me/', views.whoami_view, name='whoami'),
+    path('me/', views.TeacherRetrieveView.as_view(), name='whoami'),
 ]

@@ -14,10 +14,24 @@ from django.contrib.auth import (authenticate,
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
+
 from . import forms
 from .models import Teacher
+from .serializers import TeacherSerializer
 
 # Create your views here.
+
+class TeacherRetrieveView(generics.RetrieveAPIView):
+    serializer_class = TeacherSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = self.request.user
+        teacher = get_object_or_404(Teacher, user=user)
+        serializer = TeacherSerializer(instance=teacher)
+        return JsonResponse(serializer.data, safe=False)
 
 
 def register(request):
