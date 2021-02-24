@@ -39,6 +39,7 @@ class Organization(models.Model):
     name = models.CharField(
         verbose_name="Organization name",
         max_length=50,
+        unique=True,
         help_text="Within 50 characters. Please refer to the organization's full English name often found on their website."
     )
     country = CountryField(
