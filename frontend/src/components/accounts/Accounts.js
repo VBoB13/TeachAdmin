@@ -9,6 +9,7 @@ class Accounts extends Component{
         // Registering component's methods
         this.whoami = this.whoami.bind(this);
         this.generateUserData = this.generateUserData.bind(this);
+        this.generateUserRelatedData = this.generateUserRelatedData.bind(this);
 
         this.state = {
             loaded: false,
@@ -47,12 +48,31 @@ class Accounts extends Component{
         let country = this.state.data.country;
         let career_profile = this.state.data.career_profile;
 
+        return (
+          <section className="user-info">
+            <dl>
+              <dt>Name</dt>
+              <dd>{user}</dd>
+              <dt>Country</dt>
+              <dd>{country}</dd>
+              <dt>Career URL</dt>
+              <dd>
+                <a href={career_profile} target="_blank">
+                  {career_profile}
+                </a>
+              </dd>
+            </dl>
+          </section>
+        );
+    }
+
+    generateUserRelatedData(){
+        let user = this.state.data.user;
+
         return(
-            <ul>
-                <li>Name: {user}</li>
-                <li>Country: {country}</li>
-                <li>Career URL: {career_profile}</li>
-            </ul>
+            <h1 className="display-4">
+                {user}
+            </h1>
         );
     }
 
@@ -66,12 +86,17 @@ class Accounts extends Component{
               </div>
             );
         }
-        return(
-            <div className="content_section">
-                <div className="row">
-                    {this.generateUserData()}
-                </div>
+        return (
+          <div className="content_section">
+            <div className="row">
+              <div className="col-4">
+                  {this.generateUserData()}
+              </div>
+              <div className="col-8">
+                  {this.generateUserRelatedData()}
+              </div>
             </div>
+          </div>
         );
     }
 }

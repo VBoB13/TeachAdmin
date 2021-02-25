@@ -1,18 +1,43 @@
 form, div.messages, div.view_title {
-  padding: 5px;
-  margin: 10px;
+  padding: 10px;
+  margin: 5px;
 }
 
 div.messages, div.view_title {
-  background-color: #09347a;
+  background-color: #072a62;
 }
 
-form {
-  background-color: #666666;
+form, section.user-info {
+  background-color: #072a62;
+  color: #f6f6f5;
+}
+
+section.user-info {
+  border: #464646 solid 2px;
+  border-radius: 20% 7.5%;
 }
 
 .navbar-bg {
   background-color: #0169a4;
+}
+
+section.user-info {
+  padding: 1.25em 1em 1.25em 1.25em;
+  margin: 1em -1em 0 0;
+}
+section.user-info dt {
+  font-weight: bolder;
+  text-decoration: underline;
+  color: #54b8eb;
+}
+section.user-info dd {
+  text-indent: 1em;
+}
+section.user-info dd a {
+  color: #54b8eb;
+}
+section.user-info dd :hover {
+  color: #e68851;
 }
 
 div.messages p.success {
@@ -37,11 +62,11 @@ form input[type=submit] {
 }
 
 svg.bi {
-  fill: #09347a;
+  fill: #072a62;
 }
 
 div.menuItem svg.bi:hover {
-  fill: #3399cc;
+  fill: #54b8eb;
 }
 
 /*# sourceMappingURL=master.css.map */

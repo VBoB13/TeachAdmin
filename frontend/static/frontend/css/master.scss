@@ -1,10 +1,12 @@
-$light-blue: #3399cc;
+$light-blue: #54b8eb;
 $standard-blue: #007dc3;
 $dark-blue: #0169a4;
-$navy-blue: #09347a;
+$navy-blue: #072a62;
 $warning-red: #aa3434;
 $light-red: #ff6a6a99;
-$orange: #f1632a;
+$dark-orange: #b34918;
+$orange: #ff6426;
+$light-orange: #e68851;
 $success-green: #2ca52c;
 $dark-brown: #464646;
 $dark-gray: #666666;
@@ -15,8 +17,8 @@ $help_text_size: 12px;
 $standard_text_size: 16px;
 
 %unit-spacing {
-    padding: 5px;
-    margin: 10px;
+    padding: 10px;
+    margin: 5px;
 }
 
 %info-unit-color {
@@ -24,11 +26,37 @@ $standard_text_size: 16px;
 }
 
 %content-unit-color {
-    background-color: $dark-gray;
+    background-color: $navy-blue;
+    color: $light-gray;
+}
+
+%bordered-info-content {
+    border: $dark-brown solid 2px;
+    border-radius: 20% 7.5%;
 }
 
 .navbar-bg {
     background-color: $dark-blue;
+}
+
+section.user-info {
+    @extend %content-unit-color;
+    @extend %bordered-info-content;
+    padding: 1.25em 1em 1.25em 1.25em;
+    margin: 1em -1em 0 0;
+    dt {
+        font-weight: bolder;
+        text-decoration: underline;
+        color: $light-blue;
+    }
+    dd {
+        text-indent: 1em;
+        a {
+            color: $light-blue;
+        }:hover{
+            color: $light-orange;
+        }
+    }
 }
 
 div.view_title {
