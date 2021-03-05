@@ -4,6 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.http import (HttpResponse,
                         HttpResponseRedirect,
+                        Http404,
                         JsonResponse)
 from django.views.generic import TemplateView
 from django.views.decorators.csrf import ensure_csrf_cookie
@@ -13,25 +14,62 @@ from django.contrib.auth import (authenticate,
                                 logout)
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import AnonymousUser, User
 
-from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated
+from rest_framework import generics, status, mixins
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated, AllowAny
+
+from teachadmin.helpers.types.converters.serializerToJson import seriousJson
 
 from . import forms
 from .models import Teacher
-from .serializers import TeacherSerializer
+from .serializers import TeacherSerializer, UserSerializer
 
 # Create your views here.
 
-class TeacherRetrieveView(generics.RetrieveAPIView):
+class TeacherRetrieveView(generics.GenericAPIView, mixins.RetrieveModelMixin):
     serializer_class = TeacherSerializer
     permission_classes = [IsAuthenticated]
 
-    def get(self, request):
-        user = self.request.user
-        teacher = get_object_or_404(Teacher, user=user)
+    def get_object(self, user):
+        """
+        Method for simply getting the Teacher related to the auth.User
+        PARAMS: user (request.user)
+        """
+        try:
+            return Teacher.objects.get(user=user)
+        except Teacher.DoesNotExist:
+            raise Http404
+
+    def get(self, request, *args, **kwargs):
+        """
+        Standard implementation of DRF's Retrieve-mixin.
+        """
+        teacher = self.get_object(request.user)
         serializer = TeacherSerializer(instance=teacher)
         return JsonResponse(serializer.data, safe=False)
+
+
+class RegisterView(generics.GenericAPIView, mixins.CreateModelMixin):
+    serializer_class = UserSerializer
+    permission_classes = [AllowAny]
+
+    def get(self, request, *args, **kwargs):
+        """
+        This method is used to help React render all fields for registering a user.
+        """
+        serializer = UserSerializer()
+        serializer_data = seriousJson(serializer.data)
+        return JsonResponse(serializer_data, safe=False)
+
+    def post(self, request, *args, **kwargs):
+        serialized = UserSerializer(data=request.data)
+        if serialized.is_valid():
+            serialized.save()
+            return Response(serialized.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serialized.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 def register(request):

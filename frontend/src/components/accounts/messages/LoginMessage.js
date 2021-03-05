@@ -23,23 +23,28 @@ class LoginMessage extends Component{
                 </button>
               </div>
             );
-        }
-        return (
-          <div
-            className="alert alert-success alert-dismissible fade show"
-            role="alert"
-          >
-            <strong>{this.props.message}</strong>
-            <button
-              type="button"
-              className="close"
-              data-dismiss="alert"
-              aria-label="Close"
+        } else if(this.props.message){
+          return (
+            <div
+              className="alert alert-success alert-dismissible fade show"
+              role="alert"
             >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-        );
+              <strong>{this.props.message}</strong>
+              <button
+                type="button"
+                className="close"
+                data-dismiss="alert"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          );
+        } else {
+          return(
+            null
+          );
+        }
         
     }
 }

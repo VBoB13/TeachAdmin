@@ -6,12 +6,17 @@ from .models import Teacher
 
 class TeacherSerializer(CountryFieldMixin, serializers.ModelSerializer):
     user = serializers.StringRelatedField()
-    country = CountryField(name_only=True)
+    country = CountryField(country_dict=True)
     career_profile = serializers.URLField(required=False)
     
     class Meta:
         model = Teacher
-        fields = ('id', 'user', 'country', 'career_profile')
+        fields = (
+            'id',
+            'user',
+            'country',
+            'career_profile',
+            'date_joined')
 
 
 class UserSerializer(serializers.ModelSerializer):

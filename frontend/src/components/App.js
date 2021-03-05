@@ -5,6 +5,7 @@ import Cookies from "universal-cookie";
 
 import Navbar from "./Navbar";
 import Accounts from "./accounts/Accounts";
+import RegisterForm from "./accounts/forms/RegisterForm";
 import LoginForm from "./accounts/forms/LoginForm";
 import LoginMessage from "./accounts/messages/LoginMessage";
 
@@ -19,6 +20,7 @@ class App extends Component {
     this.isResponseOK = this.isResponseOK.bind(this);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
+    this.register = this.register.bind(this);
     this.generate_content = this.generate_content.bind(this);
 
     this.state = {
@@ -119,6 +121,11 @@ class App extends Component {
       });
   }
 
+  register(event){
+    event.preventDefault();
+    this.setState({content_page: "register"});
+  }
+
   generate_content(){
     let content_page = null;
     if(this.state.content_page === "accounts"){
@@ -133,6 +140,7 @@ class App extends Component {
         <div className="container-fluid">
           <Navbar 
             isAuthenticated={this.state.isAuthenticated} />
+          <RegisterForm isResponseOK={this.isResponseOK} />
           <h1 className="display-4">Login</h1>
           <form onSubmit={this.login}>
             <LoginForm />

@@ -7,10 +7,15 @@ class UserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password']
+        fields = (
+            'username',
+            'email',
+            'first_name',
+            'last_name',
+            'password')
 
 class TeacherForm(forms.ModelForm):
     class Meta:
         model = Teacher
         # Excluding the User OneToOneField
-        exclude = ['user',]
+        exclude = ('user',)

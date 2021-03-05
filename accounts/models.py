@@ -24,6 +24,7 @@ class Teacher(models.Model):
         blank=True,
         help_text="URL to your career profile. E.g. LinkedIn, Indeed etc."
     )
+    date_joined = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return str(self.user.username)

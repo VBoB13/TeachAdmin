@@ -45,8 +45,10 @@ class Accounts extends Component{
 
     generateUserData(){
         let user = this.state.data.user;
-        let country = this.state.data.country;
+        let country = this.state.data.country.name;
+        let country_code = this.state.data.country.code;
         let career_profile = this.state.data.career_profile;
+        let date_joined = this.state.data.date_joined;
 
         return (
           <section className="user-info">
@@ -54,13 +56,15 @@ class Accounts extends Component{
               <dt>Name</dt>
               <dd>{user}</dd>
               <dt>Country</dt>
-              <dd>{country}</dd>
+              <dd>{country} ({country_code})</dd>
               <dt>Career URL</dt>
               <dd>
                 <a href={career_profile} target="_blank">
                   {career_profile}
                 </a>
               </dd>
+              <dt>Member since:</dt>
+              <dd>{date_joined}</dd>
             </dl>
           </section>
         );
