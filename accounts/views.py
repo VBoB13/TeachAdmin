@@ -20,7 +20,9 @@ from rest_framework import generics, status, mixins
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
-from teachadmin.helpers.types.converters.serializerToJson import seriousJson
+from django_countries import countries
+
+from teachadmin.helpers.types.converters.serializerToDict import serializerToFormData
 
 from . import forms
 from .models import Teacher
@@ -59,9 +61,14 @@ class RegisterView(generics.GenericAPIView, mixins.CreateModelMixin):
         """
         This method is used to help React render all fields for registering a user.
         """
-        serializer = UserSerializer()
-        serializer_data = seriousJson(serializer.data)
-        return JsonResponse(serializer_data, safe=False)
+        country_choices = dict(countries)
+        serializer = self.serializer_class()
+        send_data = serializerToFormData(serializer)
+        print(serializer.data, send_data)
+        return JsonResponse(
+            {"fields": serializer.data,
+            "country_choices": country_choices},
+            safe=False)
 
     def post(self, request, *args, **kwargs):
         serialized = UserSerializer(data=request.data)
