@@ -19,13 +19,24 @@ class TeacherSerializer(CountryFieldMixin, serializers.ModelSerializer):
             'date_joined')
 
 
+class RegisterTeacherSerializer(CountryFieldMixin, serializers.ModelSerializer):
+    country = CountryField(country_dict=True)
+    career_profile = serializers.URLField(required=False)
+
+    class Meta:
+        model = Teacher
+        fields = (
+            'country',
+            'career_profile')
+
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
-    teacher = TeacherSerializer(required=False)
+    teacher = RegisterTeacherSerializer(required=False)
 
     class Meta:
         model = User
         fields = ('username', 'email', 'first_name', 'last_name', 'password', 'teacher')
+        depth = 0
 
     def create(self, validated_data, instance=None):
         teacher_data = validated_data.pop('teacher')

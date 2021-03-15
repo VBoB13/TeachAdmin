@@ -3,7 +3,83 @@ import json
 
 from rest_framework.utils.serializer_helpers import ReturnDict
 
+from django_countries import countries
+
 from accounts import serializers as acc_serializers
+
+
+def getFormFieldAttributes(field_name: str, field_value):
+    """
+    Takes the field as argument and returns the most necessary / essential
+    attributes with values, e.g. "help_text: 'whatever the help_text is'"
+    as another dictionary.
+
+    PARAMS: field ( 
+            rest_framework.fields[.FieldClass] OR ANY OTHER 
+            [3rdPartyPackage[.ModuleName][.Field]] 
+            )
+    OUTPUT: dict ({
+                    type: 'field_type',
+                    value: 'field_value',
+                    required: True/False,
+                    allow_blank: True/False,
+                    help_text: '(Any)',
+                    max_length: num(Int),
+                    placeholder: '(Any)'
+                })
+    """
+    # Creating the empty dict to be filled with attribute data
+    field_attr_dict = {}
+    # Pre-defining the attributes that I'd like to extract
+    field_attrs = [
+        'value',
+        'required',
+        'allow_blank',
+        'help_text',
+        'max_length',
+        'label'
+    ]
+    # Lazy check for class name of the field object to make sure its a legit Field-object
+    if('Field' in type(field_value).__name__):
+        for attribute in field_attrs:
+            # Making sure the field actually has the attribute(s) we look for
+            if (attribute in dir(field_value)) and (getattr(field_value, attribute) != None):
+                field_attr_dict[attribute] = getattr(field_value, attribute)
+            # Very few 'label' attributes get automatically assigned through
+            # the serializers, so we generate a 'label' attribute by using
+            # the 'field_name' argument
+            else:
+                # As there are SOME (thus far, only the 'email' field)
+                # serializer fields that automatically get a 'label'
+                # attribute assigned, this is put in the [else] clause
+                if (attribute == 'label') and ("_" in field_name):
+                    label_list = field_name.split("_")
+                    label = label_list[0].capitalize() + label_list[1]
+                    field_attr_dict["label"] = label
+
+        # After iterating through the core attributes, we assign field types
+        # Since the 'password' field is passed on as a CharField, I decided
+        # to tell it apart by its name
+        if field_name == "password":
+            field_attr_dict["type"] = "password"
+            field_attr_dict["placeholder"] = "Enter password"
+        elif type(field_value).__name__ == "EmailField":
+            field_attr_dict["type"] = "email"
+            field_attr_dict["placeholder"] = "example@domain.com"
+        elif type(field_value).__name__ == "URLField":
+            field_attr_dict["type"] = "url"
+            field_attr_dict["placeholder"] = "https://www.example.com"
+        elif type(field_value).__name__ == "CountryField":
+            field_attr_dict["type"] = "select multiple"
+            country_choices = dict(countries)
+            field_attr_dict["choices"] = country_choices
+            field_attr_dict["placeholder"] = "(Select Country)"
+        else:
+            field_attr_dict["type"] = "text"
+            field_attr_dict["placeholder"] = "Type here..."
+        
+    return field_attr_dict
+    
 
 def serializerToFormData(serializer):
     """
@@ -40,15 +116,12 @@ def serializerToFormData(serializer):
                         # thus we compare the nested serializer's fields
                         # to the fields in serializer.data
                         if(nest_field in serializer.data[field].keys()):
-                            print("Field name: {} \
-                                \nField type: {}".format(nest_field, type(nest_value)))
-                            serializer_data[nest_field] = nest_value
+                            serializer_data[nest_field] = getFormFieldAttributes(
+                                nest_field, nest_value)
                 else:
                     print(
                         "Field '{}' does not have method 'get_fields()'.".format(value))
             else:
-                print("Field name: {} \
-                        \nField type: {}".format(field, type(value)))
-                serializer_data[field] = value
-    print(serializer_data)
+                serializer_data[field] = getFormFieldAttributes(field, value)
+                
     return serializer_data
