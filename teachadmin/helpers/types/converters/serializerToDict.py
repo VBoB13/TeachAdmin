@@ -52,9 +52,12 @@ def getFormFieldAttributes(field_name: str, field_value):
                 # As there are SOME (thus far, only the 'email' field)
                 # serializer fields that automatically get a 'label'
                 # attribute assigned, this is put in the [else] clause
-                if (attribute == 'label') and ("_" in field_name):
-                    label_list = field_name.split("_")
-                    label = label_list[0].capitalize() + label_list[1]
+                if (attribute == 'label'):
+                    if ("_" in field_name):
+                        label_list = field_name.split("_")
+                        label = label_list[0].capitalize() + " " + label_list[1]
+                    else:
+                        label = field_name.capitalize()
                     field_attr_dict["label"] = label
 
         # After iterating through the core attributes, we assign field types
