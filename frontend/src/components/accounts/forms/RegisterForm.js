@@ -7,132 +7,45 @@ class RegisterForm extends Component{
 
         this.state = {
             data_loaded: false,
-            form_loaded: false
+            form_data: {}
         }
 
-        this.formFieldStructure = this.formFieldStructure.bind(this);
-        this.constructForm = this.constructForm.bind(this);
+        this.loadFieldComponents = this.loadFieldComponents.bind(this);
+        this.constructFields = this.constructFields.bind(this);
     }
 
-    constructForm(formFields){
+
+
+    constructFields(fieldName, fieldData){
         /* Idea behind this function is to simply take each of the
         fields and assign them to a suitable component that will
         then be rendered accordingly.
         
-        PARAMS: formFields (JSON)
-        OUTPUT: */
-        
-        var field_check = {
-          username: {
-            type: "text",
-            name: "Username",
-            value: "",
-          },
-          password: {
-            type: "password",
-            name: "Password",
-            value: "",
-          },
-          email: {
-            type: "email",
-            name: "Email",
-            value: "",
-          },
-          first_name: {
-            type: "text",
-            name: "First name",
-            value: "",
-          },
-          last_name: {
-            type: "text",
-            name: "Last name",
-            value: "",
-          },
-          country: {
-              type: "select",
-              choices: formFields.country_choices,
-              
-          },
-          career_profile: {
-              type: "url",
-              name: "Career profile (URL)",
-              value: ""
-          }
-        };
-
-        const textField_list = [
-          "username",
-          "password",
-          "email",
-          "first_name",
-          "last_name",
-        ];
-        const urlField = "career_profile";
-        const country_data = {
-          field_name: "country",
-          choices: formFields.country_choices,
-        };
-        for (var [key, value] of Object.entries(formFields)) {
-            let field_name = `${key[0]}`.toUpperCase() + `${key}`.slice(1);
-          if (textField_list.includes(key) && value === "") {
-            var new_value = {
-              type: "text",
-              name: `${field_name}`,
-              value: `${value}`,
-            };
-            console.log(`Field: ${new_value.name}`);
-            console.log(`Type: ${new_value.type}`);
-            console.log(`Value: ${new_value.value}`);
-          } else if (key === urlField) {
-
-          }
-        }
+        PARAMS: fieldName (str), fieldData (JSON)
+        OUTPUT: < InputComponent />
+        */
+      
     }
 
-    formFieldStructure(data){
-        /* Method for contructing the register form in a nice way.
-         As the serializer automatically puts the Teacher-fields
-         within another layer of object structure, I loop through
-         the fields to generate a single-layer JSON-object with
-         all the fields. 
-         
-         PARAM: data (JSONResponse)
-         OUTPUT: formFields (JSON-Object)
-         */
+    loadFieldComponents(data){
+        /* Method for simply checking so that the JSON object recieved from
+          the server actually contains the objects "fields".
+          If such object exists, we simply set the state of this component's
+          'data_loaded' to true (boolean) to control the rendering.
 
-        let formFields = {};
-        console.log(data);
-        // Making sure the 'country choices' object was received
-        if(data.country_choices){
-            // Throwing all the country options into its own [key:value] pair
-            formFields.country_choices = data.country_choices;
-        }
-        // Iterating through the 'fields' json-object's keys
-        for (var key of Object.keys(data.fields)) {
-          console.log(`${key}: ${data.fields[key]} (${typeof data.fields[key]})`);
-          if (typeof data.fields[key] === "object") {
-            // For scoping reasons, I save the object into another object  
-            var teacher_obj = data.fields[key];
-            // Looping through the teacher-object's properties
-            for (var teacher_key of Object.keys(teacher_obj)) {
-                let field_value;
-                if(teacher_obj[teacher_key] == null){
-                    field_value = "";
-                } else {
-                    field_value = teacher_obj[teacher_key];
-                }
-              console.log(`${teacher_key}: ${field_value}`);
-              // Adding the [key,value] pair into formField json
-              formFields[`${teacher_key}`] = field_value;
-            }
-          } else {
-            formFields[`${key}`] = data.fields[key];
-          }
-        }
-        // Log the results
-        console.log(formFields);
-        // Returning the formFields as one object where
-        return formFields;
+          INPUT: data (JSON)
+          OUTPUT: ---
+         */
+      // Checking so that the JSON object has the subsequent "fields" Object
+      if(data.hasOwnProperty("fields")){
+        this.setState({
+          data_loaded: true,
+          form_data: data["fields"]
+        });
+      } else{
+          throw TypeError(
+            "JSON response does not contain property 'fields'.");
+      }
     }
 
     componentDidMount(){
@@ -142,18 +55,20 @@ class RegisterForm extends Component{
           // Using App's isResponseOK method (data=>json())
           .then(this.props.isResponseOK)
           // Re-structuring the JSON object for convenience
-          .then(this.formFieldStructure)
-          // Putting re-structured data into its respective components
-          .then(this.constructForm)
+          .then(this.loadFieldComponents)
+          // Catching any errors
           .catch((err) => {
             console.log(err);
           });
     }
 
     render(){
-        return(
-            <h1 className="display-4">Heya!</h1>
-        )
+      if(this.state.data_loaded === true){
+        console.log(`\nComponent's state.form_data: \n${this.state.form_data}`);
+        return <h1 className="display-4">LOADED!</h1>;
+      } else {
+        return <h1 className="display-4">Wait...</h1>;
+      }
     }
 }
 

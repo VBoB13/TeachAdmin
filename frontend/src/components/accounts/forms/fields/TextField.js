@@ -7,8 +7,25 @@ class TextField extends Component{
 
         this.state = {
             name: "",
+            label: "",
             value: "",
+            placeholder: "Loading...",
+            required: false,
+            max_length: 256
         };
+    }
+
+    conponentDidMount(){
+        
+    }
+
+    render(){
+        return(
+            <input 
+                type="text"
+                placeholder={this.props.placeholder} 
+                 />
+        );
     }
 }
 

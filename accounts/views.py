@@ -1,4 +1,5 @@
 import json
+from pprint import pprint
 
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse, reverse_lazy
@@ -61,7 +62,7 @@ class RegisterView(generics.GenericAPIView, mixins.CreateModelMixin):
         """
         serializer = self.serializer_class()
         send_data = serializerToFormData(serializer)
-        print(send_data)
+        pprint(send_data)
         return JsonResponse(
             {"fields": send_data},
             safe=False)

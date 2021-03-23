@@ -106,17 +106,11 @@ def serializerToFormData(serializer):
         for field, value in serializer.get_fields().items():
             # Checking each value for instances of nested serializers
             if(getattr(value, '__module__', None) == acc_serializers.__name__):
-                print(
-                    "{} is a nested serializer ({}) \
-within the current one ({})".format(
-                        field, type(value), type(serializer)))
                 # Attempt to extract the 'get_fields()' method as
                 # a function reference (attribute)
                 get_fields_func = getattr(value, 'get_fields', None)
                 # Check if the method is actually callable
                 if callable(get_fields_func):
-                    print("\n Field's .get_fields() exist.\n")
-                    print("Iterating through {}'s fields: \n".format(field))
                     # As this confirms that the field is a serializer and
                     # has the properties a serializer should have, we then
                     # define an empty slot in the returned dictionary for
