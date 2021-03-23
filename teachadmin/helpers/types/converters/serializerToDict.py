@@ -1,7 +1,11 @@
 from collections import OrderedDict
 import json
 
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
+
 from rest_framework.utils.serializer_helpers import ReturnDict
+from rest_framework.status import HTTP_500_INTERNAL_SERVER_ERROR
 
 from django_countries import countries
 
@@ -104,8 +108,8 @@ def serializerToFormData(serializer):
             if(getattr(value, '__module__', None) == acc_serializers.__name__):
                 print(
                     "{} is a nested serializer ({}) \
-                        within the current one ({})".format(
-                            field, type(value), type(serializer)))
+within the current one ({})".format(
+                        field, type(value), type(serializer)))
                 # Attempt to extract the 'get_fields()' method as
                 # a function reference (attribute)
                 get_fields_func = getattr(value, 'get_fields', None)
@@ -113,18 +117,26 @@ def serializerToFormData(serializer):
                 if callable(get_fields_func):
                     print("\n Field's .get_fields() exist.\n")
                     print("Iterating through {}'s fields: \n".format(field))
+                    # As this confirms that the field is a serializer and
+                    # has the properties a serializer should have, we then
+                    # define an empty slot in the returned dictionary for
+                    # the serializer to put its own fields in
+                    serializer_data[field] = {}
                     # Iterate through the nested serializer's fields
                     for nest_field, nest_value in value.get_fields().items():
                         # Some fields are omitted in nested serializers,
                         # thus we compare the nested serializer's fields
                         # to the fields in serializer.data
                         if(nest_field in serializer.data[field].keys()):
-                            serializer_data[nest_field] = getFormFieldAttributes(
-                                nest_field, nest_value)
+                            serializer_data[field][nest_field] = getFormFieldAttributes(nest_field, nest_value)
                 else:
                     print(
                         "Field '{}' does not have method 'get_fields()'.".format(value))
             else:
                 serializer_data[field] = getFormFieldAttributes(field, value)
+    else:
+        raise ValidationError(
+            _("The serializer is NOT from the standard 'Accounts' app.")
+        )
                 
     return serializer_data
