@@ -18,6 +18,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import AnonymousUser, User
 
 from rest_framework import generics, status, mixins
+from rest_framework.renderers import HTMLFormRenderer
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
@@ -62,9 +63,12 @@ class RegisterView(generics.GenericAPIView, mixins.CreateModelMixin):
         """
         serializer = self.serializer_class()
         send_data = serializerToFormData(serializer)
-        pprint(send_data)
+        #pprint(send_data)
+        renderer = HTMLFormRenderer()
+        serializerForm = renderer.render(serializer.data)
         return JsonResponse(
-            {"fields": send_data},
+            {"fields": send_data,
+            "form": serializerForm},
             safe=False)
 
     def post(self, request, *args, **kwargs):
