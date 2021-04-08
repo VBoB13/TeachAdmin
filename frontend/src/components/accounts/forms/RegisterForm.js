@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
+import parse from 'html-react-parser';
 
 class RegisterForm extends Component{
     constructor(props){
@@ -73,7 +74,14 @@ class RegisterForm extends Component{
         console.log(this.state.form_data);
         console.log(this.state.form_string);
         console.log(typeof(this.state.form_string));
-        return <h1 className="display-4">LOADED!</h1>;
+        return (
+          <div>
+            <h1 className="display-4">Register</h1>
+            <form action="/accounts/register/" method="post">
+              {parse(this.state.form_string, {trim: true})}
+            </form>
+          </div>
+        );
       } else {
         return <h1 className="display-4">Wait...</h1>;
       }

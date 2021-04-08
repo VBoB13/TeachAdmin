@@ -72,12 +72,18 @@ class RegisterView(generics.GenericAPIView, mixins.CreateModelMixin):
             safe=False)
 
     def post(self, request, *args, **kwargs):
-        serialized = UserSerializer(data=request.data)
-        if serialized.is_valid():
-            serialized.save()
-            return Response(serialized.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(serialized.errors, status=status.HTTP_400_BAD_REQUEST)
+        """
+        Default implementation of DRF's GenericAPIView post method
+        """
+        
+        pprint(request.data)
+
+        # serialized = UserSerializer(data=request.data)
+        # if serialized.is_valid():
+        #     serialized.save()
+        #     return Response(serialized.data, status=status.HTTP_201_CREATED)
+        # else:
+        #     return Response(serialized.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 def register(request):
