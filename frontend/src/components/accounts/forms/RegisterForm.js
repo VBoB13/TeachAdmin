@@ -8,8 +8,7 @@ class RegisterForm extends Component{
 
         this.state = {
             data_loaded: false,
-            form_data: {},
-            form_string: ""
+            form: ""
         }
 
         this.loadFieldComponents = this.loadFieldComponents.bind(this);
@@ -35,11 +34,11 @@ class RegisterForm extends Component{
             return <small />;
           }
           /*
-            This block checks for:
-            1. For 'input' elements so that the standard attribute
-              'value' can be updated to 'defaultValue' so that
-              React can render the element with automatic onChange-handlers
-            */
+          This block checks for:
+          1. For 'input' elements so that the standard attribute
+            'value' can be updated to 'defaultValue' so that
+            React can render the element with automatic onChange-handlers
+          */
           if (name === "input" && attribs.hasOwnProperty("value")) {
             attribs.defaultValue = attribs.value;
             if (attribs.hasOwnProperty("defaultValue")) delete attribs.value;
@@ -59,27 +58,27 @@ class RegisterForm extends Component{
         trim: true,
       };
       
-      let form = parse(this.state.form_string, options);
+      let form = parse(this.state.form, options);
       return form;
     }
 
     loadFieldComponents(data){
-      /* Method for simply checking so that the JSON object recieved from
-        the server actually contains the objects "fields".
-        If such object exists, we simply set the state of this component's
-        'data_loaded' to true (boolean) to control the rendering.
+      /* 
+      Method for simply checking so that the JSON object recieved from
+      the server actually contains the objects "form".
+      If such object exists, we simply set the state of this component's
+      'data_loaded' to true (boolean) to control the rendering.
 
-        INPUT: data (JSON)
-        OUTPUT: ---
-        */
-      // Checking so that the JSON object has the subsequent "fields" Object
-      if(data.hasOwnProperty("fields") && data.hasOwnProperty("form")){
+      INPUT: data (JSON)
+      OUTPUT: ---
+      */
+      // Checking so that the JSON object has the subsequent "form" Object
+      if(data.hasOwnProperty("form")){
         this.setState({
           data_loaded: true,
-          form_data: data["fields"],
-          form_string: data["form"]
+          form: data["form"]
         });
-      // If no 'fields' nor 'form' property is found, a TypeError is thrown.
+      // If no 'form' property is found, a TypeError is thrown.
       } else {
           throw ReferenceError(
             "JSON response does not contain property 'fields' or 'form'."
@@ -97,7 +96,7 @@ class RegisterForm extends Component{
         .then(this.loadFieldComponents)
         // Catching any errors
         .catch((err) => {
-          console.log(err);
+          console.error(err);
         });
     }
 

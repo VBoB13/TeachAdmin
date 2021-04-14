@@ -22,8 +22,6 @@ from rest_framework.renderers import HTMLFormRenderer
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
-from teachadmin.helpers.types.converters.serializerToDict import serializerToFormData
-
 from . import forms
 from .models import Teacher
 from .serializers import TeacherSerializer, UserSerializer
@@ -62,14 +60,12 @@ class RegisterView(generics.GenericAPIView, mixins.CreateModelMixin):
         This method is used to help React render all fields for registering a user.
         """
         serializer = self.serializer_class()
-        send_data = serializerToFormData(serializer)
-        #pprint(send_data)
         renderer = HTMLFormRenderer()
         serializerForm = renderer.render(serializer.data)
         return JsonResponse(
-            {"fields": send_data,
-            "form": serializerForm},
-            safe=False)
+            {"form": serializerForm},
+            safe=False
+        )
 
     def post(self, request, *args, **kwargs):
         """
