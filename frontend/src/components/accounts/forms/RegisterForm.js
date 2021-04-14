@@ -52,8 +52,6 @@ class RegisterForm extends Component{
             const props = attributesToProps(attribs);
             return <small {...props}>{domToReact(children, options)}</small>;
           }
-          // Printing the attributes to the console for convenience
-          console.log(attribs);
         },
         trim: true,
       };
