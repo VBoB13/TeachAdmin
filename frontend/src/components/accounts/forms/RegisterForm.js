@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
-import parse from 'html-react-parser';
+import parse, { attributesToProps, domToReact } from 'html-react-parser';
 
 class RegisterForm extends Component{
     constructor(props){
@@ -13,22 +13,54 @@ class RegisterForm extends Component{
         }
 
         this.loadFieldComponents = this.loadFieldComponents.bind(this);
-        this.constructFields = this.constructFields.bind(this);
+        this.buildForm = this.buildForm.bind(this);
     }
 
 
 
-    constructFields(){
-      /* Idea behind this function is to simply take each of the
-      fields (this.state.form_data) and assign them to a suitable component that will then be rendered accordingly.
-      
-      PARAMS: ---
-      OUTPUT: < InputComponent />
+    buildForm(){
+      /* 
+      Utilizes the module 'html-react-parser' to convert the response's
+      "form" (str) into React Elements with some options.
+
+      PARAMS: none
+      OUTPUT: HTML (parse(HTML-string, options))
       */
+
+      // Options for the parser
+      const options = {
+        replace: ({ name, attribs, children }) => {
+          if (!attribs) return;
+          if (name === "legend") {
+            return <small />;
+          }
+          /*
+            This block checks for:
+            1. For 'input' elements so that the standard attribute
+              'value' can be updated to 'defaultValue' so that
+              React can render the element with automatic onChange-handlers
+            */
+          if (name === "input" && attribs.hasOwnProperty("value")) {
+            attribs.defaultValue = attribs.value;
+            if (attribs.hasOwnProperty("defaultValue")) delete attribs.value;
+            if (attribs.name === "password" && attribs.type === "text") {
+              attribs.type = "password";
+            }
+            const props = attributesToProps(attribs);
+            return <input {...props} />;
+          }
+          if (name === "span" && attribs.class === "help-block") {
+            const props = attributesToProps(attribs);
+            return <small {...props}>{domToReact(children, options)}</small>;
+          }
+          // Printing the attributes to the console for convenience
+          console.log(attribs);
+        },
+        trim: true,
+      };
       
-      // Defining the fields I'd like to render first
-      const priority_fields = Object.keys(this.state.form_data);
-      
+      let form = parse(this.state.form_string, options);
+      return form;
     }
 
     loadFieldComponents(data){
@@ -49,8 +81,9 @@ class RegisterForm extends Component{
         });
       // If no 'fields' nor 'form' property is found, a TypeError is thrown.
       } else {
-          throw TypeError(
-            "JSON response does not contain property 'fields'.");
+          throw ReferenceError(
+            "JSON response does not contain property 'fields' or 'form'."
+          );
       }
     }
 
@@ -70,15 +103,11 @@ class RegisterForm extends Component{
 
     render(){
       if(this.state.data_loaded === true){
-        console.log("Component's state.form_data:");
-        console.log(this.state.form_data);
-        console.log(this.state.form_string);
-        console.log(typeof(this.state.form_string));
         return (
           <div>
             <h1 className="display-4">Register</h1>
             <form action="/accounts/register/" method="post">
-              {parse(this.state.form_string, {trim: true})}
+              {this.buildForm()}
             </form>
           </div>
         );

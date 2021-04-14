@@ -30,7 +30,10 @@ class RegisterTeacherSerializer(CountryFieldMixin, serializers.ModelSerializer):
             'career_profile')
 
 class UserSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)
+    password = serializers.CharField(
+        style={'input_type': 'password'},
+        write_only=True
+    )
     teacher = RegisterTeacherSerializer(required=False)
 
     class Meta:
