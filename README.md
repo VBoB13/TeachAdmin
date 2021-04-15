@@ -60,4 +60,4 @@ As of right now (April 15th 2021), the structure is built up by the following co
 
 ### Idea
 While it may seem obvious to some, _I will do my best_ to explain the logic behind this setup.
-... to be continued...
+When a user lands on the Home page, a React comment called `App` (for simplicity) will be loaded.
