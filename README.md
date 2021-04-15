@@ -61,3 +61,41 @@ As of right now (April 15th 2021), the structure is built up by the following co
 ### Idea
 While it may seem obvious to some, _I will do my best_ to explain the logic behind this setup.
 When a user lands on the Home page, a React comment called `App` (for simplicity) will be loaded.
+Then, the `App` will serve as a container for other sub-apps, such as `Accounts` or `Scores`.
+These sub-apps will then serve mainly as an interface for the same backend `model.Model`s.
+The goal is to make these correlations as obvious as possible, but things might change in the future as I learn more.
+
+#### Accounts
+The `Accounts` app, which is a `react.Component`, will manage the following basic tasks related to the `Accounts` model:
+1. Registering new Teachers
+2. Logging Teachers on/off
+3. Viewing Teachers' data
+4. Updating Teachers' data
+5. Deleting Teacher
+
+##### Registering new Teachers
+**URL:** `"/accounts/register/"`
+
+Criteria:
+- Non-authenticated users (`AnonymousUser`)
+
+Else:
+- Redirect to `"/accounts/whoami/"`
+
+##### Logging on/off
+**URL:** `"/accounts/login/"`
+
+Criteria:
+- Non-authenticated users (`AnonymousUser`)
+
+Else:
+- Redirect to `"/accounts/whoami/"`
+
+##### Viewing, Updating & Deleting Teachers
+**URL:** `"/accounts/whoami/"`
+
+Criteria:
+- Authenticated `Teacher`s
+
+Else:
+- Redirect to `"/accounts/login"`
