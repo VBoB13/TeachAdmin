@@ -65,6 +65,11 @@ Then, the `App` will serve as a container for other sub-apps, such as `Accounts`
 These sub-apps will then serve mainly as an interface for the same backend `model.Model`s.
 The goal is to make these correlations as obvious as possible, but things might change in the future as I learn more.
 
+#### Frontend
+- **`App`**
+  - As explained above, this will simply be the core of the whole site only handling the task to redirect users to the part of the site they wish to go, namely sub-apps such as `Accounts` or `Scores`. While I haven't made a rock-solid decision on this yet, I think that I _may_ want to keep the functionality for checking that the `User` is still authenticated or not. I am still figuring things out, so tips & tricks on this from you pros out there would be much appreciated 😄
+
+
 #### Accounts
 The `Accounts` app, which is a `react.Component`, will manage the following basic tasks related to the `Accounts` model:
 1. Registering new Teachers
