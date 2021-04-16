@@ -8,7 +8,7 @@ Currently, these tools/libraries are used for this project:
 3. pandas 1.0.3
 4. matplotlib 3.1.3
 5. seaborn 0.10.1
-6. django-rest-framework 3.x (on phone.. can't tell)
+6. django-rest-framework 3.11.0
 7. ReactJS 17.x (on phone.. can't tell)
 8. [html-react-parser](https://github.com/remarkablemark/html-react-parser) 1.2.x
 
