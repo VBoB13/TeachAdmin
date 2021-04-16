@@ -41,7 +41,6 @@ class App extends Component {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.isAuthenticated) {
           this.setState({
             isAuthenticated: true,
@@ -55,6 +54,7 @@ class App extends Component {
       })
       .catch((err) => {
         console.log(err);
+        console.error(err);
       });
   }
 
