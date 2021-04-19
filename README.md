@@ -9,8 +9,8 @@ Currently, these tools/libraries are used for this project:
 4. matplotlib 3.1.3
 5. seaborn 0.10.1
 6. django-rest-framework 3.11.0
-7. ReactJS 17.x (on phone.. can't tell)
-8. [html-react-parser](https://github.com/remarkablemark/html-react-parser) 1.2.x
+7. ReactJS 17.0.1
+8. [html-react-parser](https://github.com/remarkablemark/html-react-parser) 1.2.6
 
 ## Idea
 It all started as I was simply helping my wife sorting out her students' test, homework and exam data and generating comments (that they have to provide to each student's parents by the end of the year). Teachers already have **VERY** extensive responsibilities and its often even more difficult for them to also have the time for analyzing the progress of each individual student.
