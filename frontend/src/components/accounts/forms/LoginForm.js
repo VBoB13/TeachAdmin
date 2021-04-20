@@ -27,8 +27,9 @@ class LoginForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.props.login}>
-        <div className="form-content">
+      <div className="form-content">
+        <h1 className="display-4 m-3">Login</h1>
+        <form onSubmit={this.props.login}>
           <div className="form-group">
             <label htmlFor="username">Username</label>
             <input
@@ -55,8 +56,8 @@ class LoginForm extends Component {
             type="submit" 
             className="btn btn-primary"
             value="Submit" />
-        </div>
-      </form>
+        </form>
+      </div>
     );
   }
 }

@@ -36,8 +36,7 @@ export default class TabSection extends Component {
             return (
               <div>
                 {this.createToggleButton()}
-                <LoginForm 
-                    isResponseOK={this.props.isResponseOK}
+                <LoginForm
                     login={this.props.login}
                     error={this.props.error} />
               </div>

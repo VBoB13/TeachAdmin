@@ -2,8 +2,9 @@ import React, { Component } from "react";
 
 export default function ToggleButton(props){
     let btn_class = (value) => {
-        if(value) return "btn btn-secondary active";
-        return "btn btn-secondary";
+        let base_class = "btn btn-info";
+        if(value) return `${base_class} active`;
+        return base_class;
     };
     let btn_value = (value) => {
         if (value) return "Register";
