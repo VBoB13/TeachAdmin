@@ -74,9 +74,13 @@ export default class HomePage extends Component {
   }
 
   login(event) {
+    // Preventing default event actions
     event.preventDefault();
+    // Reading the values from input fields
     let form_username = document.getElementById("username").value;
     let form_password = document.getElementById("password").value;
+
+    // Sending request to server to login
     fetch("/accounts/login/", {
       method: "POST",
       headers: {
@@ -142,15 +146,10 @@ export default class HomePage extends Component {
       return (
         <div className="container-fluid">
           <Navbar isAuthenticated={this.state.isAuthenticated} />
-          <RegisterForm isResponseOK={this.isResponseOK} />
-          <h1 className="display-4">Login</h1>
-          <form onSubmit={this.login}>
-            <LoginForm />
-            <LoginMessage error={this.state.error} />
-            <button type="submit" className="btn btn-primary">
-              Login
-            </button>
-          </form>
+          <Authenticate 
+            isResponseOK={this.isResponseOK}
+            login={this.login}
+            error={this.state.error} />
         </div>
       );
     }

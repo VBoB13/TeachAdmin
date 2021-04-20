@@ -14,13 +14,13 @@ import HomePage from "./HomePage";
 const cookies = new Cookies();
 
 function App(props) {
-    return (
-      <Router>
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-        </Switch>
-      </Router>
-    );
+  return(
+    <Router>
+      <Switch>
+        <Route path="/" component={HomePage} />
+      </Switch>
+    </Router>
+  );
 }
 
 export default App;

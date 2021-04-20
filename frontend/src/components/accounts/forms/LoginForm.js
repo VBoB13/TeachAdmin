@@ -1,53 +1,64 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
+
 class LoginForm extends Component {
-    constructor(props){
-        super(props);
-        this.handlePasswordChange = this.handlePasswordChange.bind(this);
-        this.handleUsernameChange = this.handleUsernameChange.bind(this);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            "username": "",
-            "password": ""
-        }
-    }
+    this.state = {
+      username: "",
+      password: "",
+    };
+    // Register Component methods
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.handleUsernameChange = this.handleUsernameChange.bind(this);
+  }
 
-    handleUsernameChange(event){
-        this.setState({username: event.target.value});
-    }
-    handlePasswordChange(event){
-        this.setState({password: event.target.value});
-    }
+  handleUsernameChange(event) {
+    this.setState({ username: event.target.value });
+  }
+  handlePasswordChange(event) {
+    this.setState({ password: event.target.value });
+  }
 
-    render(){
-        return (
-          <div className="form-content">
-            <div className="form-group">
-              <label htmlFor="username">Username</label>
-              <input
-                type="text"
-                name="username"
-                id="username"
-                className="form-control"
-                value={this.state.username}
-                onChange={this.handleUsernameChange}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                name="password"
-                id="password"
-                className="form-control"
-                value={this.state.password}
-                onChange={this.handlePasswordChange}
-              />
-            </div>
+  render() {
+    return (
+      <form onSubmit={this.props.login}>
+        <div className="form-content">
+          <div className="form-group">
+            <label htmlFor="username">Username</label>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              className="form-control"
+              value={this.state.username}
+              onChange={this.handleUsernameChange}
+            />
           </div>
-        );
-    }
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              className="form-control"
+              value={this.state.password}
+              onChange={this.handlePasswordChange}
+            />
+          </div>
+          <input 
+            type="submit" 
+            className="btn btn-primary"
+            value="Submit" />
+        </div>
+      </form>
+    );
+  }
 }
 
 export default LoginForm;

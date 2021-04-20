@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from "react";
 
 import ToggleButton from "./ToggleButton";
 import LoginForm from "./forms/LoginForm";
@@ -11,8 +11,8 @@ export default class TabSection extends Component {
 
         // Bind component methods
         this.handleToggle = this.handleToggle.bind(this);
+        this.createToggleButton = this.createToggleButton.bind(this);
     }
-
 
     handleToggle(event){
         event.preventDefault();
@@ -21,24 +21,33 @@ export default class TabSection extends Component {
         });
     }
 
+    createToggleButton(){
+        let button = (
+          <ToggleButton
+            onClick={this.handleToggle}
+            value={this.state.toggleView}
+          />
+        );
+        return button;
+    }
+
     render(){
         if(this.state.toggleView){
             return (
               <div>
-                <ToggleButton 
-                    onClick={this.handleToggle} 
-                    value="Login" />
-                <LoginForm />
+                {this.createToggleButton()}
+                <LoginForm 
+                    isResponseOK={this.props.isResponseOK}
+                    login={this.props.login}
+                    error={this.props.error} />
               </div>
             );
         }
-        return(
-            <div>
-                <ToggleButton 
-                    onClick={this.handleToggle} 
-                    value="Register" />
-                <RegisterForm />
-            </div>
+        return (
+          <div>
+            {this.createToggleButton()}
+            <RegisterForm isResponseOK={this.props.isResponseOK} />
+          </div>
         );
         
     }
