@@ -102,15 +102,14 @@ class RegisterForm extends Component{
       if(this.state.data_loaded === true){
         return (
           <div>
-            <h1 className="display-4">Register</h1>
-            <form action="/accounts/register/" method="post">
+            <h1 className="display-4 m-3">Register</h1>
+            <form className="rounded" action="/accounts/register/" method="post">
               {this.buildForm()}
             </form>
           </div>
         );
-      } else {
-        return <h1 className="display-4">Wait...</h1>;
       }
+      return <h1 className="display-4">Wait...</h1>;
     }
 }
 

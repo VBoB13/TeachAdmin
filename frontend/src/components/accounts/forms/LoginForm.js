@@ -29,7 +29,7 @@ class LoginForm extends Component {
     return (
       <div className="form-content">
         <h1 className="display-4 m-3">Login</h1>
-        <form onSubmit={this.props.login}>
+        <form className="rounded" onSubmit={this.props.login}>
           <div className="form-group">
             <label htmlFor="username">Username</label>
             <input

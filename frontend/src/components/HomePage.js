@@ -147,7 +147,10 @@ export default class HomePage extends Component {
         <div className="container-fluid">
           <Navbar isAuthenticated={this.state.isAuthenticated} />
           <div className="container m-3">
-            <Authenticate login={this.login} error={this.state.error} />
+            <Authenticate 
+              isResponseOK={this.isResponseOK}
+              login={this.login} 
+              error={this.state.error} />
           </div>
         </div>
       );

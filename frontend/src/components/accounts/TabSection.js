@@ -14,8 +14,8 @@ export default class TabSection extends Component {
         this.createToggleButton = this.createToggleButton.bind(this);
     }
 
-    handleToggle(event){
-        event.preventDefault();
+    handleToggle(e){
+        e.preventDefault();
         this.setState({
             toggleView: !this.state.toggleView
         });
