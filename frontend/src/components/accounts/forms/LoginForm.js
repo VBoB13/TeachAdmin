@@ -55,7 +55,7 @@ class LoginForm extends Component {
           <input 
             type="submit" 
             className="btn btn-primary"
-            value="Submit" />
+            value="Login" />
         </form>
       </div>
     );

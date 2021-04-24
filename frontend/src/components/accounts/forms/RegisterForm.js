@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 import parse, { attributesToProps, domToReact } from 'html-react-parser';
 
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
+
 class RegisterForm extends Component{
     constructor(props){
         super(props);
@@ -11,11 +14,53 @@ class RegisterForm extends Component{
             form: ""
         }
 
-        this.loadFieldComponents = this.loadFieldComponents.bind(this);
+        this.loadForm = this.loadForm.bind(this);
         this.buildForm = this.buildForm.bind(this);
+        this.retrieveFormData = this.retrieveFormData.bind(this);
+        this.register = this.register.bind(this);
     }
 
+    retrieveFormData(){
+      let registerForm = document.getElementById("registerForm");
+      let formInputs = registerForm.elements;
+      let teacher = {};
+      let formDataManual = {};
+      for (var i = 0; i < formInputs.length; i++) {
+        if (
+          formInputs[i].nodeName === "INPUT" ||
+          formInputs[i].nodeName === "SELECT"
+        ) {
+          if (formInputs[i].type != "submit") {
+            var fieldNameSplit = formInputs[i].name.split(".");
+            if (fieldNameSplit.length === 1) {
+              formDataManual[`${formInputs[i].name}`] = formInputs[i].value;
+            } else {
+              teacher[`${fieldNameSplit[1]}`] = formInputs[i].value;
+            }
+          }
+        }
+      }
+      formDataManual["teacher"] = teacher;
+      return formDataManual;
+    }
 
+    register(e){
+      e.preventDefault();
+      let formData = this.retrieveFormData();
+      fetch("/accounts/register/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": cookies.get("csrftoken"),
+        },
+        credentials: "same-origin",
+        body: JSON.stringify(formData),
+      })
+      .then(this.props.isResponseOK)
+      .catch(err => {
+        console.error(err);
+      });
+    }
 
     buildForm(){
       /* 
@@ -60,7 +105,7 @@ class RegisterForm extends Component{
       return form;
     }
 
-    loadFieldComponents(data){
+    loadForm(data){
       /* 
       Method for simply checking so that the JSON object recieved from
       the server actually contains the objects "form".
@@ -91,7 +136,7 @@ class RegisterForm extends Component{
         // Using App's isResponseOK method (data=>json())
         .then(this.props.isResponseOK)
         // Re-structuring the JSON object for convenience
-        .then(this.loadFieldComponents)
+        .then(this.loadForm)
         // Catching any errors
         .catch((err) => {
           console.error(err);
@@ -103,8 +148,16 @@ class RegisterForm extends Component{
         return (
           <div>
             <h1 className="display-4 m-3">Register</h1>
-            <form className="rounded" action="/accounts/register/" method="post">
+            <form
+              id="registerForm"
+              className="rounded"
+              onSubmit={this.register}
+            >
               {this.buildForm()}
+              <input 
+                type="submit" 
+                className="btn btn-primary" 
+                value="Register" />
             </form>
           </div>
         );
