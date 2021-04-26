@@ -4,6 +4,7 @@ from django_countries.serializers import CountryFieldMixin
 from django_countries.serializer_fields import CountryField
 from .models import Teacher
 
+
 class TeacherSerializer(CountryFieldMixin, serializers.ModelSerializer):
     user = serializers.StringRelatedField()
     country = CountryField(country_dict=True)

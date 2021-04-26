@@ -68,10 +68,10 @@ export default class HomePage extends Component {
   isResponseOK(response) {
     if (response.status >= 200 && response.status <= 299) {
       return response.json();
+    } else if (response.status >= 400 && response.status <= 499) {
+      return response.json();
     } else {
-      let message = response?.messages?.errors;
-      if(message) throw Error(response.messages.errors[0]);
-      throw Error("Response ERROR!");
+      throw new Error("Response ERROR!");
     }
   }
 

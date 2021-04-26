@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 import parse, { attributesToProps, domToReact } from 'html-react-parser';
 
+import ErrorMessage from "./errors/ErrorMessage";
+
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
@@ -11,13 +13,17 @@ class RegisterForm extends Component{
 
         this.state = {
             data_loaded: false,
-            form: ""
+            form: "",
+            errors: {}
         }
 
         this.loadForm = this.loadForm.bind(this);
         this.buildForm = this.buildForm.bind(this);
         this.retrieveFormData = this.retrieveFormData.bind(this);
         this.register = this.register.bind(this);
+        this.loadMessages = this.loadMessages.bind(this);
+        this.loadErrors = this.loadErrors.bind(this);
+        this.applyErrors = this.applyErrors.bind(this);
     }
 
     retrieveFormData(){
@@ -44,6 +50,25 @@ class RegisterForm extends Component{
       return formDataManual;
     }
 
+    applyErrors(){
+      for(var [field, error] of Object.entries(this.state.errors)){
+        console.log(`${field}: ${error}`);
+      }
+    }
+
+    loadErrors(errs){
+      console.log(errs, typeof(errs));
+      if(typeof(errs) === "object"){
+        this.setState({
+          errors: errs["errors"]
+        });
+      }
+    }
+
+    loadMessages(jsonObj){
+      if(jsonObj.hasOwnProperty("errors")) this.loadErrors(jsonObj);
+    }
+
     register(e){
       e.preventDefault();
       let formData = this.retrieveFormData();
@@ -56,10 +81,11 @@ class RegisterForm extends Component{
         credentials: "same-origin",
         body: JSON.stringify(formData),
       })
-      .then(this.props.isResponseOK)
-      .catch(err => {
-        console.error(err);
-      });
+        .then(this.props.isResponseOK)
+        .catch((err) => {
+          console.error(err);
+        })
+        .then(this.loadMessages);
     }
 
     buildForm(){
@@ -141,6 +167,10 @@ class RegisterForm extends Component{
         .catch((err) => {
           console.error(err);
         });
+    }
+
+    componentDidUpdate(prevProps, prevState){
+      if(this.state.errors !== prevState.errors) this.applyErrors();
     }
 
     render(){

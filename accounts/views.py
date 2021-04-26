@@ -1,4 +1,5 @@
 import json
+import io
 from pprint import pprint
 
 from django.shortcuts import render, get_object_or_404
@@ -18,7 +19,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import AnonymousUser, User
 
 from rest_framework import generics, status, mixins
-from rest_framework.renderers import HTMLFormRenderer
+from rest_framework.parsers import JSONParser
+from rest_framework.renderers import HTMLFormRenderer, JSONRenderer
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
@@ -77,7 +79,18 @@ class RegisterView(generics.GenericAPIView, mixins.CreateModelMixin):
                 serialized.save()
                 return Response(serialized.data, status=status.HTTP_201_CREATED)
             else:
-                return Response(serialized.errors, status=status.HTTP_400_BAD_REQUEST)
+                print(serialized.errors, type(serialized.errors))
+                for error, value in serialized.errors.items():
+                    print(error, type(error))
+                    print(value, type(value))
+                    for errorItem in value:
+                        print(errorItem)
+                        print(errorItem.code)
+                
+                return Response(
+                    data={"errors": serialized.errors}, 
+                    status=status.HTTP_406_NOT_ACCEPTABLE
+                    )
         return Response({
                 'messages':{
                     'errors':[
