@@ -1,3 +1,9 @@
+#app {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
 form, div.messages, div.view_title {
   padding: 10px;
   margin: 5px;
