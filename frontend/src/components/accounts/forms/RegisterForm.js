@@ -108,8 +108,12 @@ class RegisterForm extends Component{
             if (attribs.name === "password" && attribs.type === "text") {
               attribs.type = "password";
             }
-            const props = attributesToProps(attribs);
+            
             if (attribs.name in this.state.errors) {
+              if(!attribs.hasOwnProperty("autofocus")) {
+                attribs.autofocus = true;
+              }
+              const props = attributesToProps(attribs);
               return (
                 <div className="errorField">
                   <input {...props} />
@@ -119,6 +123,7 @@ class RegisterForm extends Component{
                 </div>
               );
             }
+            const props = attributesToProps(attribs);
             return <input {...props} />;
           }
           if (name === "span" && attribs.class === "help-block") {
