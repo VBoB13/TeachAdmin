@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 import parse, { attributesToProps, domToReact } from 'html-react-parser';
 
-import ErrorMessage from "./errors/ErrorMessage";
+import ErrorList from "./errors/ErrorList";
 
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
@@ -23,7 +23,6 @@ class RegisterForm extends Component{
         this.register = this.register.bind(this);
         this.loadMessages = this.loadMessages.bind(this);
         this.loadErrors = this.loadErrors.bind(this);
-        this.applyErrors = this.applyErrors.bind(this);
     }
 
     retrieveFormData(){
@@ -50,14 +49,7 @@ class RegisterForm extends Component{
       return formDataManual;
     }
 
-    applyErrors(){
-      for(var [field, error] of Object.entries(this.state.errors)){
-        console.log(`${field}: ${error}`);
-      }
-    }
-
     loadErrors(errs){
-      console.log(errs, typeof(errs));
       if(typeof(errs) === "object"){
         this.setState({
           errors: errs["errors"]
@@ -117,6 +109,16 @@ class RegisterForm extends Component{
               attribs.type = "password";
             }
             const props = attributesToProps(attribs);
+            if (attribs.name in this.state.errors) {
+              return (
+                <div className="errorField">
+                  <input {...props} />
+                  <ErrorList 
+                    errors={this.state.errors[`${attribs.name}`]} 
+                    />
+                </div>
+              );
+            }
             return <input {...props} />;
           }
           if (name === "span" && attribs.class === "help-block") {
@@ -128,6 +130,8 @@ class RegisterForm extends Component{
       };
       
       let form = parse(this.state.form, options);
+      console.log(form, typeof(form));
+
       return form;
     }
 
@@ -170,7 +174,7 @@ class RegisterForm extends Component{
     }
 
     componentDidUpdate(prevProps, prevState){
-      if(this.state.errors !== prevState.errors) this.applyErrors();
+      if(this.state.errors !== prevState.errors) this.buildForm();
     }
 
     render(){
