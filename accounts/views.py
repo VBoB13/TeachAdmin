@@ -176,9 +176,11 @@ def session_view(request):
     if not request.user.is_authenticated:
         return JsonResponse({"isAuthenticated": False})
     
+    teacher = get_object_or_404(Teacher, user=request.user)
     return JsonResponse({
         "isAuthenticated": True,
-        "user": request.user.username
+        "user": request.user.username,
+        "user_link": teacher.get_absolute_url()
         })
 
 def whoami_view(request):

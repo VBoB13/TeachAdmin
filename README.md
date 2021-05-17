@@ -10,7 +10,8 @@ Currently, these tools/libraries are used for this project:
 5. seaborn 0.10.1
 6. django-rest-framework 3.11.0
 7. ReactJS 17.0.1
-8. [html-react-parser](https://github.com/remarkablemark/html-react-parser) 1.2.6
+8. [react-router-dom](https://reactrouter.com/) 5.2.0
+9. [html-react-parser](https://github.com/remarkablemark/html-react-parser) 1.2.6
 
 ## Idea
 It all started as I was simply helping my wife sorting out her students' test, homework and exam data and generating comments (that they have to provide to each student's parents by the end of the year). Teachers already have **VERY** extensive responsibilities and its often even more difficult for them to also have the time for analyzing the progress of each individual student.
@@ -77,7 +78,9 @@ As of right now (April 15th 2021), the structure is built up by the following co
     - Utilized to enhance request/response handling further by essentially standardizing the way data in processed.
 3. [ReactJS](https://github.com/facebook/react)
     - Used to make the frontend interface structuring more convenient and DRY-based.
-4. [HTMLReactParser](https://github.com/remarkablemark/html-react-parser)
+4. [react-router-dom](https://reactrouter.com/)
+    - Used to control the URL-aspect of the site, as it is an SPA.
+5. [HTMLReactParser](https://github.com/remarkablemark/html-react-parser)
     - Used frequently to further enhance the automatic rendering of frontend interface components.
 
 ### Idea
