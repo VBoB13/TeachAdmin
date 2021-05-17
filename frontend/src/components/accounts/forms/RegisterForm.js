@@ -75,7 +75,7 @@ class RegisterForm extends Component{
       })
         .then(this.props.isResponseOK)
         .catch((err) => {
-          console.error(err);
+          console.error('Error:', err);
         })
         .then(this.loadMessages);
     }

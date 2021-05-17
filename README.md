@@ -16,6 +16,28 @@ Currently, these tools/libraries are used for this project:
 It all started as I was simply helping my wife sorting out her students' test, homework and exam data and generating comments (that they have to provide to each student's parents by the end of the year). Teachers already have **VERY** extensive responsibilities and its often even more difficult for them to also have the time for analyzing the progress of each individual student.
 The core idea behind this project is to make teachers able to explore the data they put in about their students, thus enabling the teachers to observe, analyze and manage their students' learning progress through the course of time. While the main functionality is to simply provide visual graphs generated with the students score data, thus allowing teachers to quickly get an overview of the progress of the students, the system will also be able to eventually point out which students struggle in particular when compared to other students in the same subject etc. Machine learning will most likely end up being used to figure out patterns in the data that could provide teachers with hints about these things.
 
+## Functionalities
+- Grading & Tracking
+    - Whenever a teacher logs in, they will be redirected to the main page (HomePage) which should be an overview of the data related to that teacher. This includes:
+        - Overview Analysis (graphs indicating which students do not meet the standards that the Teacher had set up)
+        - Links to most commonly used features (default might be 'Score Entry' or 'Report')
+        - Profile (their own)
+    - Otherwise, they're simply redirected to either Login or Register.
+Within the page itself, the functionality will be aimed towards the following:
+- Profile
+    - Change attributes of Teacher profile, such as 'country' or 'career profile'.
+- Enter Data
+    - Here, the teacher can choose (through links to appropriate parts of the site) what data to put into the system. Links include:
+        - Students
+        - Scores
+        - Schools
+        - Homerooms
+        - Report
+    - **Students** will simply be the part of the site where you manage any data related to students themselves. This will be either to CREATE, READ, UPDATE or DELETE functionalities in its core, but other related tasks such as adding 'Scores' for any particular student(s) are also accessible through this **StudentDetailView**.
+    - **Schools** will be a simple view where teachers can CREATE, READ, UPDATE or DELETE School objects. Since the core of this application will have little to do with Schools, little emphasis will be put into this section.
+    - **Homerooms** on the other hand, apart from the standard CRUD implementations, will also have some statistical data presented in the form of graphs and/or detailed messages in hopes that it will _help the teacher make **quick and accurate decisions**_ to assist that set of students (e.g. Homeroom).
+    - **Report** will be the page on which automatic reports for the selected Student(s), Homeroom or School will be generated in the form of a nicely formatted PDF-file. The report will be focused on individual students at first, but may very well expand into more options later.
+
 ## Structure / Models
 - Teacher (User)
 - School
