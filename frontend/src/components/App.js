@@ -15,7 +15,7 @@ import Authenticate from "./accounts/Authenticate";
 
 const cookies = new Cookies();
 
-export default class App extends Component(props) {
+export default class App extends Component {
   constructor(props) {
     super(props);
     this.getSession = this.getSession.bind(this);
@@ -129,7 +129,7 @@ export default class App extends Component(props) {
   render() {
     if(this.state.isAuthenticated){
       return (
-        <Router>
+        <div className="container-fluid">
           <Navbar
             isAuthenticated={this.state.isAuthenticated}
             user={this.state.user}
@@ -141,11 +141,11 @@ export default class App extends Component(props) {
               <HomePage />
             </Route>
           </Switch>
-        </Router>
+        </div>
       );
     }
     return (
-      <Router>
+      <div className="container-fluid">
         <Navbar
           isAuthenticated={this.state.isAuthenticated}
           login={this.login}
@@ -155,7 +155,7 @@ export default class App extends Component(props) {
           login={this.login}
           error={this.state.error}
         />
-      </Router>
+      </div>
     );
     
   }

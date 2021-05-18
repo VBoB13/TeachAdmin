@@ -10,41 +10,38 @@ import {
 function Navbar(props){
   if(props.isAuthenticated){
     return (
-        <div className="container-fluid">
-          <nav className="navbar position-sticky navbar-expand-lg navbar-dark navbar-bg rounded">
-            <div className="container">
-              <Link to="/">
-                Home
-              </Link>
-              <ul className="navbar-nav">
-                <li className="nav-item">
-                  <a href="" className="nav-link">
-                    Scores
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <Link to={props.user_link}>Account [ {props.user} ]</Link>
-                </li>
-                <li className="nav-item">
-                  <a
-                    id="navbar_logout"
-                    href=""
-                    onClick={props.logout}
-                    align="center"
-                    className="nav-link"
-                  >
-                    Logout
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </nav>
+      <nav className="navbar position-sticky navbar-expand-lg navbar-dark navbar-bg rounded">
+        <div className="container">
+          <Link to="/">
+            Home
+          </Link>
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <a href="" className="nav-link">
+                Scores
+              </a>
+            </li>
+            <li className="nav-item">
+              <Link to={props.user_link}>Account [ {props.user} ]</Link>
+            </li>
+            <li className="nav-item">
+              <a
+                id="navbar_logout"
+                href=""
+                onClick={props.logout}
+                align="center"
+                className="nav-link"
+              >
+                Logout
+              </a>
+            </li>
+          </ul>
         </div>
+      </nav>
     );
   }
   return (
-    <div className="container-fluid">
-      <nav className="navbar position-sticky navbar-expand-lg navbar-dark navbar-bg rounded">
+    <nav className="navbar position-sticky navbar-expand-lg navbar-dark navbar-bg rounded">
       <div className="container">
         <a className="navbar-brand" href="">
           Home
@@ -63,7 +60,6 @@ function Navbar(props){
         </ul>
       </div>
     </nav>
-    </div>
   );
 }
 
