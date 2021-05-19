@@ -4,7 +4,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  NavLink
 } from "react-router-dom";
 
 function Navbar(props){
@@ -22,7 +23,9 @@ function Navbar(props){
               </a>
             </li>
             <li className="nav-item">
-              <Link to={props.user_link}>Account [ {props.user} ]</Link>
+              <NavLink to={props.user_link} activeClassName="active">
+                Account [ {props.user} ]
+              </NavLink>
             </li>
             <li className="nav-item">
               <a

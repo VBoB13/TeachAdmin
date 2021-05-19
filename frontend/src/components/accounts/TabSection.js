@@ -16,6 +16,7 @@ export default class TabSection extends Component {
 
     handleToggle(e){
         e.preventDefault();
+        console.log(e);
         this.setState({
             toggleView: !this.state.toggleView
         });
@@ -45,7 +46,8 @@ export default class TabSection extends Component {
         return (
           <div>
             {this.createToggleButton()}
-            <RegisterForm isResponseOK={this.props.isResponseOK} />
+            <RegisterForm 
+              isResponseOK={this.props.isResponseOK} />
           </div>
         );
         

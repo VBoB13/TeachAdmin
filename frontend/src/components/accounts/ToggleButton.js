@@ -12,7 +12,8 @@ export default function ToggleButton(props){
     };
     return(
         <button
-            type="button" 
+            type="button"
+            id="toggleButton" 
             className={btn_class(props.value)}
             data-toggle="button"
             aria-pressed={props.value.toString()}

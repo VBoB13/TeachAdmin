@@ -138,7 +138,9 @@ export default class App extends Component {
           />
           <Switch>
             <Route path="/">
-              <HomePage />
+              <HomePage 
+                user={this.state.user}
+                user_link={this.state.user_link} />
             </Route>
           </Switch>
         </div>

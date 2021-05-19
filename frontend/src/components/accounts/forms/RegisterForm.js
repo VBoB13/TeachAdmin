@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { render } from "react-dom";
 import parse, { attributesToProps, domToReact } from 'html-react-parser';
 
 import ErrorList from "./errors/ErrorList";
@@ -23,6 +22,16 @@ class RegisterForm extends Component{
         this.register = this.register.bind(this);
         this.loadMessages = this.loadMessages.bind(this);
         this.loadErrors = this.loadErrors.bind(this);
+        this.toggleLogin = this.toggleLogin.bind(this);
+    }
+    toggleLogin(){
+      let toggleButton = document.getElementById("toggleButton");
+      console.log(toggleButton);
+      try {
+        toggleButton.click();
+      } catch (error) {
+        console.error(error);
+      }
     }
 
     retrieveFormData(){
@@ -74,10 +83,11 @@ class RegisterForm extends Component{
         body: JSON.stringify(formData),
       })
         .then(this.props.isResponseOK)
+        .then(this.loadMessages)
+        .then(this.toggleLogin)
         .catch((err) => {
           console.error('Error:', err);
-        })
-        .then(this.loadMessages);
+        });
     }
 
     buildForm(){
@@ -135,7 +145,6 @@ class RegisterForm extends Component{
       };
       
       let form = parse(this.state.form, options);
-      console.log(form, typeof(form));
 
       return form;
     }

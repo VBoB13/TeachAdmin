@@ -76,17 +76,15 @@ class RegisterView(generics.GenericAPIView, mixins.CreateModelMixin):
         if(request.data):
             serialized = UserSerializer(data=request.data)
             if serialized.is_valid():
+                # Actually save/register the Teacher
                 serialized.save()
+                pprint(serialized.data)
                 return Response(serialized.data, status=status.HTTP_201_CREATED)
             else:
-                print(serialized.errors, type(serialized.errors))
-                for error, value in serialized.errors.items():
-                    print(error, type(error))
-                    print(value, type(value))
-                    for errorItem in value:
-                        print(errorItem)
-                        print(errorItem.code)
-                
+                print(
+                    serialized.data,
+                    "\n{}".format(serialized.error_messages),
+                    "\n{}".format(serialized.errors))
                 return Response(
                     data={"errors": serialized.errors}, 
                     status=status.HTTP_406_NOT_ACCEPTABLE
@@ -98,9 +96,6 @@ class RegisterView(generics.GenericAPIView, mixins.CreateModelMixin):
                     ]
                 }},
                 status=status.HTTP_400_BAD_REQUEST)
-
-
-        
 
 
 def register(request):
@@ -142,8 +137,8 @@ def login_view(request):
 
     if username is None or password is None:
         return JsonResponse(
-            {"detail": "Please provide a username and password."},
-            status=400)
+                {"detail": "Please provide a username and password."},
+                status=400)
 
     user = authenticate(username=username, password=password)
 
