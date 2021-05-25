@@ -9,7 +9,7 @@ import {
 
 import Cookies from "universal-cookie";
 
-import Navbar from "./Navbar";
+import Navbar from "./navbar/Navbar";
 import HomePage from "./HomePage";
 import Authenticate from "./accounts/Authenticate";
 
