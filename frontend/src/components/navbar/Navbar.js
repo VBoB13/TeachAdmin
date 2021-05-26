@@ -8,6 +8,10 @@ import {
   NavLink
 } from "react-router-dom";
 
+import NavbarLink from "./NavbarLinks";
+
+const navlinks = ["/scores/", "/curriculum/", "/observatory/", "/account/"];
+
 function LogoutButton(props){
   return (
     <a
@@ -22,6 +26,14 @@ function LogoutButton(props){
   );
 }
 
+function generateNavLinks(){
+  let navlinks_list = navlinks.map(url_string => {
+    return <NavbarLink url_string={url_string} />;
+  });
+  console.log(navlinks_list);
+  return navlinks_list;
+}
+
 function Navbar(props){
   if(props.isAuthenticated){
     return (
@@ -31,27 +43,7 @@ function Navbar(props){
             Home
           </Link>
           <ul className="navbar-nav">
-            <li className="nav-item">
-              <NavLink
-                to="/scores/"
-                className="nav-link"
-                activeClassName="nav-link active"
-              >
-                Scores
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                to="/account/"
-                className="nav-link"
-                activeClassName="nav-link active"
-              >
-                Account
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <LogoutButton logout={props.logout}/>
-            </li>
+            {generateNavLinks()}
           </ul>
         </div>
       </nav>
