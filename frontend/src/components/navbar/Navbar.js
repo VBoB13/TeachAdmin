@@ -14,15 +14,17 @@ const navlinks = ["/scores/", "/curriculum/", "/observatory/", "/account/"];
 
 function LogoutButton(props){
   return (
-    <a
-      id="navbar_logout"
-      href=""
-      onClick={props.logout}
-      align="center"
-      className="nav-link"
-    >
-      Logout
-    </a>
+    <li className="nav-item">
+      <a
+        id="navbar_logout"
+        href=""
+        onClick={props.logout}
+        align="center"
+        className="nav-link"
+      >
+        Logout
+      </a>
+    </li>
   );
 }
 
@@ -43,6 +45,7 @@ function Navbar(props){
           </Link>
           <ul className="navbar-nav">
             {generateNavLinks()}
+            <LogoutButton logout={props.logout}/>
           </ul>
         </div>
       </nav>
