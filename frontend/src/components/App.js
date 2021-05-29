@@ -5,13 +5,16 @@ import {
   Switch, 
   Route, 
   Link, 
-  Redirect } from "react-router-dom";
+  Redirect,
+  useParams,
+  useRouteMatch } from "react-router-dom";
 
 import Cookies from "universal-cookie";
 
 import Navbar from "./navbar/Navbar";
 import HomePage from "./HomePage";
 import Authenticate from "./accounts/Authenticate";
+import Accounts from "./accounts/Accounts";
 
 const cookies = new Cookies();
 
@@ -52,6 +55,9 @@ export default class App extends Component {
         }
       })
       .catch((err) => {
+        this.setState({
+          error: "Server session call failed."
+        });
         console.log(err);
         console.error(err);
       });
@@ -137,6 +143,9 @@ export default class App extends Component {
             logout={this.logout}
           />
           <Switch>
+            <Route path="/teachers">
+              <Accounts />
+            </Route>
             <Route path="/">
               <HomePage 
                 user={this.state.user}

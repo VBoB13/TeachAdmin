@@ -30,5 +30,5 @@ class Teacher(models.Model):
         return str(self.user.username)
 
     def get_absolute_url(self):
-        return "/accounts/{}/".format(self.pk)
+        return "/teachers/{}/".format(self.pk)
     

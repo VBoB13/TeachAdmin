@@ -2,7 +2,6 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 export default function NavbarLink(props){
-    console.log(`Creating NavLink for URL: '${props.url_string}'`);
     return (
       <li className="nav-item">
         <NavLink

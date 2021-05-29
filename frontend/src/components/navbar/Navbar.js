@@ -27,10 +27,9 @@ function LogoutButton(props){
 }
 
 function generateNavLinks(){
-  let navlinks_list = navlinks.map(url_string => {
-    return <NavbarLink url_string={url_string} />;
+  let navlinks_list = navlinks.map((url_string, index) => {
+    return <NavbarLink url_string={url_string} key={index} />;
   });
-  console.log(navlinks_list);
   return navlinks_list;
 }
 
