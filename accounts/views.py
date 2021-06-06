@@ -26,13 +26,14 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from . import forms
 from .models import Teacher
-from .serializers import TeacherSerializer, UserSerializer
+from .serializers import TeacherSerializer, UserRegisterSerializer
 
 # Create your views here.
 
-class TeacherRetrieveView(generics.GenericAPIView, mixins.RetrieveModelMixin):
+class TeacherView(generics.GenericAPIView, mixins.RetrieveModelMixin):
     serializer_class = TeacherSerializer
     permission_classes = [IsAuthenticated]
+    renderer_classes = [JSONRenderer]
 
     def get_object(self, user):
         """
@@ -49,12 +50,12 @@ class TeacherRetrieveView(generics.GenericAPIView, mixins.RetrieveModelMixin):
         Standard implementation of DRF's Retrieve-mixin.
         """
         teacher = self.get_object(request.user)
-        serializer = TeacherSerializer(instance=teacher)
-        return JsonResponse(serializer.data, safe=False)
+        serializer = self.serializer_class(instance=teacher)
+        return Response(serializer.data)
 
 
 class RegisterView(generics.GenericAPIView, mixins.CreateModelMixin):
-    serializer_class = UserSerializer
+    serializer_class = UserRegisterSerializer
     permission_classes = [AllowAny]
 
     def get(self, request, *args, **kwargs):
@@ -74,7 +75,7 @@ class RegisterView(generics.GenericAPIView, mixins.CreateModelMixin):
         Default implementation of DRFs 'GenericAPIView.post()' method
         """
         if(request.data):
-            serialized = UserSerializer(data=request.data)
+            serialized = UserRegisterSerializer(data=request.data)
             if serialized.is_valid():
                 # Actually save/register the Teacher
                 serialized.save()

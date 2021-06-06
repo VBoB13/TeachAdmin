@@ -5,11 +5,17 @@ from django_countries.serializer_fields import CountryField
 from .models import Teacher
 
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        exclude = ('password')
+
+
 class TeacherSerializer(CountryFieldMixin, serializers.ModelSerializer):
     user = serializers.StringRelatedField()
     country = CountryField(country_dict=True)
     career_profile = serializers.URLField(required=False)
-    
+
     class Meta:
         model = Teacher
         fields = (
@@ -30,7 +36,7 @@ class RegisterTeacherSerializer(CountryFieldMixin, serializers.ModelSerializer):
             'country',
             'career_profile')
 
-class UserSerializer(serializers.ModelSerializer):
+class UserRegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(
         style={'input_type': 'password'},
         write_only=True

@@ -73,6 +73,7 @@ export default class App extends Component {
     } else if (response.status >= 400 && response.status <= 499) {
       return response.json();
     } else {
+      console.log(response);
       throw new Error("Response ERROR!");
     }
   }
@@ -144,7 +145,7 @@ export default class App extends Component {
           />
           <Switch>
             <Route path="/teachers">
-              <Accounts />
+              <Accounts isResponseOK={this.isResponseOK} />
             </Route>
             <Route path="/">
               <HomePage 

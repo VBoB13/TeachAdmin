@@ -12,9 +12,26 @@
     {% bootstrap_javascript jquery='full' %}
     {% bootstrap_messages %}
     <link 
-    rel="stylesheet"
-    type="text/css"
-    href="{% static 'frontend/css/master.css' %}"/>
+        rel="stylesheet"
+        type="text/css"
+        href="{% static 'frontend/css/master.css' %}"/>
+    <link 
+        rel="apple-touch-icon" 
+        sizes="180x180" 
+        href="{% static '/frontend/favicons/apple-touch-icon.png' %}">
+    <link 
+        rel="icon" 
+        type="image/png" 
+        sizes="32x32" 
+        href="{% static '/frontend/favicons/favicon-32x32.png' %}">
+    <link 
+        rel="icon" 
+        type="image/png" 
+        sizes="16x16" 
+        href="{% static '/frontend/favicons/favicon-16x16.png' %}">
+    <link 
+        rel="manifest" 
+        href="{% static '/frontend/favicons/site.webmanifest' %}">
 
 </head>
 <body class="p-1 mb-2 bg-dark text-white">

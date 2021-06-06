@@ -143,7 +143,7 @@ class RegisterForm extends Component{
         },
         trim: true,
       };
-      
+      // Parse through form to generate HTML
       let form = parse(this.state.form, options);
 
       return form;

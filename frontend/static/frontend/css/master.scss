@@ -38,7 +38,6 @@ $standard_text_size: 16px;
 
 %bordered-info-content {
     border: $dark-brown solid 2px;
-    border-radius: 20% 7.5%;
 }
 
 .navbar-bg {
@@ -48,8 +47,6 @@ $standard_text_size: 16px;
 section.user-info {
     @extend %content-unit-color;
     @extend %bordered-info-content;
-    padding: 1.25em 1em 1.25em 1.25em;
-    margin: 1em -1em 0 0;
     dt {
         font-weight: bolder;
         text-decoration: underline;

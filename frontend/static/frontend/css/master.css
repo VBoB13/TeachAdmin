@@ -20,17 +20,12 @@ form, section.user-info {
 
 section.user-info {
   border: #464646 solid 2px;
-  border-radius: 20% 7.5%;
 }
 
 .navbar-bg {
   background-color: #0169a4;
 }
 
-section.user-info {
-  padding: 1.25em 1em 1.25em 1.25em;
-  margin: 1em -1em 0 0;
-}
 section.user-info dt {
   font-weight: bolder;
   text-decoration: underline;
