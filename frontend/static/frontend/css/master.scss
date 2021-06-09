@@ -13,13 +13,57 @@ $dark-gray: #666666;
 $gray: #b7b7b7;
 $light-gray: #f6f6f5;
 
+$light-bg: #E1E1FF;
+$main-purple: #4020ff;
+$main-purple-trans: #4020ff87;
+$main-blue: #0078FF;
+$main-blue-trans: #0078FF87;
+
 $help_text_size: 12px;
 $standard_text_size: 16px;
+$field_text_size: 20px;
+
+$shadow-50: #00000087;
+$shadow-30: #00000044;
+
+body {
+    background-color: $light-bg;
+}
 
 #app {
     width: 100%;
     height: 100%;
     display: flex;
+}
+
+%logo-style {
+    display: block;
+    font-size: 36px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    text-shadow: 2px 2px 2px $shadow-30;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: $shadow-50;
+}
+
+%navigation-link {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 32px;
+    font-weight: 500;
+    text-align: center;
+}
+
+%standard-button {
+    padding: 10px;
+    border: 1px solid $shadow-50;
+    font-size: 28px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    text-align: center;
+    color: $light-bg;
+    box-shadow: 2px 2px 2px $shadow-30;
+    border-radius: 15px;
 }
 
 %unit-spacing {
@@ -37,11 +81,48 @@ $standard_text_size: 16px;
 }
 
 %bordered-info-content {
-    border: $dark-brown solid 2px;
+    border: $shadow-50 solid 2px;
 }
 
-.navbar-bg {
-    background-color: $dark-blue;
+a.logo-link {
+    @extend %logo-style;
+    color: $main-purple;
+}
+a.logo-link:hover {
+    @extend %logo-style;
+    color: $main-blue;
+}
+a.navigation-link{
+    @extend %navigation-link;
+    color: $main-blue;
+}
+a.navigation-link:hover{
+    @extend %navigation-link;
+    color: $main-purple;
+}
+a.navigation-link-active{
+    @extend %navigation-link;
+    color: $main-purple;
+}
+a.navigation-link-active:hover{
+    @extend %navigation-link;
+    color: $main-blue;
+}
+a.navigation-button-link{
+    @extend %navigation-link;
+    color: $light-bg;
+}
+
+.standard-button {
+    @extend %standard-button;
+    background-color: $main-blue;
+}
+.standard-button:hover {
+    @extend %standard-button;
+    background-color: $main-purple;
+}
+.nav-item.standard-button > .nav-link {
+    color: $light-bg;
 }
 
 section.user-info {

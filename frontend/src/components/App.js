@@ -137,36 +137,45 @@ export default class App extends Component {
     if(this.state.isAuthenticated){
       return (
         <div className="container-fluid">
-          <Navbar
-            isAuthenticated={this.state.isAuthenticated}
-            user={this.state.user}
-            user_link={this.state.user_link}
-            logout={this.logout}
-          />
-          <Switch>
-            <Route path="/teachers">
-              <Accounts isResponseOK={this.isResponseOK} />
-            </Route>
-            <Route path="/">
-              <HomePage 
-                user={this.state.user}
-                user_link={this.state.user_link} />
-            </Route>
-          </Switch>
+          <div className="row py-1">
+            <Navbar
+              isAuthenticated={this.state.isAuthenticated}
+              user={this.state.user}
+              user_link={this.state.user_link}
+              logout={this.logout}
+            />
+          </div>
+          <div className="row">
+            <Switch>
+              <Route path="/teachers">
+                <Accounts isResponseOK={this.isResponseOK} />
+              </Route>
+              <Route path="/">
+                <HomePage
+                  user={this.state.user}
+                  user_link={this.state.user_link}
+                />
+              </Route>
+            </Switch>
+          </div>
         </div>
       );
     }
     return (
       <div className="container-fluid">
-        <Navbar
-          isAuthenticated={this.state.isAuthenticated}
-          login={this.login}
-        />
-        <Authenticate
-          isResponseOK={this.isResponseOK}
-          login={this.login}
-          error={this.state.error}
-        />
+        <div className="row">
+          <Navbar
+            isAuthenticated={this.state.isAuthenticated}
+            login={this.login}
+          />
+        </div>
+        <div className="row">
+          <Authenticate
+            isResponseOK={this.isResponseOK}
+            login={this.login}
+            error={this.state.error}
+          />
+        </div>
       </div>
     );
     

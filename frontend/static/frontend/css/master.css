@@ -1,7 +1,41 @@
+body {
+  background-color: #E1E1FF;
+}
+
 #app {
   width: 100%;
   height: 100%;
   display: flex;
+}
+
+a.logo-link:hover, a.logo-link {
+  display: block;
+  font-size: 36px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  text-shadow: 2px 2px 2px #00000044;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #00000087;
+}
+
+a.navigation-button-link, a.navigation-link-active:hover, a.navigation-link-active, a.navigation-link:hover, a.navigation-link {
+  display: block;
+  font-family: "Poppins", sans-serif;
+  font-size: 32px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.standard-button:hover, .standard-button {
+  padding: 10px;
+  border: 1px solid #00000087;
+  font-size: 28px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  text-align: center;
+  color: #E1E1FF;
+  box-shadow: 2px 2px 2px #00000044;
+  border-radius: 15px;
 }
 
 form, div.messages, div.view_title {
@@ -19,11 +53,47 @@ form, section.user-info {
 }
 
 section.user-info {
-  border: #464646 solid 2px;
+  border: #00000087 solid 2px;
 }
 
-.navbar-bg {
-  background-color: #0169a4;
+a.logo-link {
+  color: #4020ff;
+}
+
+a.logo-link:hover {
+  color: #0078FF;
+}
+
+a.navigation-link {
+  color: #0078FF;
+}
+
+a.navigation-link:hover {
+  color: #4020ff;
+}
+
+a.navigation-link-active {
+  color: #4020ff;
+}
+
+a.navigation-link-active:hover {
+  color: #0078FF;
+}
+
+a.navigation-button-link {
+  color: #E1E1FF;
+}
+
+.standard-button {
+  background-color: #0078FF;
+}
+
+.standard-button:hover {
+  background-color: #4020ff;
+}
+
+.nav-item.standard-button > .nav-link {
+  color: #E1E1FF;
 }
 
 section.user-info dt {

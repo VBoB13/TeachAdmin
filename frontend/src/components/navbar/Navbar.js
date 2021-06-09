@@ -14,17 +14,12 @@ const navlinks = ["/scores/", "/curriculum/", "/observatory/", "/account/"];
 
 function LogoutButton(props){
   return (
-    <li className="nav-item">
-      <a
-        id="navbar_logout"
-        href=""
-        onClick={props.logout}
-        align="center"
-        className="nav-link"
-      >
+    
+    <a id="navbar_logout" href="" onClick={props.logout} align="center">
+      <div className="standard-button">
         Logout
-      </a>
-    </li>
+      </div>
+    </a>
   );
 }
 
@@ -38,47 +33,51 @@ function generateNavLinks(){
 function Navbar(props){
   if(props.isAuthenticated){
     return (
-      <nav className="navbar position-sticky navbar-expand-lg navbar-dark navbar-bg rounded">
-        <div className="container">
-          <Link to="/" className="navbar-brand">
-            Home
-          </Link>
-          <ul className="navbar-nav">
-            {generateNavLinks()}
-            <LogoutButton logout={props.logout}/>
-          </ul>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-2">
+            <Link to="/" className="logo-link">
+              TeachAdmin
+            </Link>
+          </div>
+          <div className="col-8">{generateNavLinks()}</div>
+          <div className="col-2">
+            <LogoutButton logout={props.logout} />
+          </div>
         </div>
-      </nav>
+      </div>
     );
   }
   return (
-    <nav className="navbar position-sticky navbar-expand-lg navbar-dark navbar-bg rounded">
-      <div className="container">
-        <Link to="/" className="navbar-brand">
-          Home
-        </Link>
-        <ul className="navbar-nav">
-          <li className="nav-item">
+    <div className="container-fluid">
+      <div className="row align-items-center">
+        <div className="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-xs-6">
+          <Link to="/" className="logo-link">
+            TeachAdmin
+          </Link>
+        </div>
+        <div className="col-xl-8 col-lg-6 col-md-4 col-sm-4 col-xs-6">
             <NavLink
               to="/login/"
-              className="nav-link"
-              activeClassName="navlink active"
+              className="navigation-link"
+              activeClassName="navigation-link-active"
             >
               Login
             </NavLink>
-          </li>
-          <li className="nav-item">
+        </div>
+        <div className="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-xs-6">
+          <div className="standard-button">
             <NavLink
               to="/register/"
-              className="nav-link"
-              activeClassName="navlink active"
+              className="navigation-button-link"
+              activeClassName="navigation-button-link-active"
             >
               Register
             </NavLink>
-          </li>
-        </ul>
+          </div>
+        </div>
       </div>
-    </nav>
+    </div>
   );
 }
 
