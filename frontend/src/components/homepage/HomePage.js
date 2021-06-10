@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 import { Link } from "react-router-dom";
 
-import LoginMessage from "./accounts/messages/LoginMessage";
+import LoginMessage from "../accounts/messages/LoginMessage";
 
 function AccountLinkButton(){
   return (

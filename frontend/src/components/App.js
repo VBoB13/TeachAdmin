@@ -12,9 +12,10 @@ import {
 import Cookies from "universal-cookie";
 
 import Navbar from "./navbar/Navbar";
-import HomePage from "./HomePage";
+import HomePage from "./homepage/HomePage";
 import Authenticate from "./accounts/Authenticate";
 import Accounts from "./accounts/Accounts";
+import GuestHome from "./homepage/GuestHome";
 
 const cookies = new Cookies();
 
@@ -163,18 +164,19 @@ export default class App extends Component {
     }
     return (
       <div className="container-fluid">
-        <div className="row">
+        <div className="row py-1">
           <Navbar
             isAuthenticated={this.state.isAuthenticated}
             login={this.login}
           />
         </div>
-        <div className="row">
-          <Authenticate
+        <div className="row py-2">
+          <GuestHome />
+          {/* <Authenticate
             isResponseOK={this.isResponseOK}
             login={this.login}
             error={this.state.error}
-          />
+          /> */}
         </div>
       </div>
     );

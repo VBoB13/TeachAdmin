@@ -14,12 +14,13 @@ const navlinks = ["/scores/", "/curriculum/", "/observatory/", "/account/"];
 
 function LogoutButton(props){
   return (
-    
-    <a id="navbar_logout" href="" onClick={props.logout} align="center">
-      <div className="standard-button">
+    <button 
+      id="navbar_logout"
+      href="" 
+      onClick={props.logout} 
+      className="standard-button">
         Logout
-      </div>
-    </a>
+    </button>
   );
 }
 
@@ -35,13 +36,17 @@ function Navbar(props){
     return (
       <div className="container-fluid">
         <div className="row">
-          <div className="col-2">
+          <div className="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-xs-6">
             <Link to="/" className="logo-link">
               TeachAdmin
             </Link>
           </div>
-          <div className="col-8">{generateNavLinks()}</div>
-          <div className="col-2">
+          <div className="col-xl-8 col-lg-6 col-md-4 col-sm-4 col-xs-6">
+            <div className="navlink-container">
+              {generateNavLinks()}
+            </div>
+          </div>
+          <div className="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-xs-6">
             <LogoutButton logout={props.logout} />
           </div>
         </div>

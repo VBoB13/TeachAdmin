@@ -8,18 +8,28 @@ body {
   display: flex;
 }
 
-.navlink-container {
+.navlink-container, .container-guesthome-main {
   display: flex;
+}
+
+.container-guesthome-main {
+  flex-direction: column;
 }
 
 a.logo-link:hover, a.logo-link {
   display: block;
   font-size: 36px;
   font-family: "Poppins", sans-serif;
-  font-weight: 700;
+  font-weight: 800;
   text-shadow: 2px 2px 2px #00000044;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #00000087;
+}
+
+.slogan {
+  font-size: 70px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
 }
 
 a.navigation-button-link-active, a.navigation-button-link, a.navigation-link-active:hover, a.navigation-link-active, a.navigation-link:hover, a.navigation-link {
@@ -31,7 +41,7 @@ a.navigation-button-link-active, a.navigation-button-link, a.navigation-link-act
   align-self: center;
 }
 
-.standard-button:hover, .standard-button {
+.standard-button {
   padding: 10px;
   border: 1px solid #00000087;
   font-size: 28px;
@@ -97,7 +107,6 @@ a.navigation-button-link-active {
 .standard-button {
   background-color: #0078FF;
 }
-
 .standard-button:hover {
   background-color: #4020ff;
 }
@@ -106,6 +115,22 @@ a.navigation-button-link-active {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+}
+
+.container-guesthome-main {
+  margin-top: 150px;
+}
+
+span.titel-underline {
+  background-image: linear-gradient(120deg, #4020ff 0%, #0078FF 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 0.2em;
+  background-position: 0 88%;
+  transition: background-size 0.25s ease-in;
+}
+span.titel-underline:hover {
+  background-size: 100% 88%;
+  color: #E1E1FF;
 }
 
 section.user-info dt {
