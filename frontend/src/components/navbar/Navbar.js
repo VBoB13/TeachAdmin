@@ -50,33 +50,42 @@ function Navbar(props){
   }
   return (
     <div className="container-fluid">
-      <div className="row align-items-center">
-        <div className="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-xs-6">
-          <Link to="/" className="logo-link">
-            TeachAdmin
-          </Link>
-        </div>
-        <div className="col-xl-8 col-lg-6 col-md-4 col-sm-4 col-xs-6">
-            <NavLink
-              to="/login/"
-              className="navigation-link"
-              activeClassName="navigation-link-active"
-            >
-              Login
-            </NavLink>
-        </div>
-        <div className="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-xs-6">
-          <div className="standard-button">
+      <nav>
+        <div className="row align-items-center justify-content-center p-2">
+          <div className="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-xs-6">
+            <Link to="/" className="logo-link">
+              TeachAdmin
+            </Link>
+          </div>
+          <div className="col-xl-8 col-lg-6 col-md-4 col-sm-4 col-xs-6">
+            <div className="navlink-container">
+              <NavLink
+                to="/about/"
+                className="navigation-link"
+                activeClassName="navigation-link-active"
+              >
+                About
+              </NavLink>
+              <NavLink
+                to="/login/"
+                className="navigation-link"
+                activeClassName="navigation-link-active"
+              >
+                Login
+              </NavLink>
+            </div>
+          </div>
+          <div className="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-xs-6">
             <NavLink
               to="/register/"
               className="navigation-button-link"
               activeClassName="navigation-button-link-active"
             >
-              Register
+              <button className="standard-button">Register</button>
             </NavLink>
           </div>
         </div>
-      </div>
+      </nav>
     </div>
   );
 }

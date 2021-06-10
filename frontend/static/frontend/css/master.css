@@ -8,6 +8,10 @@ body {
   display: flex;
 }
 
+.navlink-container {
+  display: flex;
+}
+
 a.logo-link:hover, a.logo-link {
   display: block;
   font-size: 36px;
@@ -18,12 +22,13 @@ a.logo-link:hover, a.logo-link {
   -webkit-text-stroke-color: #00000087;
 }
 
-a.navigation-button-link, a.navigation-link-active:hover, a.navigation-link-active, a.navigation-link:hover, a.navigation-link {
+a.navigation-button-link-active, a.navigation-button-link, a.navigation-link-active:hover, a.navigation-link-active, a.navigation-link:hover, a.navigation-link {
   display: block;
   font-family: "Poppins", sans-serif;
   font-size: 32px;
-  font-weight: 500;
+  font-weight: 600;
   text-align: center;
+  align-self: center;
 }
 
 .standard-button:hover, .standard-button {
@@ -31,11 +36,12 @@ a.navigation-button-link, a.navigation-link-active:hover, a.navigation-link-acti
   border: 1px solid #00000087;
   font-size: 28px;
   font-family: "Poppins", sans-serif;
-  font-weight: 500;
+  font-weight: 600;
   text-align: center;
   color: #E1E1FF;
   box-shadow: 2px 2px 2px #00000044;
   border-radius: 15px;
+  align-self: center;
 }
 
 form, div.messages, div.view_title {
@@ -84,6 +90,10 @@ a.navigation-button-link {
   color: #E1E1FF;
 }
 
+a.navigation-button-link-active {
+  color: #4020ff;
+}
+
 .standard-button {
   background-color: #0078FF;
 }
@@ -92,8 +102,10 @@ a.navigation-button-link {
   background-color: #4020ff;
 }
 
-.nav-item.standard-button > .nav-link {
-  color: #E1E1FF;
+.navlink-container {
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 }
 
 section.user-info dt {
