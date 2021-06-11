@@ -143,6 +143,13 @@ a.navigation-button-link-active{
         background-color: $main-purple;
     }
 }
+.standard-button-purple{
+    @extend %standard-button;
+    background-color: $main-purple;
+    &:hover{
+        background-color: $main-blue;
+    }
+}
 
 .navlink-container{
     @extend %flex-container;
@@ -152,20 +159,7 @@ a.navigation-button-link-active{
     width: 100vw;
 }
 
-/* MEDIA queries */
-
-@media screen and (max-width: 899px){
-    .navlink-container{
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    #register-button > .standard-button{
-        font-size: 0.8em;
-    }
-}
-
-.container-guesthome-main{
+main.container-guesthome-main{
     @extend %flex-container-column;
     justify-content: center;
     margin-top: 150px;
@@ -254,4 +248,26 @@ svg.bi {
 }
 div.menuItem svg.bi:hover {
         fill: $light-blue;
+}
+
+/* MEDIA queries */
+
+@media screen and (max-width: 899px){
+    .navlink-container{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    #register-button > .standard-button{
+        font-size: 0.8em;
+    }
+    a.logo-link{
+        font-size: 1.5em;
+    }
+    a.navigation-link{
+        font-size: 1em;
+    }
+    main.container-guesthome-main{
+        margin-top: 50px;
+    }
 }

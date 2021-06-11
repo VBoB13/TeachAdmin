@@ -13,11 +13,11 @@ body {
   display: flex;
 }
 
-.navlink-container, .container-guesthome-main {
+.navlink-container, main.container-guesthome-main {
   display: flex;
 }
 
-.container-guesthome-main {
+main.container-guesthome-main {
   flex-direction: column;
 }
 
@@ -43,7 +43,7 @@ a.navigation-button-link-active, a.navigation-button-link, a.navigation-link-act
   align-self: center;
 }
 
-.standard-button {
+.standard-button-purple, .standard-button {
   padding: 10px;
   border: 1px solid #00000087;
   font-size: 1.5em;
@@ -110,6 +110,13 @@ a.navigation-button-link-active {
   background-color: #4020ff;
 }
 
+.standard-button-purple {
+  background-color: #4020ff;
+}
+.standard-button-purple:hover {
+  background-color: #0078FF;
+}
+
 .navlink-container {
   flex-direction: row;
   justify-content: space-around;
@@ -117,19 +124,7 @@ a.navigation-button-link-active {
   width: 100vw;
 }
 
-/* MEDIA queries */
-@media screen and (max-width: 899px) {
-  .navlink-container {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  #register-button > .standard-button {
-    font-size: 0.8em;
-  }
-}
-.container-guesthome-main {
+main.container-guesthome-main {
   justify-content: center;
   margin-top: 150px;
 }
@@ -193,6 +188,31 @@ svg.bi {
 
 div.menuItem svg.bi:hover {
   fill: #54b8eb;
+}
+
+/* MEDIA queries */
+@media screen and (max-width: 899px) {
+  .navlink-container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #register-button > .standard-button {
+    font-size: 0.8em;
+  }
+
+  a.logo-link {
+    font-size: 1.5em;
+  }
+
+  a.navigation-link {
+    font-size: 1em;
+  }
+
+  main.container-guesthome-main {
+    margin-top: 50px;
+  }
 }
 
 /*# sourceMappingURL=master.css.map */
