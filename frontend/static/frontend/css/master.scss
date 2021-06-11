@@ -27,6 +27,11 @@ $shadow-50: #00000087;
 $shadow-30: #00000044;
 
 // Major but basic settings
+:root{
+    font-size: 18px;
+    font-family: 'Poppins', sans-serif;
+}
+
 body {
     background-color: $light-bg;
 }
@@ -48,8 +53,7 @@ body {
 
 %logo-style {
     display: block;
-    font-size: 36px;
-    font-family: 'Poppins', sans-serif;
+    font-size: 2em;
     font-weight: 800;
     text-shadow: 2px 2px 2px $shadow-30;
     -webkit-text-stroke-width: 1px;
@@ -57,15 +61,13 @@ body {
 }
 
 %big-title{
-    font-size: 70px;
-    font-family: 'Poppins', sans-serif;
+    font-size: 3em;
     font-weight: 600;
 }
 
 %navigation-link {
-    display: block;
-    font-family: 'Poppins', sans-serif;
-    font-size: 32px;
+    display: inline-block;
+    font-size: 1.5em;
     font-weight: 600;
     text-align: center;
     align-self: center;
@@ -74,8 +76,7 @@ body {
 %standard-button {
     padding: 10px;
     border: 1px solid $shadow-50;
-    font-size: 28px;
-    font-family: 'Poppins', sans-serif;
+    font-size: 1.5em;
     font-weight: 600;
     text-align: center;
     color: $light-bg;
@@ -102,31 +103,29 @@ body {
     border: $shadow-50 solid 2px;
 }
 
-// Component classes
+
+/* Navbar-related definitions */
 
 a.logo-link {
     @extend %logo-style;
     color: $main-purple;
-}
-a.logo-link:hover {
-    @extend %logo-style;
-    color: $main-blue;
+    &:hover{
+        color: $main-blue;
+    }
 }
 a.navigation-link{
     @extend %navigation-link;
     color: $main-blue;
-}
-a.navigation-link:hover{
-    @extend %navigation-link;
-    color: $main-purple;
+    &:hover{
+        color: $main-purple;
+    }
 }
 a.navigation-link-active{
     @extend %navigation-link;
     color: $main-purple;
-}
-a.navigation-link-active:hover{
-    @extend %navigation-link;
-    color: $main-blue;
+    &:hover{
+        color: $main-blue;
+    }
 }
 a.navigation-button-link{
     @extend %navigation-link;
@@ -150,10 +149,25 @@ a.navigation-button-link-active{
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    width: 100vw;
+}
+
+/* MEDIA queries */
+
+@media screen and (max-width: 899px){
+    .navlink-container{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    #register-button > .standard-button{
+        font-size: 0.8em;
+    }
 }
 
 .container-guesthome-main{
     @extend %flex-container-column;
+    justify-content: center;
     margin-top: 150px;
 }
 
@@ -161,10 +175,15 @@ a.navigation-button-link-active{
     @extend %big-title;
 }
 
-span.titel-underline{
+h2.subslogan {
+    font-size: 1.5em;
+    color: #00000087;
+}
+
+span.title-underline{
     background-image: linear-gradient(120deg, $main-purple 0%, $main-blue 100%);
     background-repeat: no-repeat;
-    background-size: 100% 0.2em;
+    background-size: 100% 0.15em;
     background-position: 0 88%;
     transition: background-size 0.25s ease-in;
     &:hover {

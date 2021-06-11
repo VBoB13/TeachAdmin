@@ -1,3 +1,8 @@
+:root {
+  font-size: 18px;
+  font-family: "Poppins", sans-serif;
+}
+
 body {
   background-color: #E1E1FF;
 }
@@ -16,10 +21,9 @@ body {
   flex-direction: column;
 }
 
-a.logo-link:hover, a.logo-link {
+a.logo-link {
   display: block;
-  font-size: 36px;
-  font-family: "Poppins", sans-serif;
+  font-size: 2em;
   font-weight: 800;
   text-shadow: 2px 2px 2px #00000044;
   -webkit-text-stroke-width: 1px;
@@ -27,15 +31,13 @@ a.logo-link:hover, a.logo-link {
 }
 
 .slogan {
-  font-size: 70px;
-  font-family: "Poppins", sans-serif;
+  font-size: 3em;
   font-weight: 600;
 }
 
-a.navigation-button-link-active, a.navigation-button-link, a.navigation-link-active:hover, a.navigation-link-active, a.navigation-link:hover, a.navigation-link {
-  display: block;
-  font-family: "Poppins", sans-serif;
-  font-size: 32px;
+a.navigation-button-link-active, a.navigation-button-link, a.navigation-link-active, a.navigation-link {
+  display: inline-block;
+  font-size: 1.5em;
   font-weight: 600;
   text-align: center;
   align-self: center;
@@ -44,8 +46,7 @@ a.navigation-button-link-active, a.navigation-button-link, a.navigation-link-act
 .standard-button {
   padding: 10px;
   border: 1px solid #00000087;
-  font-size: 28px;
-  font-family: "Poppins", sans-serif;
+  font-size: 1.5em;
   font-weight: 600;
   text-align: center;
   color: #E1E1FF;
@@ -72,10 +73,10 @@ section.user-info {
   border: #00000087 solid 2px;
 }
 
+/* Navbar-related definitions */
 a.logo-link {
   color: #4020ff;
 }
-
 a.logo-link:hover {
   color: #0078FF;
 }
@@ -83,7 +84,6 @@ a.logo-link:hover {
 a.navigation-link {
   color: #0078FF;
 }
-
 a.navigation-link:hover {
   color: #4020ff;
 }
@@ -91,7 +91,6 @@ a.navigation-link:hover {
 a.navigation-link-active {
   color: #4020ff;
 }
-
 a.navigation-link-active:hover {
   color: #0078FF;
 }
@@ -115,20 +114,39 @@ a.navigation-button-link-active {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  width: 100vw;
 }
 
+/* MEDIA queries */
+@media screen and (max-width: 899px) {
+  .navlink-container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #register-button > .standard-button {
+    font-size: 0.8em;
+  }
+}
 .container-guesthome-main {
+  justify-content: center;
   margin-top: 150px;
 }
 
-span.titel-underline {
+h2.subslogan {
+  font-size: 1.5em;
+  color: #00000087;
+}
+
+span.title-underline {
   background-image: linear-gradient(120deg, #4020ff 0%, #0078FF 100%);
   background-repeat: no-repeat;
-  background-size: 100% 0.2em;
+  background-size: 100% 0.15em;
   background-position: 0 88%;
   transition: background-size 0.25s ease-in;
 }
-span.titel-underline:hover {
+span.title-underline:hover {
   background-size: 100% 88%;
   color: #E1E1FF;
 }

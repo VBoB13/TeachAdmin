@@ -138,7 +138,7 @@ export default class App extends Component {
     if(this.state.isAuthenticated){
       return (
         <div className="container-fluid">
-          <div className="row py-1">
+          <div className="row justify-content-center align-items-center py-2">
             <Navbar
               isAuthenticated={this.state.isAuthenticated}
               user={this.state.user}
@@ -146,7 +146,7 @@ export default class App extends Component {
               logout={this.logout}
             />
           </div>
-          <div className="row">
+          <div className="row py-2">
             <Switch>
               <Route path="/teachers">
                 <Accounts isResponseOK={this.isResponseOK} />
@@ -164,7 +164,7 @@ export default class App extends Component {
     }
     return (
       <div className="container-fluid">
-        <div className="row py-1">
+        <div className="row justify-content-center align-items-center py-2">
           <Navbar
             isAuthenticated={this.state.isAuthenticated}
             login={this.login}
