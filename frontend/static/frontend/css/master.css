@@ -124,9 +124,23 @@ a.navigation-button-link-active {
   width: 100vw;
 }
 
+/* Here will first be up being categorized by
+    page because that's most likely how the
+    project is going to be done.
+
+    ------ PAGES ------         */
+/* ------ GuestHome ------ */
 main.container-guesthome-main {
+  flex-wrap: wrap;
   justify-content: center;
   margin-top: 150px;
+  width: 100%;
+  max-height: 500px;
+}
+
+main.container-guesthome-main a {
+  display: inline-block;
+  width: max-content;
 }
 
 .slogan {
@@ -151,6 +165,11 @@ span.title-underline:hover {
   color: #E1E1FF;
 }
 
+#guywithcat {
+  height: 201px;
+}
+
+/* ------ OLD Classes ------ */
 section.user-info dt {
   font-weight: bolder;
   text-decoration: underline;
@@ -217,6 +236,11 @@ div.menuItem svg.bi:hover {
 
   main.container-guesthome-main {
     margin-top: 50px;
+    align-items: center;
+  }
+
+  #guywithcat {
+    display: none;
   }
 }
 
