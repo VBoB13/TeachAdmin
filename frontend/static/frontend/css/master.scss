@@ -28,11 +28,6 @@ $shadow-50: #00000087;
 $shadow-30: #00000044;
 
 // Major but basic settings
-:root{
-    font-size: 18px;
-    font-family: 'Poppins', sans-serif;
-}
-
 body {
     background-color: $light-bg;
     font-size: 18px;
@@ -58,7 +53,7 @@ body {
     display: block;
     font-size: 2em;
     font-weight: 800;
-    text-shadow: 2px 2px 2px $shadow-30;
+    text-shadow: 0.2em 0.2em 0.2em $shadow-30;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: $shadow-50;
 }
@@ -77,14 +72,14 @@ body {
 }
 
 %standard-button {
-    padding: 10px;
+    font-size: 1.5rem;
+    padding: 0.5em;
     border: 1px solid $shadow-50;
-    font-size: 1.5em;
     font-weight: 600;
     text-align: center;
     color: $light-bg;
-    box-shadow: 2px 2px 2px $shadow-30;
-    border-radius: 15px;
+    box-shadow: 0.2em 0.2em 0.2em $shadow-30;
+    border-radius: 0.5em;
     align-self: center;
 }
 
@@ -164,15 +159,14 @@ a.navigation-button-link-active{
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    width: 100vw;
+    width: 100%;
 }
 
 
 /* ----- Footer-related definitions ----- */
 
 div.footer-container{
-    position: absolute;
-    bottom: 50px;
+    margin-top: 3em;
 }
 footer.footer {
     @extend %flex-container;
@@ -189,9 +183,9 @@ footer article.footer-link-container{
     align-content: center;
     align-items: center;
     flex-wrap: wrap;
-    padding-top: 25px;
-    width: 200px;
-    height: 150px;
+    padding-top: 2em;
+    width: 20vw;
+    aspect-ratio: 1/1;
     border: 1px solid $shadow-50;
     border-radius: 30px;
     position: relative;
@@ -276,75 +270,9 @@ span.title-underline{
 }
 
 
-/* ------ OLD Classes ------ */
-
-section.user-info {
-    @extend %content-unit-color;
-    @extend %bordered-info-content;
-    dt {
-        font-weight: bolder;
-        text-decoration: underline;
-        color: $light-blue;
-    }
-    dd {
-        text-indent: 1em;
-        a {
-            color: $light-blue;
-        }:hover{
-            color: $light-orange;
-        }
-    }
-}
-
-div.view_title {
-    @extend %info-unit-color;
-    @extend %unit-spacing;
-}
-
-div.messages {
-    @extend %info-unit-color;
-    @extend %unit-spacing;
-    p.success {
-        background-color: $success-green;
-    }
-}
-
-form {
-    @extend %unit-spacing;
-    @extend %content-unit-color;
-    ul.errorlist {
-        border: $warning-red solid 2px;
-        border-radius: 10px;
-        background-color: $light-red;
-        li {
-            color: $dark-brown;
-        }
-    }
-    p {
-        span {
-            font-size: $help_text_size;
-            font-style: italic;
-            color: $gray;
-        }
-    }
-    input[type='submit'] {
-        background-color: $dark-blue;
-    }
-}
-
-%icon_style {
-    fill: $navy-blue;
-}
-svg.bi {
-    @extend %icon_style;
-}
-div.menuItem svg.bi:hover {
-        fill: $light-blue;
-}
-
 /* MEDIA queries */
 
-@media screen and (max-width: 949px){
+@media screen and (min-width: 600px) and (max-width: 949px){
     .navlink-container{
         flex-direction: column;
         justify-content: center;
@@ -365,5 +293,36 @@ div.menuItem svg.bi:hover {
     }
     #guywithcat{
         display: none;
+    }
+    footer article.footer-link-container{
+        width: 20vw;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .navlink-container{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    #register-button > .standard-button{
+        font-size: 0.8em;
+    }
+    a.logo-link{
+        font-size: 1.5em;
+    }
+    a.navigation-link{
+        font-size: 1em;
+    }
+    main.container-guesthome-main{
+        margin-top: 50px;
+        align-items: center;
+        max-height: max-content;
+    }
+    #guywithcat{
+        display: none;
+    }
+    footer article.footer-link-container{
+        width: 30vw;
     }
 }
