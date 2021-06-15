@@ -5,6 +5,8 @@
 
 body {
   background-color: #E1E1FF;
+  font-size: 18px;
+  font-family: "Poppins", sans-serif;
 }
 
 #app {
@@ -13,11 +15,11 @@ body {
   display: flex;
 }
 
-.navlink-container, main.container-guesthome-main {
+footer.footer, .navlink-container, main.container-guesthome-main, footer article.footer-link-container div.footer-link-content, footer article.footer-link-container {
   display: flex;
 }
 
-main.container-guesthome-main {
+main.container-guesthome-main, footer article.footer-link-container div.footer-link-content, footer article.footer-link-container {
   flex-direction: column;
 }
 
@@ -73,7 +75,7 @@ section.user-info {
   border: #00000087 solid 2px;
 }
 
-/* Navbar-related definitions */
+/* ----- Navbar-related definitions ----- */
 a.logo-link {
   color: #4020ff;
 }
@@ -124,6 +126,63 @@ a.navigation-button-link-active {
   width: 100vw;
 }
 
+/* ----- Footer-related definitions ----- */
+div.footer-container {
+  position: absolute;
+  bottom: 50px;
+}
+
+footer.footer {
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+
+footer.footer a {
+  color: inherit;
+}
+
+footer article.footer-link-container {
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-top: 25px;
+  width: 200px;
+  height: 150px;
+  border: 1px solid #00000087;
+  border-radius: 30px;
+  position: relative;
+  background-color: #ECECEC;
+}
+
+footer article.footer-link-container div.footer-link-icon-container {
+  background-color: #ECECEC;
+  border: 1px solid #00000087;
+  border-radius: 50%;
+  position: absolute;
+  top: -25px;
+}
+
+footer article.footer-link-container div.footer-link-icon-container img {
+  border-radius: 50%;
+}
+
+footer article.footer-link-container div.footer-link-content {
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+footer article.footer-link-container div.footer-link-content h5.footer-link-title {
+  font-weight: 600;
+}
+
+footer article.footer-link-container div.footer-link-content p {
+  text-align: center;
+  font-size: 0.8rem;
+}
+
 /* Here will first be up being categorized by
     page because that's most likely how the
     project is going to be done.
@@ -145,14 +204,14 @@ main.container-guesthome-main a {
   width: max-content;
 }
 
-.slogan {
-  margin-bottom: 1rem;
+h2.subslogan {
+  font-size: 1.25em;
+  color: #00000087;
 }
 
+.slogan,
 h2.subslogan {
-  font-size: 1.5em;
-  color: #00000087;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 span.title-underline {

@@ -170,14 +170,12 @@ export default class App extends Component {
             login={this.login}
           />
         </div>
-        <div className="row py-2">
-          <GuestHome />
+        <GuestHome />
           {/* <Authenticate
             isResponseOK={this.isResponseOK}
             login={this.login}
             error={this.state.error}
           /> */}
-        </div>
       </div>
     );
     

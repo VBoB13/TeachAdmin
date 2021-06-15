@@ -13,6 +13,7 @@ $dark-gray: #666666;
 $gray: #b7b7b7;
 $light-gray: #f6f6f5;
 
+$extra-light-bg: #ECECEC;
 $light-bg: #E1E1FF;
 $main-purple: #4020ff;
 $main-purple-trans: #4020ff87;
@@ -34,6 +35,8 @@ $shadow-30: #00000044;
 
 body {
     background-color: $light-bg;
+    font-size: 18px;
+    font-family: 'Poppins', sans-serif;
 }
 
 #app {
@@ -109,7 +112,7 @@ body {
 }
 
 
-/* Navbar-related definitions */
+/* ----- Navbar-related definitions ----- */
 
 a.logo-link {
     @extend %logo-style;
@@ -164,6 +167,61 @@ a.navigation-button-link-active{
     width: 100vw;
 }
 
+
+/* ----- Footer-related definitions ----- */
+
+div.footer-container{
+    position: absolute;
+    bottom: 50px;
+}
+footer.footer {
+    @extend %flex-container;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+footer.footer a{
+    color: inherit;
+}
+footer article.footer-link-container{
+    @extend %flex-container-column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-top: 25px;
+    width: 200px;
+    height: 150px;
+    border: 1px solid $shadow-50;
+    border-radius: 30px;
+    position: relative;
+    background-color: $extra-light-bg;
+}
+footer article.footer-link-container div.footer-link-icon-container{
+    background-color: $extra-light-bg;
+    border: 1px solid $shadow-50;
+    border-radius: 50%;
+    position: absolute;
+    top: -25px;
+}
+footer article.footer-link-container div.footer-link-icon-container img{
+    border-radius: 50%;
+}
+footer article.footer-link-container div.footer-link-content{
+    @extend %flex-container-column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+footer article.footer-link-container div.footer-link-content h5.footer-link-title{
+    font-weight: 600;
+}
+footer article.footer-link-container div.footer-link-content p{
+    text-align: center;
+    font-size: 0.8rem;
+}
+
+
 /* Here will first be up being categorized by
     page because that's most likely how the
     project is going to be done.
@@ -189,13 +247,16 @@ main.container-guesthome-main a{
 
 .slogan{
     @extend %big-title;
-    margin-bottom: 1rem;
 }
 
 h2.subslogan {
-    font-size: 1.5em;
-    color: #00000087;
-    margin-bottom: 1rem;
+    font-size: 1.25em;
+    color: $shadow-50;
+}
+
+.slogan,
+h2.subslogan {
+    margin-bottom: 2rem;
 }
 
 span.title-underline{
@@ -213,7 +274,6 @@ span.title-underline{
 #guywithcat{
     height: 201px;
 }
-
 
 
 /* ------ OLD Classes ------ */
