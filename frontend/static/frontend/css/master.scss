@@ -184,7 +184,7 @@ footer article.footer-link-container{
     align-items: center;
     flex-wrap: wrap;
     padding-top: 2em;
-    width: 20vw;
+    width: 15vw;
     aspect-ratio: 1/1;
     border: 1px solid $shadow-50;
     border-radius: 30px;
@@ -200,6 +200,8 @@ footer article.footer-link-container div.footer-link-icon-container{
 }
 footer article.footer-link-container div.footer-link-icon-container img{
     border-radius: 50%;
+    width: 2.5em;
+    height: 2.5em;
 }
 footer article.footer-link-container div.footer-link-content{
     @extend %flex-container-column;
