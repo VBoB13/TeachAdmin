@@ -4,6 +4,8 @@ import { render } from "react-dom";
 import EditForm from "./forms/EditAccount";
 import ToggleCheckBox from "../togglers/toggleCheckbox";
 
+import { isResponseOK } from "../../helpers/auth";
+
 class Accounts extends Component{
   constructor(props){
     super(props);
@@ -33,7 +35,7 @@ class Accounts extends Component{
       },
       credentials: "same-origin",
     })
-    .then(this.props.isResponseOK)
+    .then(isResponseOK)
     .then((data) => {
         this.setState({
             loaded: true,
@@ -110,10 +112,7 @@ class Accounts extends Component{
           </div>
           <div className="row">
             <div className="col-12">
-              <EditForm
-                data={this.state.data}
-                isResponseOK={this.props.isResponseOK}
-              />
+              <EditForm data={this.state.data} />
             </div>
           </div>
         </div>

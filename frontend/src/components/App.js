@@ -11,6 +11,11 @@ import {
 
 import Cookies from "universal-cookie";
 
+import { 
+  getSessionData,
+  login as authLogin,
+  logout as authLogout } from "../helpers/auth";
+
 import Navbar from "./navbar/Navbar";
 import HomePage from "./homepage/HomePage";
 import Authenticate from "./accounts/Authenticate";
@@ -36,32 +41,7 @@ export default class App extends Component {
   }
 
   getSession() {
-    fetch("/accounts/session/", {
-      credentials: "same-origin",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.isAuthenticated) {
-          this.setState({
-            isAuthenticated: true,
-            user: data.user,
-            user_link: data.user_link
-          });
-        } else {
-          this.setState({
-            isAuthenticated: false,
-            user: "",
-            user_link: ""
-          });
-        }
-      })
-      .catch((err) => {
-        this.setState({
-          error: "Server session call failed."
-        });
-        console.log(err);
-        console.error(err);
-      });
+    this.setState(getSessionData());
   }
 
   componentDidMount() {
@@ -82,56 +62,15 @@ export default class App extends Component {
   login(event) {
     // Preventing default event actions
     event.preventDefault();
-    // Reading the values from input fields
-    let form_username = document.getElementById("username").value;
-    let form_password = document.getElementById("password").value;
-
-    // Sending request to server to login
-    fetch("/accounts/login/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-CSRFToken": cookies.get("csrftoken"),
-      },
-      credentials: "same-origin",
-      body: JSON.stringify({
-        username: form_username,
-        password: form_password,
-      }),
-    })
-      .then(this.isResponseOK)
-      .then((data) => {
-        console.log(data);
-        this.setState({
-          isAuthenticated: true,
-          error: "",
-          user: data.user,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        this.setState({
-          error: "Wrong username or password!",
-        });
-      });
+    // Setting the state to whatever response is given from authLogin
+    this.setState(authLogin());
   }
 
   logout(event) {
+    // Preventing default event actions
     event.preventDefault();
-    fetch("/accounts/logout/", {
-      credentials: "same-origin",
-    })
-      .then(this.isResponseOK)
-      .then((data) => {
-        console.log(data);
-        this.setState({
-          isAuthenticated: false,
-          user: "",
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // Setting the state to whatever response is given from authLogout
+    this.setState(authLogout());
   }
 
   render() {
@@ -149,7 +88,7 @@ export default class App extends Component {
           <div className="row py-2">
             <Switch>
               <Route path="/teachers">
-                <Accounts isResponseOK={this.isResponseOK} />
+                <Accounts />
               </Route>
               <Route path="/">
                 <HomePage
@@ -170,8 +109,15 @@ export default class App extends Component {
             login={this.login}
           />
         </div>
-        <GuestHome />
-          {/* <Authenticate
+        <Switch>
+          <Route path="/about">
+            <About />
+          </Route>
+          <Route path="/">
+            <GuestHome />
+          </Route>
+        </Switch>
+        {/* <Authenticate
             isResponseOK={this.isResponseOK}
             login={this.login}
             error={this.state.error}
