@@ -256,6 +256,7 @@ h2.subslogan {
 }
 
 span.title-underline{
+    display: inline;
     background-image: linear-gradient(120deg, $main-purple 0%, $main-blue 100%);
     background-repeat: no-repeat;
     background-size: 100% 0.15em;
@@ -271,15 +272,22 @@ span.title-underline{
     height: 201px;
 }
 
+main.container-main{
+    @extend %flex-container;
+    flex-wrap: wrap;
+    height: max-content;
+    width: 100%;
+    padding: 2em;
+}
+main.container-main p.longer-text{
+    margin-bottom: 2em;
+}
+
+
 
 /* MEDIA queries */
 
 @media screen and (min-width: 600px) and (max-width: 949px){
-    .navlink-container{
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
     #register-button > .standard-button{
         font-size: 0.8em;
     }
@@ -288,6 +296,7 @@ span.title-underline{
     }
     a.navigation-link{
         font-size: 1em;
+        margin: 0.5em;
     }
     main.container-guesthome-main{
         margin-top: 50px;
@@ -302,19 +311,15 @@ span.title-underline{
 }
 
 @media screen and (max-width: 600px) {
-    .navlink-container{
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
     #register-button > .standard-button{
-        font-size: 0.8em;
+        font-size: 0.5em;
     }
     a.logo-link{
-        font-size: 1.5em;
+        font-size: 0.8em;
     }
     a.navigation-link{
-        font-size: 1em;
+        font-size: 0.8em;
+        margin: 0.5em;
     }
     main.container-guesthome-main{
         margin-top: 50px;
@@ -326,5 +331,11 @@ span.title-underline{
     }
     footer article.footer-link-container{
         width: 30vw;
+    }
+    main.container-main p.longer-text{
+        font-size: 0.8em;
+    }
+    .slogan {
+        font-size: 2em;
     }
 }

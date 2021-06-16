@@ -21,14 +21,13 @@ import HomePage from "./homepage/HomePage";
 import Authenticate from "./accounts/Authenticate";
 import Accounts from "./accounts/Accounts";
 import GuestHome from "./homepage/GuestHome";
+import About from "./homepage/About";
 
-const cookies = new Cookies();
 
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.getSession = this.getSession.bind(this);
-    this.isResponseOK = this.isResponseOK.bind(this);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
 
@@ -46,17 +45,6 @@ export default class App extends Component {
 
   componentDidMount() {
     this.getSession();
-  }
-
-  isResponseOK(response) {
-    if (response.status >= 200 && response.status <= 299) {
-      return response.json();
-    } else if (response.status >= 400 && response.status <= 499) {
-      return response.json();
-    } else {
-      console.log(response);
-      throw new Error("Response ERROR!");
-    }
   }
 
   login(event) {
@@ -87,7 +75,7 @@ export default class App extends Component {
           </div>
           <div className="row py-2">
             <Switch>
-              <Route path="/teachers">
+              <Route path="/teachers/">
                 <Accounts />
               </Route>
               <Route path="/">
@@ -110,7 +98,7 @@ export default class App extends Component {
           />
         </div>
         <Switch>
-          <Route path="/about">
+          <Route path="/about/">
             <About />
           </Route>
           <Route path="/">
@@ -118,7 +106,6 @@ export default class App extends Component {
           </Route>
         </Switch>
         {/* <Authenticate
-            isResponseOK={this.isResponseOK}
             login={this.login}
             error={this.state.error}
           /> */}

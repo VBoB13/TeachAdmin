@@ -50,7 +50,7 @@ function FooterLinks(){
 
 export default function Footer(){
     return (
-        <div class="container-fluid footer-container">
+        <div className="container-fluid footer-container">
             <FooterLinks />
         </div>
     );
