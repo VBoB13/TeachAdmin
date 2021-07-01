@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
+import { login } from "../../../helpers/auth";
 
-import Cookies from "universal-cookie";
-
-const cookies = new Cookies();
 
 class LoginForm extends Component {
   constructor(props) {
@@ -16,20 +14,26 @@ class LoginForm extends Component {
     // Register Component methods
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
+    this.login = this.login.bind(this);
   }
 
   handleUsernameChange(event) {
     this.setState({ username: event.target.value });
   }
+  
   handlePasswordChange(event) {
     this.setState({ password: event.target.value });
+  }
+
+  login(event){
+    event.preventDefault();
+    let loginObj = login(this.props.login);
   }
 
   render() {
     return (
       <div className="form-content">
-        <h1 className="display-4 m-3">Login</h1>
-        <form className="rounded" onSubmit={this.props.login}>
+        <form method="POST" className="rounded" onSubmit={this.login}>
           <div className="form-group">
             <label htmlFor="username">Username</label>
             <input
@@ -39,6 +43,7 @@ class LoginForm extends Component {
               className="form-control"
               value={this.state.username}
               onChange={this.handleUsernameChange}
+              autoFocus
             />
           </div>
           <div className="form-group">
@@ -54,7 +59,7 @@ class LoginForm extends Component {
           </div>
           <input 
             type="submit" 
-            className="btn btn-primary"
+            className="standard-button"
             value="Login" />
         </form>
       </div>

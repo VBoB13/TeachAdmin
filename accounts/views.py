@@ -152,6 +152,7 @@ def login_view(request):
     login(request, user)
     teacher = get_object_or_404(Teacher, user=user)
     return JsonResponse({
+        "isAuthenticated": True,
         "user": user.get_username(),
         "user_link": teacher.get_absolute_url(),
         "detail": "Welcome, {}.".format(user.get_username())

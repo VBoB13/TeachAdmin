@@ -10,11 +10,13 @@ body {
   display: flex;
 }
 
-main.container-main, footer.footer, .navlink-container, main.container-guesthome-main, footer article.footer-link-container div.footer-link-content, footer article.footer-link-container {
+main.container-main-center, main.container-main, footer.footer, .navlink-container, div.form-content,
+div.form-content form, main.container-guesthome-main, footer article.footer-link-container div.footer-link-content, footer article.footer-link-container {
   display: flex;
 }
 
-main.container-guesthome-main, footer article.footer-link-container div.footer-link-content, footer article.footer-link-container {
+div.form-content,
+div.form-content form, main.container-guesthome-main, footer article.footer-link-container div.footer-link-content, footer article.footer-link-container {
   flex-direction: column;
 }
 
@@ -22,7 +24,7 @@ a.logo-link {
   display: block;
   font-size: 2em;
   font-weight: 800;
-  text-shadow: 0.2em 0.2em 0.2em #00000044;
+  text-shadow: 0.1em 0.1em 0.1em #00000044;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #00000087;
 }
@@ -47,7 +49,7 @@ a.navigation-button-link-active, a.navigation-button-link, a.navigation-link-act
   font-weight: 600;
   text-align: center;
   color: #E1E1FF;
-  box-shadow: 0.2em 0.2em 0.2em #00000044;
+  box-shadow: 0.1em 0.1em 0.1em #00000044;
   border-radius: 0.5em;
   align-self: center;
 }
@@ -105,7 +107,7 @@ a.navigation-button-link-active {
 
 /* ----- Footer-related definitions ----- */
 div.footer-container {
-  margin-top: 3em;
+  margin-top: 6em;
 }
 
 footer.footer {
@@ -209,6 +211,7 @@ span.title-underline:hover {
   height: 201px;
 }
 
+/* ------ About ------ */
 main.container-main {
   flex-wrap: wrap;
   height: max-content;
@@ -218,6 +221,53 @@ main.container-main {
 
 main.container-main p.longer-text {
   margin-bottom: 2em;
+}
+
+/* ------ Login ------ */
+main.container-main-center {
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  padding: 2em;
+}
+
+div.form-content,
+div.form-content form {
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+div.form-content {
+  margin-top: 5em;
+  width: 45%;
+}
+
+div.form-content form,
+div.form-content form div.form-group {
+  width: 100%;
+}
+
+div.form-content input[type=submit] {
+  align-self: center;
+  border-radius: 2em;
+  padding: 0.25em 3em;
+}
+
+div.form-group input.form-control {
+  width: 100%;
+  border-radius: 2em;
+}
+
+div.form-group label {
+  margin-bottom: 0.1em;
+  font-weight: 600;
+}
+
+#computerAuth {
+  aspect-ratio: 50/29;
+  width: 20em;
 }
 
 /* MEDIA queries */

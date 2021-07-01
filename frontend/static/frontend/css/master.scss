@@ -53,7 +53,7 @@ body {
     display: block;
     font-size: 2em;
     font-weight: 800;
-    text-shadow: 0.2em 0.2em 0.2em $shadow-30;
+    text-shadow: 0.1em 0.1em 0.1em $shadow-30;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: $shadow-50;
 }
@@ -78,7 +78,7 @@ body {
     font-weight: 600;
     text-align: center;
     color: $light-bg;
-    box-shadow: 0.2em 0.2em 0.2em $shadow-30;
+    box-shadow: 0.1em 0.1em 0.1em $shadow-30;
     border-radius: 0.5em;
     align-self: center;
 }
@@ -166,7 +166,7 @@ a.navigation-button-link-active{
 /* ----- Footer-related definitions ----- */
 
 div.footer-container{
-    margin-top: 3em;
+    margin-top: 6em;
 }
 footer.footer {
     @extend %flex-container;
@@ -272,6 +272,8 @@ span.title-underline{
     height: 201px;
 }
 
+/* ------ About ------ */
+
 main.container-main{
     @extend %flex-container;
     flex-wrap: wrap;
@@ -283,6 +285,53 @@ main.container-main p.longer-text{
     margin-bottom: 2em;
 }
 
+
+/* ------ Login ------ */
+
+main.container-main-center{
+    @extend %flex-container;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    padding: 2em;
+}
+
+div.form-content,
+div.form-content form
+{
+    @extend %flex-container-column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+div.form-content{
+    margin-top: 5em;
+    width: 45%;
+}
+div.form-content form,
+div.form-content form div.form-group
+{
+    width: 100%;
+}
+div.form-content input[type="submit"]{
+    align-self: center;
+    border-radius: 2em;
+    padding: 0.25em 3em;
+}
+div.form-group input.form-control{
+    width: 100%;
+    border-radius: 2em;
+}
+div.form-group label{
+    margin-bottom: 0.1em;
+    font-weight: 600;
+}
+
+#computerAuth{
+    aspect-ratio: 50/29;
+    width: 20em;
+}
 
 
 /* MEDIA queries */

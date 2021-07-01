@@ -13,13 +13,13 @@ export function isResponseOK(response) {
     }
   }
 
-export function login() {
+export function login(componentLogin) {
     // Reading the values from input fields
     let form_username = document.getElementById("username").value;
     let form_password = document.getElementById("password").value;
 
     // Setting up variable to return to App
-    let loginData = {};
+    var loginData = {};
 
     // Sending request to server to login
     fetch("/accounts/login/", {
@@ -36,13 +36,15 @@ export function login() {
     })
       .then(isResponseOK)
       .then((data) => {
-        console.log(data);
         loginData = {
-            isAuthenticated: true,
+            isAuthenticated: data.isAuthenticated,
             user: data.user,
             user_link: data.user_link,
             error: "",
         };
+        console.log('loginData SET to:');
+        console.log(loginData);
+        componentLogin(loginData);
       })
       .catch((err) => {
         console.log(err);
@@ -54,8 +56,12 @@ export function login() {
     return loginData;
 }
 
-export function logout(){
+export function logout(event){
+    // Preventing Event default behavior
+    event.preventDefault();
+    // Initiating an empty object to store the login data
     let userData = {};
+    // Authentication process START
     fetch("/accounts/logout/", {
       credentials: "same-origin",
     })

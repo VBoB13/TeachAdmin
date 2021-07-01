@@ -8,6 +8,8 @@ import {
   NavLink
 } from "react-router-dom";
 
+import { logout } from "../../helpers/auth";
+
 import NavbarLink from "./NavbarLinks";
 
 const navlinks = ["/scores/", "/curriculum/", "/observatory/", "/account/"];
@@ -17,7 +19,7 @@ function LogoutButton(props){
     <button 
       id="navbar_logout"
       href="" 
-      onClick={props.logout} 
+      onClick={logout} 
       className="standard-button">
         Logout
     </button>
@@ -26,7 +28,14 @@ function LogoutButton(props){
 
 function generateNavLinks(){
   let navlinks_list = navlinks.map((url_string, index) => {
-    return <NavbarLink url_string={url_string} key={index} />;
+    return (
+      <NavLink
+        to={url_string}
+        className="navigation-link"
+        activeClassName="navigation-link-active"
+        key={index}
+      />
+    );
   });
   return navlinks_list;
 }
@@ -34,21 +43,13 @@ function generateNavLinks(){
 function Navbar(props){
   if(props.isAuthenticated){
     return (
-      <div className="container-fluid">
-        <div className="row align-items-center justify-content-center p-2">
-          <div className="col-md-3 col-sm-8 col-xs-6">
-            <Link to="/" className="logo-link">
-              TeachAdmin
-            </Link>
-          </div>
-          <div className="col-md-6 col-sm-12 col-xs-12">
-            <div className="navlink-container">{generateNavLinks()}</div>
-          </div>
-          <div className="col-md-3 col-sm-8 col-xs-6">
-            <LogoutButton logout={props.logout} />
-          </div>
-        </div>
-      </div>
+      <nav className="navlink-container">
+        <Link to="/" className="logo-link">
+          TeachAdmin
+        </Link>
+        {generateNavLinks()}
+        <LogoutButton />
+      </nav>
     );
   }
   return (
