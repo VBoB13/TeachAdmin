@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 import { login } from "../../../helpers/auth";
 
-
 class LoginForm extends Component {
   constructor(props) {
     super(props);
@@ -20,12 +19,12 @@ class LoginForm extends Component {
   handleUsernameChange(event) {
     this.setState({ username: event.target.value });
   }
-  
+
   handlePasswordChange(event) {
     this.setState({ password: event.target.value });
   }
 
-  login(event){
+  login(event) {
     event.preventDefault();
     let loginObj = login(this.props.login);
   }
@@ -57,10 +56,7 @@ class LoginForm extends Component {
               onChange={this.handlePasswordChange}
             />
           </div>
-          <input 
-            type="submit" 
-            className="standard-button"
-            value="Login" />
+          <input type="submit" className="standard-button" value="Login" />
         </form>
       </div>
     );

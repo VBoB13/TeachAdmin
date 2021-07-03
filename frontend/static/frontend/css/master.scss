@@ -13,12 +13,12 @@ $dark-gray: #666666;
 $gray: #b7b7b7;
 $light-gray: #f6f6f5;
 
-$extra-light-bg: #ECECEC;
-$light-bg: #E1E1FF;
+$extra-light-bg: #ececec;
+$light-bg: #e1e1ff;
 $main-purple: #4020ff;
 $main-purple-trans: #4020ff87;
-$main-blue: #0078FF;
-$main-blue-trans: #0078FF87;
+$main-blue: #0078ff;
+$main-blue-trans: #0078ff87;
 
 $help_text_size: 12px;
 $standard_text_size: 16px;
@@ -29,194 +29,194 @@ $shadow-30: #00000044;
 
 // Major but basic settings
 body {
-    background-color: $light-bg;
-    font-size: 18px;
-    font-family: 'Poppins', sans-serif;
+  background-color: $light-bg;
+  font-size: 18px;
+  font-family: "Poppins", sans-serif;
 }
 
 #app {
-    width: 100%;
-    height: 100%;
-    display: flex;
+  width: 100%;
+  height: 100%;
+  display: flex;
 }
 
 // Variables for convenience and DRY practices
-%flex-container{
-    display: flex;
+%flex-container {
+  display: flex;
 }
-%flex-container-column{
-    @extend %flex-container;
-    flex-direction: column;
+%flex-container-column {
+  @extend %flex-container;
+  flex-direction: column;
 }
 
 %logo-style {
-    display: block;
-    font-size: 2em;
-    font-weight: 800;
-    text-shadow: 0.1em 0.1em 0.1em $shadow-30;
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: $shadow-50;
+  display: block;
+  font-size: 2em;
+  font-weight: 800;
+  text-shadow: 0.1em 0.1em 0.1em $shadow-30;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: $shadow-50;
 }
 
-%big-title{
-    font-size: 3em;
-    font-weight: 600;
+%big-title {
+  font-size: 3em;
+  font-weight: 600;
 }
 
 %navigation-link {
-    display: inline-block;
-    font-size: 1.5em;
-    font-weight: 600;
-    text-align: center;
-    align-self: center;
+  display: inline-block;
+  font-size: 1.5em;
+  font-weight: 600;
+  text-align: center;
+  align-self: center;
 }
 
 %standard-button {
-    font-size: 1.5rem;
-    padding: 0.5em;
-    border: 1px solid $shadow-50;
-    font-weight: 600;
-    text-align: center;
-    color: $light-bg;
-    box-shadow: 0.1em 0.1em 0.1em $shadow-30;
-    border-radius: 0.5em;
-    align-self: center;
+  font-size: 1.5rem;
+  padding: 0.5em;
+  border: 1px solid $shadow-50;
+  font-weight: 600;
+  text-align: center;
+  color: $light-bg;
+  box-shadow: 0.1em 0.1em 0.1em $shadow-30;
+  border-radius: 0.5em;
+  align-self: center;
 }
 
-%big-svg{
-    display: block;
-    box-sizing: border-box;
+%big-svg {
+  display: block;
+  box-sizing: border-box;
 }
 
 %unit-spacing {
-    padding: 10px;
-    margin: 5px;
+  padding: 10px;
+  margin: 5px;
 }
 
 %info-unit-color {
-    background-color: $navy-blue;
+  background-color: $navy-blue;
 }
 
 %content-unit-color {
-    background-color: $navy-blue;
-    color: $light-gray;
+  background-color: $navy-blue;
+  color: $light-gray;
 }
 
 %bordered-info-content {
-    border: $shadow-50 solid 2px;
+  border: $shadow-50 solid 2px;
 }
-
 
 /* ----- Navbar-related definitions ----- */
 
 a.logo-link {
-    @extend %logo-style;
-    color: $main-purple;
-    &:hover{
-        color: $main-blue;
-    }
-}
-a.navigation-link{
-    @extend %navigation-link;
+  @extend %logo-style;
+  color: $main-purple;
+  &:hover {
     color: $main-blue;
-    &:hover{
-        color: $main-purple;
-    }
+  }
 }
-a.navigation-link-active{
-    @extend %navigation-link;
+a.navigation-link {
+  @extend %navigation-link;
+  color: $main-blue;
+  &:hover {
     color: $main-purple;
-    &:hover{
-        color: $main-blue;
-    }
+  }
 }
-a.navigation-button-link{
-    @extend %navigation-link;
-    color: $light-bg;
+a.navigation-link-active {
+  @extend %navigation-link;
+  color: $main-purple;
+  &:hover {
+    color: $main-blue;
+  }
 }
-a.navigation-button-link-active{
-    @extend %navigation-link;
-    color: $main-purple;
+a.navigation-button-link {
+  @extend %navigation-link;
+  color: $light-bg;
+}
+a.navigation-button-link-active {
+  @extend %navigation-link;
+  color: $main-purple;
 }
 
 .standard-button {
-    @extend %standard-button;
-    background-color: $main-blue;
-    &:hover{
-        background-color: $main-purple;
-    }
-}
-.standard-button-purple{
-    @extend %standard-button;
+  @extend %standard-button;
+  background-color: $main-blue;
+  &:hover {
     background-color: $main-purple;
-    &:hover{
-        background-color: $main-blue;
-    }
+  }
+}
+.standard-button-purple {
+  @extend %standard-button;
+  background-color: $main-purple;
+  &:hover {
+    background-color: $main-blue;
+  }
 }
 
-.navlink-container{
-    @extend %flex-container;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
+.navlink-container {
+  @extend %flex-container;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
 }
-
 
 /* ----- Footer-related definitions ----- */
 
-div.footer-container{
-    margin-top: 6em;
+div.footer-container {
+  margin-top: 6em;
 }
 footer.footer {
-    @extend %flex-container;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
+  @extend %flex-container;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
 }
-footer.footer a{
-    color: inherit;
+footer.footer a {
+  color: inherit;
 }
-footer article.footer-link-container{
-    @extend %flex-container-column;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    padding-top: 2em;
-    width: 15vw;
-    aspect-ratio: 1/1;
-    border: 1px solid $shadow-50;
-    border-radius: 30px;
-    position: relative;
-    background-color: $extra-light-bg;
+footer article.footer-link-container {
+  @extend %flex-container-column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-top: 2em;
+  width: 15vw;
+  aspect-ratio: 1/1;
+  border: 1px solid $shadow-50;
+  border-radius: 30px;
+  position: relative;
+  background-color: $extra-light-bg;
 }
-footer article.footer-link-container div.footer-link-icon-container{
-    background-color: $extra-light-bg;
-    border: 1px solid $shadow-50;
-    border-radius: 50%;
-    position: absolute;
-    top: -25px;
+footer article.footer-link-container div.footer-link-icon-container {
+  background-color: $extra-light-bg;
+  border: 1px solid $shadow-50;
+  border-radius: 50%;
+  position: absolute;
+  top: -25px;
 }
-footer article.footer-link-container div.footer-link-icon-container img{
-    border-radius: 50%;
-    width: 2.5em;
-    height: 2.5em;
+footer article.footer-link-container div.footer-link-icon-container img {
+  border-radius: 50%;
+  width: 2.5em;
+  height: 2.5em;
 }
-footer article.footer-link-container div.footer-link-content{
-    @extend %flex-container-column;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
+footer article.footer-link-container div.footer-link-content {
+  @extend %flex-container-column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
 }
-footer article.footer-link-container div.footer-link-content h5.footer-link-title{
-    font-weight: 600;
+footer
+  article.footer-link-container
+  div.footer-link-content
+  h5.footer-link-title {
+  font-weight: 600;
 }
-footer article.footer-link-container div.footer-link-content p{
-    text-align: center;
-    font-size: 0.8rem;
+footer article.footer-link-container div.footer-link-content p {
+  text-align: center;
+  font-size: 0.8rem;
 }
-
 
 /* Here will first be up being categorized by
     page because that's most likely how the
@@ -226,165 +226,161 @@ footer article.footer-link-container div.footer-link-content p{
 
 /* ------ GuestHome ------ */
 
-main.container-guesthome-main{
-    @extend %flex-container-column;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items:flex-start;
-    align-content:center;
-    width: 100%;
-    max-height: 500px;
-    margin-top: 150px;
+main.container-guesthome-main {
+  @extend %flex-container-column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  align-content: center;
+  width: 100%;
+  max-height: 500px;
+  margin-top: 150px;
 }
-main.container-guesthome-main a{
-    display:inline-block;
-    width:max-content;
+main.container-guesthome-main a {
+  display: inline-block;
+  width: max-content;
 }
 
-.slogan{
-    @extend %big-title;
+.slogan {
+  @extend %big-title;
 }
 
 h2.subslogan {
-    font-size: 1.25em;
-    color: $shadow-50;
+  font-size: 1.25em;
+  color: $shadow-50;
 }
 
 .slogan,
 h2.subslogan {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
-span.title-underline{
-    display: inline;
-    background-image: linear-gradient(120deg, $main-purple 0%, $main-blue 100%);
-    background-repeat: no-repeat;
-    background-size: 100% 0.15em;
-    background-position: 0 88%;
-    transition: background-size 0.25s ease-in;
-    &:hover {
-        background-size: 100% 88%;
-        color: $light-bg;
-    }
+span.title-underline {
+  display: inline;
+  background-image: linear-gradient(120deg, $main-purple 0%, $main-blue 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 0.15em;
+  background-position: 0 88%;
+  transition: background-size 0.25s ease-in;
+  &:hover {
+    background-size: 100% 88%;
+    color: $light-bg;
+  }
 }
 
-#guywithcat{
-    height: 201px;
+#guywithcat {
+  height: 201px;
 }
 
 /* ------ About ------ */
 
-main.container-main{
-    @extend %flex-container;
-    flex-wrap: wrap;
-    height: max-content;
-    width: 100%;
-    padding: 2em;
+main.container-main {
+  @extend %flex-container;
+  flex-wrap: wrap;
+  height: max-content;
+  width: 100%;
+  padding: 2em;
 }
-main.container-main p.longer-text{
-    margin-bottom: 2em;
+main.container-main p.longer-text {
+  margin-bottom: 2em;
 }
-
 
 /* ------ Login ------ */
 
-main.container-main-center{
-    @extend %flex-container;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-    padding: 2em;
+main.container-main-center {
+  @extend %flex-container;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  padding: 2em;
 }
 
 div.form-content,
-div.form-content form
-{
-    @extend %flex-container-column;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-start;
+div.form-content form {
+  @extend %flex-container-column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
 }
-div.form-content{
-    margin-top: 5em;
-    width: 45%;
+div.form-content {
+  margin-top: 5em;
+  width: 45%;
 }
 div.form-content form,
-div.form-content form div.form-group
-{
-    width: 100%;
+div.form-content form div.form-group {
+  width: 100%;
 }
-div.form-content input[type="submit"]{
-    align-self: center;
-    border-radius: 2em;
-    padding: 0.25em 3em;
+div.form-content input[type="submit"] {
+  align-self: center;
+  border-radius: 2em;
+  padding: 0.25em 3em;
 }
-div.form-group input.form-control{
-    width: 100%;
-    border-radius: 2em;
+div.form-group input.form-control {
+  width: 100%;
+  border-radius: 2em;
 }
-div.form-group label{
-    margin-bottom: 0.1em;
-    font-weight: 600;
-}
-
-#computerAuth{
-    aspect-ratio: 50/29;
-    width: 20em;
+div.form-group label {
+  margin-bottom: 0.1em;
+  font-weight: 600;
 }
 
+#computerAuth {
+  aspect-ratio: 50/29;
+  width: 20em;
+}
 
 /* MEDIA queries */
 
-@media screen and (min-width: 600px) and (max-width: 949px){
-    #register-button > .standard-button{
-        font-size: 0.8em;
-    }
-    a.logo-link{
-        font-size: 1.5em;
-    }
-    a.navigation-link{
-        font-size: 1em;
-        margin: 0.5em;
-    }
-    main.container-guesthome-main{
-        margin-top: 50px;
-        align-items: center;
-    }
-    #guywithcat{
-        display: none;
-    }
-    footer article.footer-link-container{
-        width: 20vw;
-    }
+@media screen and (min-width: 600px) and (max-width: 949px) {
+  #register-button > .standard-button {
+    font-size: 0.8em;
+  }
+  a.logo-link {
+    font-size: 1.5em;
+  }
+  a.navigation-link {
+    font-size: 1em;
+    margin: 0.5em;
+  }
+  main.container-guesthome-main {
+    margin-top: 50px;
+    align-items: center;
+  }
+  #guywithcat {
+    display: none;
+  }
+  footer article.footer-link-container {
+    width: 20vw;
+  }
 }
 
 @media screen and (max-width: 600px) {
-    #register-button > .standard-button{
-        font-size: 0.5em;
-    }
-    a.logo-link{
-        font-size: 0.8em;
-    }
-    a.navigation-link{
-        font-size: 0.8em;
-        margin: 0.5em;
-    }
-    main.container-guesthome-main{
-        margin-top: 50px;
-        align-items: center;
-        max-height: max-content;
-    }
-    #guywithcat{
-        display: none;
-    }
-    footer article.footer-link-container{
-        width: 30vw;
-    }
-    main.container-main p.longer-text{
-        font-size: 0.8em;
-    }
-    .slogan {
-        font-size: 2em;
-    }
+  #register-button > .standard-button {
+    font-size: 0.5em;
+  }
+  a.logo-link {
+    font-size: 0.8em;
+  }
+  a.navigation-link {
+    font-size: 0.8em;
+    margin: 0.5em;
+  }
+  main.container-guesthome-main {
+    margin-top: 50px;
+    align-items: center;
+    max-height: max-content;
+  }
+  #guywithcat {
+    display: none;
+  }
+  footer article.footer-link-container {
+    width: 30vw;
+  }
+  main.container-main p.longer-text {
+    font-size: 0.8em;
+  }
+  .slogan {
+    font-size: 2em;
+  }
 }

@@ -1,20 +1,22 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
-import { 
-  BrowserRouter as Router, 
-  Switch, 
-  Route, 
-  Link, 
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
   Redirect,
   useParams,
-  useRouteMatch } from "react-router-dom";
+  useRouteMatch,
+} from "react-router-dom";
 
 import Cookies from "universal-cookie";
 
-import { 
+import {
   getSessionData,
   login as authLogin,
-  logout as authLogout } from "../helpers/auth";
+  logout as authLogout,
+} from "../helpers/auth";
 
 import Navbar from "./navbar/Navbar";
 import HomePage from "./homepage/HomePage";
@@ -23,7 +25,6 @@ import Accounts from "./accounts/Accounts";
 import GuestHome from "./homepage/GuestHome";
 import About from "./homepage/About";
 import Login from "./accounts/Login";
-
 
 export default class App extends Component {
   constructor(props) {
@@ -39,12 +40,13 @@ export default class App extends Component {
     };
   }
 
-  getSession() {
-    this.setState(getSessionData());
+  async getSession() {
+    let sessionData = getSessionData();
+    await sessionData;
+    this.setState(sessionData);
   }
 
   login(loginObj) {
-    console.log("Inside App's login()-method: ")
     console.log(loginObj);
     this.setState(loginObj);
   }
@@ -104,10 +106,6 @@ export default class App extends Component {
             <GuestHome />
           </Route>
         </Switch>
-        {/* <Authenticate
-            login={this.login}
-            error={this.state.error}
-          /> */}
       </div>
     );
   }
