@@ -31,6 +31,7 @@ export default class App extends Component {
     super(props);
     this.getSession = this.getSession.bind(this);
     this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
 
     this.state = {
       isAuthenticated: false,
@@ -41,14 +42,19 @@ export default class App extends Component {
   }
 
   async getSession() {
-    let sessionData = getSessionData();
-    await sessionData;
+    const sessionData = await getSessionData();
     this.setState(sessionData);
   }
 
   login(loginObj) {
-    console.log(loginObj);
+    console.log({ loginObj });
     this.setState(loginObj);
+  }
+
+  async logout() {
+    const logoutObj = await authLogout();
+    console.log({ logoutObj });
+    this.setState(logoutObj);
   }
 
   componentDidMount() {
@@ -70,6 +76,7 @@ export default class App extends Component {
               isAuthenticated={this.state.isAuthenticated}
               user={this.state.user}
               user_link={this.state.user_link}
+              logout={this.logout}
             />
           </div>
           <Switch>

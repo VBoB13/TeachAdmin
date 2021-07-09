@@ -24,9 +24,10 @@ class LoginForm extends Component {
     this.setState({ password: event.target.value });
   }
 
-  login(event) {
+  async login(event) {
     event.preventDefault();
-    let loginObj = login(this.props.login);
+    const loginObj = await login();
+    this.props.login(loginObj);
   }
 
   render() {

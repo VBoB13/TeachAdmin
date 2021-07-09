@@ -5,28 +5,27 @@ import {
   Switch,
   Route,
   Link,
-  NavLink
+  NavLink,
 } from "react-router-dom";
-
-import { logout } from "../../helpers/auth";
 
 import NavbarLink from "./NavbarLinks";
 
 const navlinks = ["/scores/", "/curriculum/", "/observatory/", "/account/"];
 
-function LogoutButton(props){
+function LogoutButton(props) {
   return (
-    <button 
+    <button
       id="navbar_logout"
-      href="" 
-      onClick={logout} 
-      className="standard-button">
-        Logout
+      href=""
+      onClick={props.logout}
+      className="standard-button"
+    >
+      Logout
     </button>
   );
 }
 
-function generateNavLinks(){
+function generateNavLinks() {
   let navlinks_list = navlinks.map((url_string, index) => {
     return (
       <NavLink
@@ -40,15 +39,15 @@ function generateNavLinks(){
   return navlinks_list;
 }
 
-function Navbar(props){
-  if(props.isAuthenticated){
+function Navbar(props) {
+  if (props.isAuthenticated) {
     return (
       <nav className="navlink-container">
         <Link to="/" className="logo-link">
           TeachAdmin
         </Link>
         {generateNavLinks()}
-        <LogoutButton />
+        <LogoutButton logout={props.logout} />
       </nav>
     );
   }

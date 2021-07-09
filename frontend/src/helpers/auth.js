@@ -14,7 +14,7 @@ export function isResponseOK(response) {
   }
 }
 
-export async function login(componentLogin) {
+export async function login() {
   // Reading the values from input fields
   let form_username = document.getElementById("username").value;
   let form_password = document.getElementById("password").value;
@@ -35,7 +35,7 @@ export async function login(componentLogin) {
   })
     .then(isResponseOK)
     .then((data) => {
-      console.log(data);
+      console.log({ data });
       return {
         isAuthenticated: data.isAuthenticated,
         user: data.user,
@@ -44,33 +44,26 @@ export async function login(componentLogin) {
       };
     })
     .catch((err) => {
-      console.log(err);
+      console.log({ err });
       return {
         isAuthenticated: false,
         error: "Wrong username or password!",
       };
     });
 
-  // Using the App component's login() method to make sure the
-  // App's state (this.state) gets updated.
-  componentLogin(loginData);
   return loginData;
 }
 
-export function logout(event) {
-  // Preventing Event default behavior
-  event.preventDefault();
-  // Initiating an empty object to store the login data
-  let userData = {};
+export async function logout() {
   // Authentication process START
-  fetch("/accounts/logout/", {
+  const userData = await axios("/accounts/logout/", {
     credentials: "same-origin",
   })
     .then(isResponseOK)
     .then((data) => {
       console.log(data);
-      userData = {
-        isAuthenticated: false,
+      return {
+        isAuthenticated: data.isAuthenticated,
         user: "",
         user_link: "",
         error: "",
@@ -78,7 +71,7 @@ export function logout(event) {
     })
     .catch((err) => {
       console.log(err);
-      userData = {
+      return {
         isAuthenticated: false,
         user: "",
         user_link: "",
@@ -88,22 +81,25 @@ export function logout(event) {
   return userData;
 }
 
-export function getSessionData() {
-  let sessionData = {};
-  fetch("/accounts/session/", {
+export async function getSessionData() {
+  const sessionData = await axios({
+    method: "GET",
+    url: "/accounts/session/",
+    headers: {
+      "Content-Type": "application/json",
+    },
     credentials: "same-origin",
   })
-    .then((res) => res.json())
+    .then(isResponseOK)
     .then((data) => {
       if (data.isAuthenticated) {
-        sessionData = {
+        return {
           isAuthenticated: true,
           user: data.user,
           user_link: data.user_link,
         };
-        console.log(sessionData);
       } else {
-        sessionData = {
+        return {
           isAuthenticated: false,
           user: "",
           user_link: "",
@@ -111,10 +107,10 @@ export function getSessionData() {
       }
     })
     .catch((err) => {
-      sessionData = {
+      console.error(err);
+      return {
         error: "Server session call failed.",
       };
-      console.error(err);
     });
-  return new Promise((resolve) => sessionData);
+  return sessionData;
 }
