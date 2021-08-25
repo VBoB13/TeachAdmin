@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 
+import axios from "axios";
+
 import EditForm from "./forms/EditAccount";
 import ToggleCheckBox from "../togglers/toggleCheckbox";
 
 import { isResponseOK } from "../../helpers/auth";
 
-class Accounts extends Component{
-  constructor(props){
+class Accounts extends Component {
+  constructor(props) {
     super(props);
 
     // Registering component's methods
@@ -17,38 +19,58 @@ class Accounts extends Component{
     this.toggleEdit = this.toggleEdit.bind(this);
 
     this.state = {
-        loaded: false,
-        data: null,
-        placeholder: "Now loading, please wait...",
-        edit: false
+      loaded: false,
+      data: null,
+      placeholder: "Now loading, please wait...",
+      edit: false,
     };
   }
-    
-  componentDidMount(){
-    this.whoami();
+
+  async componentDidMount() {
+    console.log("Before calling API.");
+    let data;
+    try {
+      data = await this.whoami();
+      console.log(data);
+    } catch (err) {
+      console.log(`Error: ${err.message}`);
+      this.setState({
+        loaded: false,
+        data: null,
+        placeholder: "Error! Could not get data from server.",
+      });
+    }
+    let state_data = {
+      loaded: true,
+      data: data,
+      placeholder: "",
+    };
+    console.log("After calling the API.");
+    this.setState(state_data);
+    console.log(`Data should be set to ${data}. But is it?!`);
+    console.log({ data });
   }
 
-  whoami(){
-    fetch("/accounts/me/", {
+  async whoami() {
+    let response = await axios({
+      method: "GET",
+      url: "/accounts/me/",
       headers: {
         "Content-Type": "application/json",
       },
       credentials: "same-origin",
-    })
-    .then(isResponseOK)
-    .then((data) => {
-        this.setState({
-            loaded: true,
-            data: data,
-            placeholder: ""
-        });
-    })
-    .catch((err) => {
-        console.log(err);
     });
+    if (response.statusText !== "OK") {
+      throw new Error(
+        `HTTP Error! Status: ${response.status}\nWith text: ${response.statusText}`
+      );
+    }
+
+    let data = response.data;
+    return data;
   }
 
-  generateUserData(){
+  generateUserData() {
     let country = this.state.data.country.name;
     let country_code = this.state.data.country.code;
     let career_profile = this.state.data.career_profile;
@@ -74,22 +96,19 @@ class Accounts extends Component{
     );
   }
 
-  generateUserRelatedData(){
-    let user = this.state.data.user;
+  generateUserRelatedData() {
+    console.log(this.state.data);
 
-    return(
-        <h1 className="display-4">
-            {user}
-        </h1>
-    );
+    // let user = this.state.data.user;
+    // return <h1 className="display-4">{user}</h1>;
   }
 
-  toggleEdit(){
-    this.setState({edit: !this.state.edit});
+  toggleEdit() {
+    this.setState({ edit: !this.state.edit });
   }
 
-  render(){
-    if(!this.state.loaded){
+  render() {
+    if (!this.state.loaded) {
       return (
         <div className="content_section">
           <div className="row">
@@ -98,7 +117,7 @@ class Accounts extends Component{
         </div>
       );
     }
-    if(this.state.loaded && this.state.edit){
+    if (this.state.loaded && this.state.edit) {
       return (
         <div className="content_section">
           <div className="row align-items-center">

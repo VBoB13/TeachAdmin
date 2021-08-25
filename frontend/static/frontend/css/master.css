@@ -1,5 +1,5 @@
 body {
-  background-color: #E1E1FF;
+  background-color: #e1e1ff;
   font-size: 18px;
   font-family: "Poppins", sans-serif;
 }
@@ -48,7 +48,7 @@ a.navigation-button-link-active, a.navigation-button-link, a.navigation-link-act
   border: 1px solid #00000087;
   font-weight: 600;
   text-align: center;
-  color: #E1E1FF;
+  color: #e1e1ff;
   box-shadow: 0.1em 0.1em 0.1em #00000044;
   border-radius: 0.5em;
   align-self: center;
@@ -59,11 +59,11 @@ a.logo-link {
   color: #4020ff;
 }
 a.logo-link:hover {
-  color: #0078FF;
+  color: #0078ff;
 }
 
 a.navigation-link {
-  color: #0078FF;
+  color: #0078ff;
 }
 a.navigation-link:hover {
   color: #4020ff;
@@ -73,11 +73,11 @@ a.navigation-link-active {
   color: #4020ff;
 }
 a.navigation-link-active:hover {
-  color: #0078FF;
+  color: #0078ff;
 }
 
 a.navigation-button-link {
-  color: #E1E1FF;
+  color: #e1e1ff;
 }
 
 a.navigation-button-link-active {
@@ -85,7 +85,7 @@ a.navigation-button-link-active {
 }
 
 .standard-button {
-  background-color: #0078FF;
+  background-color: #0078ff;
 }
 .standard-button:hover {
   background-color: #4020ff;
@@ -95,7 +95,7 @@ a.navigation-button-link-active {
   background-color: #4020ff;
 }
 .standard-button-purple:hover {
-  background-color: #0078FF;
+  background-color: #0078ff;
 }
 
 .navlink-container {
@@ -131,11 +131,11 @@ footer article.footer-link-container {
   border: 1px solid #00000087;
   border-radius: 30px;
   position: relative;
-  background-color: #ECECEC;
+  background-color: #ececec;
 }
 
 footer article.footer-link-container div.footer-link-icon-container {
-  background-color: #ECECEC;
+  background-color: #ececec;
   border: 1px solid #00000087;
   border-radius: 50%;
   position: absolute;
@@ -196,7 +196,7 @@ h2.subslogan {
 
 span.title-underline {
   display: inline;
-  background-image: linear-gradient(120deg, #4020ff 0%, #0078FF 100%);
+  background-image: linear-gradient(120deg, #4020ff 0%, #0078ff 100%);
   background-repeat: no-repeat;
   background-size: 100% 0.15em;
   background-position: 0 88%;
@@ -204,7 +204,7 @@ span.title-underline {
 }
 span.title-underline:hover {
   background-size: 100% 88%;
-  color: #E1E1FF;
+  color: #e1e1ff;
 }
 
 #guywithcat {
@@ -304,11 +304,11 @@ div.form-group label {
   }
 
   a.logo-link {
-    font-size: 0.8em;
+    font-size: 0.9em;
   }
 
   a.navigation-link {
-    font-size: 0.8em;
+    font-size: 0.9em;
     margin: 0.5em;
   }
 
@@ -332,6 +332,11 @@ div.form-group label {
 
   .slogan {
     font-size: 2em;
+  }
+
+  div.form-content {
+    margin-top: 5em;
+    width: 75%;
   }
 }
 

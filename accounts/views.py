@@ -5,15 +5,15 @@ from pprint import pprint
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.http import (HttpResponse,
-                        HttpResponseRedirect,
-                        Http404,
-                        JsonResponse)
+                         HttpResponseRedirect,
+                         Http404,
+                         JsonResponse)
 from django.views.generic import TemplateView
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_POST
 from django.contrib.auth import (authenticate,
-                                login,
-                                logout)
+                                 login,
+                                 logout)
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import AnonymousUser, User
@@ -29,6 +29,7 @@ from .models import Teacher
 from .serializers import TeacherSerializer, UserRegisterSerializer
 
 # Create your views here.
+
 
 class TeacherView(generics.GenericAPIView, mixins.RetrieveModelMixin):
     serializer_class = TeacherSerializer
@@ -51,7 +52,8 @@ class TeacherView(generics.GenericAPIView, mixins.RetrieveModelMixin):
         """
         teacher = self.get_object(request.user)
         serializer = self.serializer_class(instance=teacher)
-        return Response(serializer.data)
+        pprint(serializer.data)
+        return JsonResponse(data=serializer.data, safe=False)
 
 
 class RegisterView(generics.GenericAPIView, mixins.CreateModelMixin):
@@ -87,16 +89,16 @@ class RegisterView(generics.GenericAPIView, mixins.CreateModelMixin):
                     "\n{}".format(serialized.error_messages),
                     "\n{}".format(serialized.errors))
                 return Response(
-                    data={"errors": serialized.errors}, 
+                    data={"errors": serialized.errors},
                     status=status.HTTP_406_NOT_ACCEPTABLE
-                    )
+                )
         return Response({
-                'messages':{
-                    'errors':[
+            'messages': {
+                'errors': [
                         'Could not read form data.'
-                    ]
-                }},
-                status=status.HTTP_400_BAD_REQUEST)
+                        ]
+            }},
+            status=status.HTTP_400_BAD_REQUEST)
 
 
 def register(request):
@@ -122,13 +124,14 @@ def register(request):
         user_form = forms.UserForm()
         teacher_form = forms.TeacherForm()
 
-    return render(request, "accounts/register.html", 
-    {
-        "title":"Register",
-        "user_form":user_form,
-        "teacher_form":teacher_form,
-        "registered":registered
-    })
+    return render(request, "accounts/register.html",
+                  {
+                      "title": "Register",
+                      "user_form": user_form,
+                      "teacher_form": teacher_form,
+                      "registered": registered
+                  })
+
 
 @require_POST
 def login_view(request):
@@ -138,8 +141,8 @@ def login_view(request):
 
     if username is None or password is None:
         return JsonResponse(
-                {"detail": "Please provide a username and password."},
-                status=400)
+            {"detail": "Please provide a username and password."},
+            status=400)
 
     user = authenticate(username=username, password=password)
 
@@ -148,7 +151,7 @@ def login_view(request):
             {"detail": "Invalid credentials."},
             status=400
         )
-    
+
     login(request, user)
     teacher = get_object_or_404(Teacher, user=user)
     return JsonResponse({
@@ -157,6 +160,7 @@ def login_view(request):
         "user_link": teacher.get_absolute_url(),
         "detail": "Welcome, {}.".format(user.get_username())
     })
+
 
 def logout_view(request):
     if not request.user.is_authenticated:
@@ -167,29 +171,31 @@ def logout_view(request):
     logout(request)
     return JsonResponse({
         "detail": "You're amazing, {}. See you again soon.".format(user)
-        }
+    }
     )
+
 
 @ensure_csrf_cookie
 def session_view(request):
     if not request.user.is_authenticated:
         return JsonResponse({"isAuthenticated": False})
-    
+
     teacher = get_object_or_404(Teacher, user=request.user)
     return JsonResponse({
         "isAuthenticated": True,
         "user": request.user.username,
         "user_link": teacher.get_absolute_url()
-        })
+    })
+
 
 def whoami_view(request):
     if not request.user.is_authenticated:
         return JsonResponse({"isAuthenticated": False})
-    
+
     teacher = get_object_or_404(Teacher, user=request.user)
 
     return JsonResponse({
         "user": f"{teacher}",
         "country": f"{teacher.country}",
         "career_profile": f"{teacher.career_profile}"
-        })
+    })

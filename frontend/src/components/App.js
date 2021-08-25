@@ -61,12 +61,6 @@ export default class App extends Component {
     this.getSession();
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    /*if ((this.state.isAuthenticated !== prevState.isAuthenticated) & this.state.isAuthenticated === true){
-      this.setState({redirect: "/"});
-    }*/
-  }
-
   render() {
     if (this.state.isAuthenticated) {
       return (
