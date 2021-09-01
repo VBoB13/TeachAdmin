@@ -20,7 +20,7 @@ import {
 
 import Navbar from "./navbar/Navbar";
 import HomePage from "./homepage/HomePage";
-import Authenticate from "./accounts/Authenticate";
+import Register from "./accounts/Register";
 import Accounts from "./accounts/Accounts";
 import GuestHome from "./homepage/GuestHome";
 import About from "./homepage/About";
@@ -101,11 +101,12 @@ export default class App extends Component {
             <Login login={this.login} />
           </Route>
           <Route path="/register/">
-            <Authenticate />
+            <Register />
           </Route>
           <Route path="/">
             <GuestHome />
           </Route>
+          <Redirect to="/" />
         </Switch>
       </div>
     );

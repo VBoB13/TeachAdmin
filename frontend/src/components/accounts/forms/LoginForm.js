@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 import { login } from "../../../helpers/auth";
 
+import TextField from "../forms/fields/TextField";
+
 class LoginForm extends Component {
   constructor(props) {
     super(props);
@@ -34,18 +36,7 @@ class LoginForm extends Component {
     return (
       <div className="form-content">
         <form method="POST" className="rounded" onSubmit={this.login}>
-          <div className="form-group">
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              name="username"
-              id="username"
-              className="form-control"
-              value={this.state.username}
-              onChange={this.handleUsernameChange}
-              autoFocus
-            />
-          </div>
+          <TextField fieldName="username" />
           <div className="form-group">
             <label htmlFor="password">Password</label>
             <input
