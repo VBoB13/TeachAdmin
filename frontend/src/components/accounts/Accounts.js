@@ -27,11 +27,9 @@ class Accounts extends Component {
   }
 
   async componentDidMount() {
-    console.log("Before calling API.");
     let data;
     try {
       data = await this.whoami();
-      console.log(data);
     } catch (err) {
       console.log(`Error: ${err.message}`);
       this.setState({
@@ -45,10 +43,7 @@ class Accounts extends Component {
       data: data,
       placeholder: "",
     };
-    console.log("After calling the API.");
     this.setState(state_data);
-    console.log(`Data should be set to ${data}. But is it?!`);
-    console.log({ data });
   }
 
   async whoami() {
