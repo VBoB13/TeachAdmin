@@ -12,11 +12,7 @@ import {
 
 import Cookies from "universal-cookie";
 
-import {
-  getSessionData,
-  login as authLogin,
-  logout as authLogout,
-} from "../helpers/auth";
+import Authenticator from "../helpers/auth";
 
 import Navbar from "./navbar/Navbar";
 import HomePage from "./homepage/HomePage";
@@ -42,17 +38,21 @@ export default class App extends Component {
   }
 
   async getSession() {
-    const sessionData = await getSessionData();
+    let authObj = new Authenticator("/accounts/session/");
+    const sessionData = await authObj.get_session();
     this.setState(sessionData);
   }
 
-  login(loginObj) {
+  async login() {
+    let authObj = new Authenticator("/accounts/login/", "POST");
+    const loginObj = await authObj.login();
     console.log({ loginObj });
     this.setState(loginObj);
   }
 
   async logout() {
-    const logoutObj = await authLogout();
+    let authObj = new Authenticator("/accounts/logout/");
+    const logoutObj = await authObj.logout();
     console.log({ logoutObj });
     this.setState(logoutObj);
   }

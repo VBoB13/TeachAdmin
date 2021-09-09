@@ -136,6 +136,9 @@ a.navigation-button-link {
 a.navigation-button-link-active {
   @extend %navigation-link;
   color: $main-purple;
+  &:first-child {
+    background-color: $main-purple;
+  }
 }
 
 .standard-button {
@@ -329,11 +332,18 @@ div.form-group label {
   aspect-ratio: 50/29;
   width: 20em;
 }
+#register_buddy {
+  width: 30vw;
+  margin-bottom: 1em;
+}
 
 /* MEDIA queries */
 
 @media screen and (min-width: 600px) and (max-width: 949px) {
   #register-button > .standard-button {
+    font-size: 0.8em;
+  }
+  #navbar_logout {
     font-size: 0.8em;
   }
   a.logo-link {
@@ -350,6 +360,9 @@ div.form-group label {
   #guywithcat {
     display: none;
   }
+  #register_buddy {
+    width: 60vw;
+  }
   footer article.footer-link-container {
     width: 20vw;
   }
@@ -358,6 +371,9 @@ div.form-group label {
 @media screen and (max-width: 600px) {
   #register-button > .standard-button {
     font-size: 0.5em;
+  }
+  #navbar_logout {
+    font-size: 0.75em;
   }
   a.logo-link {
     font-size: 0.9em;
@@ -373,6 +389,9 @@ div.form-group label {
   }
   #guywithcat {
     display: none;
+  }
+  #register_buddy {
+    width: 80vw;
   }
   footer article.footer-link-container {
     width: 30vw;

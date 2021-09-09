@@ -1,11 +1,12 @@
 import React from "react";
-import TabSection from "./TabSection";
-import { isResponseOK, login } from "../../helpers/auth";
+import RegisterForm from "./forms/RegisterForm";
+import RegisterBuddy from "./forms/register/RegisterBuddy";
 
 export default function Register(props) {
   return (
-    <div className="container bg-secondary rounded p-3">
-      <TabSection />
+    <div className="container rounded p-3">
+      <RegisterBuddy />
+      <RegisterForm />
     </div>
   );
 }

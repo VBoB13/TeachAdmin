@@ -67,10 +67,7 @@ class RegisterView(generics.GenericAPIView, mixins.CreateModelMixin):
         serializer = self.serializer_class()
         renderer = HTMLFormRenderer()
         serializerForm = renderer.render(serializer.data)
-        return JsonResponse(
-            {"form": serializerForm},
-            safe=False
-        )
+        return Response(data={"form": serializerForm})
 
     def post(self, request, format=None, *args, **kwargs):
         """

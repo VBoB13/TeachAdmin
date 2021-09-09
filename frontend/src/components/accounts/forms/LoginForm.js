@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { render } from "react-dom";
-import { login } from "../../../helpers/auth";
 
 import TextField from "../forms/fields/TextField";
 import PasswordField from "../forms/fields/PasswordField";
@@ -13,10 +11,9 @@ class LoginForm extends Component {
     this.login = this.login.bind(this);
   }
 
-  async login(event) {
+  login(event) {
     event.preventDefault();
-    const loginObj = await login();
-    this.props.login(loginObj);
+    this.props.login();
   }
 
   render() {

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { login, isResponseOK } from "../../helpers/auth";
+import Authenticator from "../../helpers/auth";
 import ToggleButton from "./ToggleButton";
 import LoginForm from "./forms/LoginForm";
 import RegisterForm from "./forms/RegisterForm";
@@ -35,14 +35,14 @@ export default class TabSection extends Component {
       return (
         <div>
           {this.createToggleButton()}
-          <LoginForm login={login} />
+          <LoginForm login={this.props.login} />
         </div>
       );
     }
     return (
       <div>
         {this.createToggleButton()}
-        <RegisterForm isResponseOK={isResponseOK} />
+        <RegisterForm />
       </div>
     );
   }

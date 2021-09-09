@@ -1,22 +1,22 @@
 import React, { Component } from "react";
-import parse, { attributesToProps, domToReact } from 'html-react-parser';
+import parse, { attributesToProps, domToReact } from "html-react-parser";
 
-import { isResponseOK } from "../../../helpers/auth";
+import Authenticator from "../../../helpers/auth";
 
 import ErrorList from "./errors/ErrorList";
 
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
-export default class RegisterForm extends Component{
-  constructor(props){
+export default class RegisterForm extends Component {
+  constructor(props) {
     super(props);
 
     this.state = {
       data_loaded: false,
       form: "",
-      errors: {}
-    }
+      errors: {},
+    };
 
     this.loadForm = this.loadForm.bind(this);
     this.buildForm = this.buildForm.bind(this);
@@ -26,7 +26,7 @@ export default class RegisterForm extends Component{
     this.loadErrors = this.loadErrors.bind(this);
   }
 
-  retrieveFormData(){
+  retrieveFormData() {
     let registerForm = document.getElementById("registerForm");
     let formInputs = registerForm.elements;
     let teacher = {};
@@ -50,19 +50,19 @@ export default class RegisterForm extends Component{
     return formDataManual;
   }
 
-  loadErrors(errs){
-    if(typeof(errs) === "object"){
+  loadErrors(errs) {
+    if (typeof errs === "object") {
       this.setState({
-        errors: errs["errors"]
+        errors: errs["errors"],
       });
     }
   }
 
-  loadMessages(jsonObj){
-    if(jsonObj.hasOwnProperty("errors")) this.loadErrors(jsonObj);
+  loadMessages(jsonObj) {
+    if (jsonObj.hasOwnProperty("errors")) this.loadErrors(jsonObj);
   }
 
-  register(e){
+  register(e) {
     e.preventDefault();
     let formData = this.retrieveFormData();
     fetch("/accounts/register/", {
@@ -78,11 +78,11 @@ export default class RegisterForm extends Component{
       .then(this.loadMessages)
       .then(this.toggleLogin)
       .catch((err) => {
-        console.error('Error:', err);
+        console.error("Error:", err);
       });
   }
 
-  buildForm(){
+  buildForm() {
     /* 
     Utilizes the module 'html-react-parser' to convert the response's
     "form" (str) into React Elements with some options.
@@ -110,18 +110,16 @@ export default class RegisterForm extends Component{
           if (attribs.name === "password" && attribs.type === "text") {
             attribs.type = "password";
           }
-          
+
           if (attribs.name in this.state.errors) {
-            if(!attribs.hasOwnProperty("autofocus")) {
+            if (!attribs.hasOwnProperty("autofocus")) {
               attribs.autofocus = true;
             }
             const props = attributesToProps(attribs);
             return (
               <div className="errorField">
                 <input {...props} />
-                <ErrorList 
-                  errors={this.state.errors[`${attribs.name}`]} 
-                  />
+                <ErrorList errors={this.state.errors[`${attribs.name}`]} />
               </div>
             );
           }
@@ -140,7 +138,7 @@ export default class RegisterForm extends Component{
     return form;
   }
 
-  loadForm(data){
+  loadForm(data) {
     /* 
     Method for simply checking so that the JSON object recieved from
     the server actually contains the objects "form".
@@ -151,52 +149,36 @@ export default class RegisterForm extends Component{
     OUTPUT: ---
     */
     // Checking so that the JSON object has the subsequent "form" Object
-    if(data.hasOwnProperty("form")){
+    if (data.hasOwnProperty("form")) {
       this.setState({
         data_loaded: true,
-        form: data["form"]
+        form: data["form"],
       });
-    // If no 'form' property is found, a ReferenceError is thrown.
+      // If no 'form' property is found, a ReferenceError is thrown.
     } else {
-        throw ReferenceError(
-          "JSON response does not contain property 'fields' or 'form'."
-        );
+      throw ReferenceError(
+        "JSON response does not contain property 'fields' or 'form'."
+      );
     }
   }
 
-  componentDidMount(){
-    fetch("/accounts/register/", {
-      credentials: "same-origin",
-    })
-      // Using isResponseOK function to [data=>json()]
-      .then(isResponseOK)
-      // Re-structuring the JSON object for convenience
-      .then(this.loadForm)
-      // Catching any errors
-      .catch((err) => {
-        console.error(err);
-      });
+  async componentDidMount() {
+    let auth_obj = new Authenticator("/accounts/register/");
+    let data = await auth_obj.register_get_form();
+    this.loadForm(data);
   }
 
-  componentDidUpdate(prevProps, prevState){
-    if(this.state.errors !== prevState.errors) this.buildForm();
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.errors !== prevState.errors) this.buildForm();
   }
 
-  render(){
-    if(this.state.data_loaded === true){
+  render() {
+    if (this.state.data_loaded === true) {
       return (
         <div>
-          <h1 className="display-4 m-3">Register</h1>
-          <form
-            id="registerForm"
-            className="rounded"
-            onSubmit={this.register}
-          >
+          <form id="registerForm" className="rounded" onSubmit={this.register}>
             {this.buildForm()}
-            <input 
-              type="submit" 
-              className="btn btn-primary" 
-              value="Register" />
+            <input type="submit" className="btn btn-primary" value="Register" />
           </form>
         </div>
       );

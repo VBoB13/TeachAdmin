@@ -36,6 +36,7 @@ class RegisterTeacherSerializer(CountryFieldMixin, serializers.ModelSerializer):
             'country',
             'career_profile')
 
+
 class UserRegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(
         style={'input_type': 'password'},
@@ -45,7 +46,8 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'first_name', 'last_name', 'password', 'teacher')
+        fields = ('username', 'email', 'first_name',
+                  'last_name', 'password', 'teacher')
         depth = 0
 
     def create(self, validated_data, instance=None):
