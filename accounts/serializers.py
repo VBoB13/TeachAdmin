@@ -28,13 +28,19 @@ class TeacherSerializer(CountryFieldMixin, serializers.ModelSerializer):
 
 class RegisterTeacherSerializer(CountryFieldMixin, serializers.ModelSerializer):
     country = CountryField(country_dict=True)
-    career_profile = serializers.URLField(required=False)
+    career_profile = serializers.URLField(
+        required=False, allow_blank=False, default="")
 
     class Meta:
         model = Teacher
         fields = (
             'country',
             'career_profile')
+
+    def get_validation_exclusions(self):
+        exclusions = super(RegisterTeacherSerializer,
+                           self).get_validation_exclusions()
+        return exclusions + ['career_profile']
 
 
 class UserRegisterSerializer(serializers.ModelSerializer):

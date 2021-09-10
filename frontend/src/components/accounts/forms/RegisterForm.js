@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import parse, { attributesToProps, domToReact } from "html-react-parser";
 
-import Authenticator from "../../../helpers/auth";
+import Authenticator, { isResponseOK } from "../../../helpers/auth";
 
+import FormError from "./errors/FormError";
 import ErrorList from "./errors/ErrorList";
 
 import Cookies from "universal-cookie";
@@ -51,35 +52,25 @@ export default class RegisterForm extends Component {
   }
 
   loadErrors(errs) {
+    console.log({ Errors: errs });
     if (typeof errs === "object") {
       this.setState({
-        errors: errs["errors"],
+        errors: errs,
       });
     }
   }
 
   loadMessages(jsonObj) {
-    if (jsonObj.hasOwnProperty("errors")) this.loadErrors(jsonObj);
+    if (jsonObj.hasOwnProperty("errors")) this.loadErrors(jsonObj["errors"]);
   }
 
-  register(e) {
+  async register(e) {
     e.preventDefault();
     let formData = this.retrieveFormData();
-    fetch("/accounts/register/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-CSRFToken": cookies.get("csrftoken"),
-      },
-      credentials: "same-origin",
-      body: JSON.stringify(formData),
-    })
-      .then(isResponseOK)
-      .then(this.loadMessages)
-      .then(this.toggleLogin)
-      .catch((err) => {
-        console.error("Error:", err);
-      });
+    let auth_obj = new Authenticator("/accounts/register/", "POST");
+    auth_obj.request_conf["data"] = JSON.stringify(formData);
+    let data = await auth_obj.register();
+    this.loadMessages(data);
   }
 
   buildForm() {
@@ -129,6 +120,17 @@ export default class RegisterForm extends Component {
         if (name === "span" && attribs.class === "help-block") {
           const props = attributesToProps(attribs);
           return <small {...props}>{domToReact(children, options)}</small>;
+        }
+        if (name === "form") {
+          if (name in Object.keys(this.state.errors)) {
+            const props = attributesToProps(attribs);
+            return (
+              <form {...props}>
+                <FormError errorText={this.state.errors["form"]} />
+                {domToReact(children, options)}
+              </form>
+            );
+          }
         }
       },
       trim: true,

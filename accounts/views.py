@@ -78,7 +78,6 @@ class RegisterView(generics.GenericAPIView, mixins.CreateModelMixin):
             if serialized.is_valid():
                 # Actually save/register the Teacher
                 serialized.save()
-                pprint(serialized.data)
                 return Response(serialized.data, status=status.HTTP_201_CREATED)
             else:
                 print(
@@ -91,9 +90,7 @@ class RegisterView(generics.GenericAPIView, mixins.CreateModelMixin):
                 )
         return Response({
             'messages': {
-                'errors': [
-                        'Could not read form data.'
-                        ]
+                'errors': {'form': 'Could not read form data.'}
             }},
             status=status.HTTP_400_BAD_REQUEST)
 

@@ -258,7 +258,7 @@ div.form-content input[type=submit] {
   padding: 0.25em 3em;
 }
 
-div.form-group input.form-control {
+div.form-group .form-control {
   width: 100%;
   border-radius: 2em;
 }
@@ -266,6 +266,20 @@ div.form-group input.form-control {
 div.form-group label {
   margin-bottom: 0.1em;
   font-weight: 600;
+}
+
+small.help-block {
+  font-size: 0.75em;
+  padding: 0 1em 0 1em;
+}
+
+div.errorField {
+  background-color: #ff6a6a99;
+  border-radius: 1em;
+}
+
+div.errorField li {
+  font-size: 0.75em;
 }
 
 #computerAuth {

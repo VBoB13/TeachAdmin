@@ -8,6 +8,7 @@ export function isResponseOK(response) {
     console.log(response);
     return response.data;
   } else if (response.status >= 400 && response.status <= 499) {
+    console.log(response);
     return response.data;
   } else {
     console.log(response);
@@ -125,5 +126,17 @@ export default class Authenticator {
       });
     console.log(form_data);
     return form_data;
+  }
+
+  async register() {
+    try {
+      const response = await axios(this.request_conf);
+      var data = isResponseOK(response);
+    } catch (error) {
+      console.error(error.toJSON());
+      data = error.response.data;
+    }
+    console.log({ data });
+    return data;
   }
 }
