@@ -33,7 +33,9 @@ function generateNavLinks() {
         className="navigation-link"
         activeClassName="navigation-link-active"
         key={index}
-      />
+      >
+        {url_string[1].toUpperCase() + url_string.slice(2, -1)}
+      </NavLink>
     );
   });
   return navlinks_list;
