@@ -41,24 +41,22 @@ export default class Authenticator {
       username: form_username,
       password: form_password,
     };
-    const loginData = await axios(this.request_conf)
-      .then(isResponseOK)
-      .then((data) => {
-        return {
-          isAuthenticated: data.isAuthenticated,
-          user: data.user,
-          user_link: data.user_link,
-          error: "",
-        };
-      })
-      .catch((err) => {
-        console.log(err);
-        return {
-          isAuthenticated: false,
-          error: "Wrong username or password!",
-        };
-      });
-    return loginData;
+    try {
+      const response = await axios(this.request_conf);
+      let data = isResponseOK(response);
+      return {
+        isAuthenticated: data.isAuthenticated,
+        user: data.user,
+        user_link: data.user_link,
+        error: "",
+      };
+    } catch (error) {
+      console.error(error);
+      return {
+        isAuthenticated: false,
+        error: "Wrong username or password!",
+      };
+    }
   }
 
   async get_session() {
@@ -89,43 +87,34 @@ export default class Authenticator {
   }
 
   async logout() {
-    const userData = await axios(this.request_conf)
-      .then(isResponseOK)
-      .then((data) => {
-        console.log(data);
-        return {
-          isAuthenticated: data.isAuthenticated,
-          user: "",
-          user_link: "",
-          error: "",
-        };
-      })
-      .catch((err) => {
-        console.log(err);
-        return {
-          isAuthenticated: false,
-          user: "",
-          user_link: "",
-          error: "Something went wrong when loggin out!",
-        };
-      });
-    return userData;
+    try {
+      const response = await axios(this.request_conf);
+      let data = isResponseOK(response);
+      return {
+        isAuthenticated: data.isAuthenticated,
+        user: "",
+        user_link: "",
+        error: "",
+      };
+    } catch (error) {
+      console.error(error.toJSON());
+      return {
+        isAuthenticated: false,
+        user: "",
+        user_link: "",
+        error: "Something went wrong when loggin out!",
+      };
+    }
   }
 
   async register_get_form() {
-    const form_data = await axios(this.request_conf)
-      .then(isResponseOK)
-      .then((data) => {
-        return data;
-      })
-      .catch((err) => {
-        console.log(
-          "Something went wrong when retrieving form data for Register!"
-        );
-        console.error(err);
-      });
-    console.log(form_data);
-    return form_data;
+    try {
+      const response = await axios(this.request_conf);
+      let form_data = isResponseOK(response);
+      return form_data;
+    } catch (error) {
+      console.error(error.toJSON());
+    }
   }
 
   async register() {
