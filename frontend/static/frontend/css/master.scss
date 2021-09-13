@@ -136,8 +136,11 @@ a.navigation-button-link {
 a.navigation-button-link-active {
   @extend %navigation-link;
   color: $main-purple;
-  &:first-child {
+  & > button.standard-button {
     background-color: $main-purple;
+  }
+  & > button.standard-button:hover {
+    background-color: $main-blue;
   }
 }
 

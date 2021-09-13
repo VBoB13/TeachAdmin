@@ -98,12 +98,19 @@ export default class RegisterForm extends Component {
         if (name === "input" && attribs.hasOwnProperty("value")) {
           attribs.defaultValue = attribs.value;
           if (attribs.hasOwnProperty("defaultValue")) delete attribs.value;
-          if (attribs.name === "username") {
-            attribs.autocomplete = "username";
-          }
-          if (attribs.name === "password" && attribs.type === "password") {
-            attribs.autocomplete = "current-password";
-            console.log(attribs);
+
+          switch (attribs.name) {
+            case "username":
+              attribs.autocomplete = "username";
+              break;
+            case "password":
+              attribs.autocomplete = "new-password";
+              break;
+            case "email":
+              attribs.autocomplete = "email";
+              break;
+            default:
+              break;
           }
 
           if (attribs.name in this.state.errors) {

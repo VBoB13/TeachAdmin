@@ -83,8 +83,11 @@ a.navigation-button-link {
 a.navigation-button-link-active {
   color: #4020ff;
 }
-a.navigation-button-link-active:first-child {
+a.navigation-button-link-active > button.standard-button {
   background-color: #4020ff;
+}
+a.navigation-button-link-active > button.standard-button:hover {
+  background-color: #0078ff;
 }
 
 .standard-button {
