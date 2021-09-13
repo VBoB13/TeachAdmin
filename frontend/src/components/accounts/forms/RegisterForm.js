@@ -98,8 +98,12 @@ export default class RegisterForm extends Component {
         if (name === "input" && attribs.hasOwnProperty("value")) {
           attribs.defaultValue = attribs.value;
           if (attribs.hasOwnProperty("defaultValue")) delete attribs.value;
-          if (attribs.name === "password" && attribs.type === "text") {
-            attribs.type = "password";
+          if (attribs.name === "username") {
+            attribs.autocomplete = "username";
+          }
+          if (attribs.name === "password" && attribs.type === "password") {
+            attribs.autocomplete = "current-password";
+            console.log(attribs);
           }
 
           if (attribs.name in this.state.errors) {
@@ -165,9 +169,14 @@ export default class RegisterForm extends Component {
   }
 
   async componentDidMount() {
-    let auth_obj = new Authenticator("/accounts/register/");
-    let data = await auth_obj.register_get_form();
-    this.loadForm(data);
+    try {
+      let auth_obj = new Authenticator("/accounts/register/");
+      let data = await auth_obj.register_get_form();
+      this.loadForm(data);
+    } catch (error) {
+      console.log(`Something went wrong when trying to fetch form data.`);
+      console.error(error.toJSON());
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {

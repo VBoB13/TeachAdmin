@@ -30,6 +30,7 @@ class LoginForm extends Component {
             fieldname="password"
             fieldtype="password"
             id="password"
+            autocomplete="current-password"
           />
           <input type="submit" className="standard-button" value="Login" />
         </form>
