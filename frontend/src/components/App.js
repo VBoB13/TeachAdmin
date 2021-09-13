@@ -46,14 +46,12 @@ export default class App extends Component {
   async login() {
     let authObj = new Authenticator("/accounts/login/", "POST");
     const loginObj = await authObj.login();
-    console.log({ loginObj });
     this.setState(loginObj);
   }
 
   async logout() {
     let authObj = new Authenticator("/accounts/logout/");
     const logoutObj = await authObj.logout();
-    console.log({ logoutObj });
     this.setState(logoutObj);
   }
 
