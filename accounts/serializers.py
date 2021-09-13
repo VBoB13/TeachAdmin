@@ -29,7 +29,7 @@ class TeacherSerializer(CountryFieldMixin, serializers.ModelSerializer):
 class RegisterTeacherSerializer(CountryFieldMixin, serializers.ModelSerializer):
     country = CountryField(country_dict=True)
     career_profile = serializers.URLField(
-        required=False, allow_blank=False, default="")
+        required=False, allow_blank=True, default="")
 
     class Meta:
         model = Teacher

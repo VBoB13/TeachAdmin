@@ -358,6 +358,9 @@ div.errorField li {
   #register-button > .standard-button {
     font-size: 0.8em;
   }
+  #register-button > .standard-button-purple {
+    font-size: 0.8em;
+  }
   #navbar_logout {
     font-size: 0.8em;
   }
@@ -385,6 +388,9 @@ div.errorField li {
 
 @media screen and (max-width: 600px) {
   #register-button > .standard-button {
+    font-size: 0.5em;
+  }
+  #register-button > .standard-button-purple {
     font-size: 0.5em;
   }
   #navbar_logout {

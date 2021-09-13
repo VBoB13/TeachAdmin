@@ -12,6 +12,25 @@ import NavbarLink from "./NavbarLinks";
 
 const navlinks = ["/scores/", "/curriculum/", "/observatory/", "/account/"];
 
+function checkActive() {
+  const register_button = document.querySelector("a#register-button");
+  console.log(register_button);
+
+  // If the button is NOT 'undefined' or 'null' (if it exists)
+  if (register_button) {
+    let reg_classes = register_button.classList;
+    console.log(reg_classes);
+    for (let elementClass of reg_classes) {
+      if (elementClass === "navigation-button-link-active") {
+        console.log("Register page is Active!");
+        return "standard-button-purple";
+      }
+    }
+  }
+  console.log("Regiser is NOT active...");
+  return "standard-button";
+}
+
 function LogoutButton(props) {
   return (
     <button
@@ -76,7 +95,7 @@ function Navbar(props) {
         className="navigation-button-link"
         activeClassName="navigation-button-link-active"
       >
-        <button className="standard-button">Register</button>
+        <button className={checkActive()}>Register</button>
       </NavLink>
     </nav>
   );
