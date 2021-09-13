@@ -51,7 +51,7 @@ export default class Authenticator {
         error: "",
       };
     } catch (error) {
-      console.error(error);
+      console.error(error.toJSON());
       return {
         isAuthenticated: false,
         error: "Wrong username or password!",
@@ -60,30 +60,26 @@ export default class Authenticator {
   }
 
   async get_session() {
-    const sessionData = await axios(this.request_conf)
-      .then(isResponseOK)
-      .then((data) => {
-        if (data.isAuthenticated) {
-          return {
-            isAuthenticated: true,
-            user: data.user,
-            user_link: data.user_link,
-          };
-        } else {
-          return {
-            isAuthenticated: false,
-            user: "",
-            user_link: "",
-          };
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-        return {
-          error: "Server session call failed.",
-        };
-      });
-    return sessionData;
+    try {
+      const response = await axios(this.request_conf);
+      var session_data = isResponseOK(response);
+    } catch (error) {
+      console.log("Something went wront when trying to get session data!");
+      console.error(error.toJSON());
+    }
+    if (session_data.isAuthenticated) {
+      return {
+        isAuthenticated: true,
+        user: data.user,
+        user_link: data.user_link,
+      };
+    } else {
+      return {
+        isAuthenticated: false,
+        user: "",
+        user_link: "",
+      };
+    }
   }
 
   async logout() {

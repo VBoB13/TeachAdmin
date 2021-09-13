@@ -73,14 +73,11 @@ export default class App extends Component {
           </div>
           <Switch>
             <Redirect from="/login" to="/" />
-            <Route path="/teachers/">
+            <Route path="/account/">
               <Accounts />
             </Route>
             <Route path="/">
-              <HomePage
-                user={this.state.user}
-                user_link={this.state.user_link}
-              />
+              <HomePage user={this.state.user} />
             </Route>
           </Switch>
         </div>

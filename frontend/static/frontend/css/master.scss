@@ -125,6 +125,7 @@ a.navigation-link {
 a.navigation-link-active {
   @extend %navigation-link;
   color: $main-purple;
+  text-decoration: underline;
   &:hover {
     color: $main-blue;
   }
@@ -387,6 +388,10 @@ div.errorField li {
   footer article.footer-link-container {
     width: 20vw;
   }
+  a.navigation-link,
+  a.navigation-link-active {
+    font-size: 0.85em;
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -402,9 +407,9 @@ div.errorField li {
   a.logo-link {
     font-size: 0.9em;
   }
-  a.navigation-link {
-    font-size: 0.9em;
-    margin: 0.5em;
+  a.navigation-link,
+  a.navigation-link-active {
+    font-size: 0.7em;
   }
   main.container-guesthome-main {
     margin-top: 50px;
