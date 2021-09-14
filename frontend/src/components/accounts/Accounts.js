@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 
 import axios from "axios";
+import Authenticator from "../../helpers/auth";
 
 import EditForm from "./forms/EditAccount";
 import ToggleCheckBox from "../togglers/toggleCheckbox";
@@ -46,22 +47,9 @@ class Accounts extends Component {
     this.setState(state_data);
   }
 
-  async whoami() {
-    let response = await axios({
-      method: "GET",
-      url: "/accounts/me/",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "same-origin",
-    });
-    if (response.statusText !== "OK") {
-      throw new Error(
-        `HTTP Error! Status: ${response.status}\nWith text: ${response.statusText}`
-      );
-    }
-
-    let data = response.data;
+  whoami() {
+    let data_obj = new Authenticator("/accounts/me/");
+    let data = data_obj.whoami();
     return data;
   }
 

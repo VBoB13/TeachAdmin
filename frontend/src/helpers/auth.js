@@ -5,7 +5,6 @@ const cookies = new Cookies();
 
 export function isResponseOK(response) {
   if (response.status >= 200 && response.status <= 299) {
-    console.log(response);
     return response.data;
   } else if (response.status >= 400 && response.status <= 499) {
     console.log(response);
@@ -70,8 +69,8 @@ export default class Authenticator {
     if (session_data.isAuthenticated) {
       return {
         isAuthenticated: true,
-        user: data.user,
-        user_link: data.user_link,
+        user: session_data.user,
+        user_link: session_data.user_link,
       };
     } else {
       return {
@@ -122,6 +121,16 @@ export default class Authenticator {
       data = error.response.data;
     }
     console.log({ data });
+    return data;
+  }
+
+  async whoami() {
+    try {
+      const response = await axios(this.request_conf);
+      var data = isResponseOK(response);
+    } catch (error) {
+      console.error(error.toJSON());
+    }
     return data;
   }
 }
