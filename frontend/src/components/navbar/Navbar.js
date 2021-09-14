@@ -25,6 +25,25 @@ function LogoutButton(props) {
   );
 }
 
+function toggle_dropdown(event) {
+  event.preventDefault();
+  let dropdown_content = document.querySelector(
+    "div.dropdown-menu > div.dropdown-content"
+  );
+  if (dropdown_content.style.display === "block") {
+    dropdown_content.style.display = "none";
+  } else {
+    dropdown_content.style.display = "block";
+  }
+}
+
+function close_dropdown(event) {
+  let dropdown_content = document.querySelector(
+    "div.dropdown-menu > div.dropdown-content"
+  );
+  dropdown_content.style.display = "none";
+}
+
 function generateNavLinks() {
   let navlinks_list = navlinks.map((url_string, index) => {
     return (
@@ -33,6 +52,7 @@ function generateNavLinks() {
         className="navigation-link"
         activeClassName="navigation-link-active"
         key={index}
+        onClick={close_dropdown}
       >
         {url_string[1].toUpperCase() + url_string.slice(2, -1)}
       </NavLink>
@@ -48,7 +68,7 @@ function Navbar(props) {
         <Link to="/" className="logo-link">
           TeachAdmin
         </Link>
-        <div className="dropdown-menu">
+        <div className="dropdown-menu" onClick={toggle_dropdown}>
           <span className="dropdown-title">Menu</span>
           <div className="dropdown-content">{generateNavLinks()}</div>
         </div>

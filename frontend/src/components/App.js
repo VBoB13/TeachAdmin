@@ -37,6 +37,10 @@ export default class App extends Component {
     };
   }
 
+  componentDidMount() {
+    this.getSession();
+  }
+
   async getSession() {
     let authObj = new Authenticator("/accounts/session/");
     const sessionData = await authObj.get_session();
@@ -55,10 +59,6 @@ export default class App extends Component {
     this.setState(logoutObj);
   }
 
-  componentDidMount() {
-    this.getSession();
-  }
-
   render() {
     if (this.state.isAuthenticated) {
       return (
@@ -71,6 +71,7 @@ export default class App extends Component {
               logout={this.logout}
             />
           </div>
+          <hr />
           <Switch>
             <Redirect from="/login" to="/" />
             <Route path="/account/">
@@ -88,6 +89,7 @@ export default class App extends Component {
         <div className="row justify-content-center align-items-center py-2">
           <Navbar isAuthenticated={this.state.isAuthenticated} />
         </div>
+        <hr />
         <Switch>
           <Route path="/about/">
             <About />

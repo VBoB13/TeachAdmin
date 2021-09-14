@@ -3,17 +3,17 @@ import { render } from "react-dom";
 
 import axios from "axios";
 import Authenticator from "../../helpers/auth";
+import { isResponseOK } from "../../helpers/auth";
 
 import EditForm from "./forms/EditAccount";
 import ToggleCheckBox from "../togglers/toggleCheckbox";
-
-import { isResponseOK } from "../../helpers/auth";
 
 class Accounts extends Component {
   constructor(props) {
     super(props);
 
     // Registering component's methods
+    this.load_stylesheet = this.load_stylesheet.bind(this);
     this.whoami = this.whoami.bind(this);
     this.generateUserData = this.generateUserData.bind(this);
     this.generateUserRelatedData = this.generateUserRelatedData.bind(this);
@@ -45,6 +45,16 @@ class Accounts extends Component {
       placeholder: "",
     };
     this.setState(state_data);
+  }
+
+  load_stylesheet() {
+    return (
+      <link
+        rel="stylesheet"
+        type="text/css"
+        href="/static/frontend/css/accounts.css"
+      />
+    );
   }
 
   whoami() {
@@ -80,10 +90,8 @@ class Accounts extends Component {
   }
 
   generateUserRelatedData() {
-    console.log(this.state.data);
-
-    // let user = this.state.data.user;
-    // return <h1 className="display-4">{user}</h1>;
+    let user = this.state.data.user;
+    return <h1 className="display-4">{user}</h1>;
   }
 
   toggleEdit() {
@@ -93,19 +101,20 @@ class Accounts extends Component {
   render() {
     if (!this.state.loaded) {
       return (
-        <div className="content_section">
-          <div className="row">
+        <main className="content_section">
+          <div className="row justify-content-center">
             <h1 className="display-4">{this.state.placeholder}</h1>
           </div>
-        </div>
+          {this.load_stylesheet()}
+        </main>
       );
     }
     if (this.state.loaded && this.state.edit) {
       return (
-        <div className="content_section">
-          <div className="row align-items-center">
-            <div className="col-4">{this.generateUserRelatedData()}</div>
-            <div className="col-8">
+        <main className="content_section">
+          <div className="row justify-content-center align-items-center">
+            <div className="col-7">{this.generateUserRelatedData()}</div>
+            <div className="col-5">
               <ToggleCheckBox
                 toggleEdit={this.toggleEdit}
                 stateEdit={this.state.edit}
@@ -117,14 +126,15 @@ class Accounts extends Component {
               <EditForm data={this.state.data} />
             </div>
           </div>
-        </div>
+          {this.load_stylesheet()}
+        </main>
       );
     }
     return (
-      <div className="content_section">
-        <div className="row align-items-center">
-          <div className="col-4">{this.generateUserRelatedData()}</div>
-          <div className="col-8">
+      <main className="content_section">
+        <div className="row justify-content-center align-items-center">
+          <div className="col-7">{this.generateUserRelatedData()}</div>
+          <div className="col-5">
             <ToggleCheckBox
               toggleEdit={this.toggleEdit}
               stateEdit={this.state.edit}
@@ -134,7 +144,8 @@ class Accounts extends Component {
         <div className="row">
           <div className="col-12">{this.generateUserData()}</div>
         </div>
-      </div>
+        {this.load_stylesheet()}
+      </main>
     );
   }
 }

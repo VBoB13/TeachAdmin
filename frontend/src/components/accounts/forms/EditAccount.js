@@ -1,17 +1,18 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 
+function generateForm(data) {
+  return Object.keys(data).length;
+}
+
+function formSubmit(e) {
+  e.preventDefault();
+}
+
 export default function EditForm(props) {
-  console.log(props.data);
-  generateForm = (data) => {
-    return Object.keys(data).length;
-  };
-  formSubmit = (e) => {
-    e.preventDefault();
-  };
   return (
     <form onSubmit={formSubmit}>
-      {generateForm()}
+      {generateForm(props.data)}
       <input type="submit" value="Submit" className="btn btn-primary" />
     </form>
   );
