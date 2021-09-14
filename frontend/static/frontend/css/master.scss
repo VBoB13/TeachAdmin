@@ -168,6 +168,28 @@ a.navigation-button-link-active {
   width: 100%;
 }
 
+div.dropdown-menu {
+  position: relative;
+  display: inline-block;
+  &:hover > div.dropdown-content {
+    display: block;
+  }
+}
+div.dropdown-menu > span.dropdown-title {
+  display: block;
+  text-align: center;
+  font-size: 1em;
+}
+div.dropdown-content {
+  border-radius: 1em;
+  border: 1px solid $main-purple;
+  display: none;
+  position: absolute;
+  background-color: $shadow-30;
+  margin-top: 0.5em;
+  padding: 1em 1.5em;
+}
+
 /* ----- Footer-related definitions ----- */
 
 div.footer-container {
@@ -388,6 +410,7 @@ div.errorField li {
   footer article.footer-link-container {
     width: 20vw;
   }
+
   a.navigation-link,
   a.navigation-link-active {
     font-size: 0.85em;

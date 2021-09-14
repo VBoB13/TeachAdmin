@@ -48,7 +48,10 @@ function Navbar(props) {
         <Link to="/" className="logo-link">
           TeachAdmin
         </Link>
-        {generateNavLinks()}
+        <div className="dropdown-menu">
+          <span className="dropdown-title">Menu</span>
+          <div className="dropdown-content">{generateNavLinks()}</div>
+        </div>
         <LogoutButton logout={props.logout} />
       </nav>
     );

@@ -112,6 +112,30 @@ a.navigation-button-link-active > button.standard-button:hover {
   width: 100%;
 }
 
+div.dropdown-menu {
+  position: relative;
+  display: inline-block;
+}
+div.dropdown-menu:hover > div.dropdown-content {
+  display: block;
+}
+
+div.dropdown-menu > span.dropdown-title {
+  display: block;
+  text-align: center;
+  font-size: 1em;
+}
+
+div.dropdown-content {
+  border-radius: 1em;
+  border: 1px solid #4020ff;
+  display: none;
+  position: absolute;
+  background-color: #00000044;
+  margin-top: 0.5em;
+  padding: 1em 1.5em;
+}
+
 /* ----- Footer-related definitions ----- */
 div.footer-container {
   margin-top: 6em;
