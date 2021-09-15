@@ -78,6 +78,7 @@ class RegisterView(generics.GenericAPIView, mixins.CreateModelMixin):
             if serialized.is_valid():
                 # Actually save/register the Teacher
                 serialized.save()
+                pprint(serialized.data)
                 return Response(serialized.data, status=status.HTTP_201_CREATED)
             else:
                 print(
