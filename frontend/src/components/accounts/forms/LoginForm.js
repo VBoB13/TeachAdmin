@@ -21,15 +21,18 @@ class LoginForm extends Component {
       <div className="form-content">
         <form method="POST" className="rounded" onSubmit={this.login}>
           <TextField
-            fieldname="username"
             id="username"
+            fieldname="username"
             fieldtype="text"
+            required={true}
+            autoComplete="username"
             autoFocus
           />
           <PasswordField
+            id="password"
             fieldname="password"
             fieldtype="password"
-            id="password"
+            required={true}
             autoComplete="current-password"
           />
           <input type="submit" className="standard-button" value="Login" />

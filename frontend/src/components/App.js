@@ -15,6 +15,7 @@ import Cookies from "universal-cookie";
 import Authenticator from "../helpers/auth";
 
 import Navbar from "./navbar/Navbar";
+import Footer from "./footer/Footer";
 import HomePage from "./homepage/HomePage";
 import Register from "./accounts/Register";
 import Accounts from "./accounts/Accounts";
@@ -105,6 +106,8 @@ export default class App extends Component {
           </Route>
           <Redirect to="/" />
         </Switch>
+        <hr />
+        <Footer />
       </div>
     );
   }

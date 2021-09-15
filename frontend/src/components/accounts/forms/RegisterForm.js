@@ -109,11 +109,19 @@ export default class RegisterForm extends Component {
             case "email":
               attribs.autocomplete = "email";
               break;
+            case "first_name":
+              attribs.autocomplete = "given-name";
+              break;
+            case "last_name":
+              attribs.autocomplete = "family-name";
+              break;
             default:
               break;
           }
 
+          // Error handling for fields
           if (attribs.name in this.state.errors) {
+            // Make sure field with error gets autofocus property set
             if (!attribs.hasOwnProperty("autofocus")) {
               attribs.autofocus = true;
             }
@@ -193,10 +201,10 @@ export default class RegisterForm extends Component {
   render() {
     if (this.state.data_loaded === true) {
       return (
-        <div>
+        <div className="form-content">
           <form id="registerForm" className="rounded" onSubmit={this.register}>
             {this.buildForm()}
-            <input type="submit" className="btn btn-primary" value="Register" />
+            <input type="submit" className="standard-button" value="Register" />
           </form>
         </div>
       );

@@ -21,3 +21,7 @@ class Student(models.Model):
 
     def get_absolute_url(self):
         return "/students/{}/".format(self.pk)
+
+    @property
+    def b_day(self):
+        return datetime.date.strftime(self.birthday, "%b %d")

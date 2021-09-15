@@ -142,7 +142,7 @@ div.dropdown-content {
 
 /* ----- Footer-related definitions ----- */
 div.footer-container {
-  margin-top: 6em;
+  margin-top: 3em;
 }
 
 footer.footer {
@@ -271,16 +271,18 @@ div.form-content,
 div.form-content form {
   flex-wrap: wrap;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
 }
 
 div.form-content {
-  margin-top: 5em;
-  width: 45%;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  width: 100%;
 }
 
 div.form-content form,
-div.form-content form div.form-group {
+div.form-content form div.form-group,
+div.form-content > form > fieldset {
   width: 100%;
 }
 
@@ -342,7 +344,8 @@ div.errorField li {
     font-size: 1.5em;
   }
 
-  a.navigation-link {
+  a.navigation-link,
+a.navigation-link-active {
     font-size: 1em;
     margin: 0.5em;
   }
@@ -362,11 +365,6 @@ div.errorField li {
 
   footer article.footer-link-container {
     width: 20vw;
-  }
-
-  a.navigation-link,
-a.navigation-link-active {
-    font-size: 0.85em;
   }
 }
 @media screen and (max-width: 600px) {
@@ -388,7 +386,7 @@ a.navigation-link-active {
 
   a.navigation-link,
 a.navigation-link-active {
-    font-size: 0.7em;
+    font-size: 0.85em;
   }
 
   main.container-guesthome-main {
@@ -418,8 +416,7 @@ a.navigation-link-active {
   }
 
   div.form-content {
-    margin-top: 5em;
-    width: 75%;
+    width: 100%;
   }
 }
 
