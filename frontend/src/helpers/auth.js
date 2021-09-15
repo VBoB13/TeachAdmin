@@ -59,26 +59,25 @@ export default class Authenticator {
   }
 
   async get_session() {
+    let state_data = {};
     try {
       const response = await axios(this.request_conf);
       var session_data = isResponseOK(response);
-    } catch (error) {
-      console.log("Something went wront when trying to get session data!");
-      console.error(error.toJSON());
-    }
-    if (session_data.isAuthenticated) {
-      return {
+      state_data = {
         isAuthenticated: true,
         user: session_data.user,
         user_link: session_data.user_link,
       };
-    } else {
-      return {
+    } catch (error) {
+      console.log("Not logged in.");
+      console.error(error.toJSON());
+      state_data = {
         isAuthenticated: false,
         user: "",
         user_link: "",
       };
     }
+    return state_data;
   }
 
   async logout() {

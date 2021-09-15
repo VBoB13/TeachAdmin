@@ -8,7 +8,7 @@ export default class InputField extends Component {
       id: props.id,
       fieldname: props.fieldname,
       fieldtype: props.fieldtype ?? "text",
-      value: props.defaultvalue ?? "",
+      value: props.init_value ?? "",
     };
 
     this.handleChange = this.handleChange.bind(this);

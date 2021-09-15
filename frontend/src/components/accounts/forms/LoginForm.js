@@ -20,7 +20,7 @@ function LoginForm(props) {
           required={true}
           autoComplete="username"
           autoFocus
-          value={userName ?? ""}
+          init_value={userName ?? ""}
         />
         <PasswordField
           id="password"
