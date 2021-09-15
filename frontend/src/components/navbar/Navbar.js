@@ -10,7 +10,7 @@ import {
 
 import NavbarLink from "./NavbarLinks";
 
-const navlinks = ["/scores/", "/curriculum/", "/observatory/", "/account/"];
+const navlinks = ["/scores", "/curriculum", "/observatory", "/account"];
 
 function LogoutButton(props) {
   return (
@@ -46,7 +46,7 @@ function generateNavLinks() {
         activeClassName="navigation-link-active"
         key={index}
       >
-        {url_string[1].toUpperCase() + url_string.slice(2, -1)}
+        {url_string[1].toUpperCase() + url_string.slice(2)}
       </NavLink>
     );
   });

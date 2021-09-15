@@ -336,6 +336,11 @@ div.errorField li {
     font-size: 0.8em;
   }
 
+  .standard-button,
+.standard-button-purple {
+    font-size: 1.25em;
+  }
+
   #navbar_logout {
     font-size: 0.8em;
   }
@@ -364,7 +369,7 @@ a.navigation-link-active {
   }
 
   footer article.footer-link-container {
-    width: 20vw;
+    width: 30vw;
   }
 }
 @media screen and (max-width: 600px) {
@@ -374,6 +379,11 @@ a.navigation-link-active {
 
   #register-button > .standard-button-purple {
     font-size: 0.5em;
+  }
+
+  .standard-button,
+.standard-button-purple {
+    font-size: 1em;
   }
 
   #navbar_logout {

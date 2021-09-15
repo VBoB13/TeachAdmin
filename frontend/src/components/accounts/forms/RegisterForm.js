@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router";
 import parse, { attributesToProps, domToReact } from "html-react-parser";
 
 import Authenticator, { isResponseOK } from "../../../helpers/auth";
@@ -17,6 +18,8 @@ export default class RegisterForm extends Component {
       data_loaded: false,
       form: "",
       errors: {},
+      registered: false,
+      user: "",
     };
 
     this.loadForm = this.loadForm.bind(this);
@@ -62,6 +65,9 @@ export default class RegisterForm extends Component {
 
   loadMessages(jsonObj) {
     if (jsonObj.hasOwnProperty("errors")) this.loadErrors(jsonObj["errors"]);
+    else if (jsonObj.hasOwnProperty("username")) {
+      this.setState({ registered: true, user: jsonObj["username"] });
+    }
   }
 
   async register(e) {
@@ -200,6 +206,9 @@ export default class RegisterForm extends Component {
 
   render() {
     if (this.state.data_loaded === true) {
+      if (this.state.registered) {
+        return <Redirect to={`/login/${this.state.user}`} />;
+      }
       return (
         <div className="form-content">
           <form id="registerForm" className="rounded" onSubmit={this.register}>

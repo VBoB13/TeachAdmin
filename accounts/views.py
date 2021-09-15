@@ -90,9 +90,8 @@ class RegisterView(generics.GenericAPIView, mixins.CreateModelMixin):
                     status=status.HTTP_406_NOT_ACCEPTABLE
                 )
         return Response({
-            'messages': {
-                'errors': {'form': 'Could not read form data.'}
-            }},
+            'errors': {'form': 'Could not read form data.'}
+        },
             status=status.HTTP_400_BAD_REQUEST)
 
 

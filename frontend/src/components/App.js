@@ -6,8 +6,6 @@ import {
   Route,
   Link,
   Redirect,
-  useParams,
-  useRouteMatch,
 } from "react-router-dom";
 
 import Cookies from "universal-cookie";
@@ -74,8 +72,9 @@ export default class App extends Component {
           </div>
           <hr />
           <Switch>
+            <Redirect from="/register" to="/" />
             <Redirect from="/login" to="/" />
-            <Route path="/account/">
+            <Route path="/account">
               <Accounts />
             </Route>
             <Route path="/">
@@ -92,13 +91,13 @@ export default class App extends Component {
         </div>
         <hr />
         <Switch>
-          <Route path="/about/">
+          <Route path="/about">
             <About />
           </Route>
-          <Route path="/login/">
+          <Route path="/login">
             <Login login={this.login} />
           </Route>
-          <Route path="/register/">
+          <Route path="/register">
             <Register />
           </Route>
           <Route path="/">
