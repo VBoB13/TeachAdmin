@@ -25,18 +25,6 @@ function LogoutButton(props) {
   );
 }
 
-function toggle_dropdown(event) {
-  event.preventDefault();
-  let dropdown_content = document.querySelector(
-    "div.dropdown-menu > div.dropdown-content"
-  );
-  if (dropdown_content.style.display === "block") {
-    dropdown_content.style.display = "none";
-  } else {
-    dropdown_content.style.display = "block";
-  }
-}
-
 function generateNavLinks() {
   let navlinks_list = navlinks.map((url_string, index) => {
     return (
@@ -60,7 +48,7 @@ function Navbar(props) {
         <Link to="/" className="logo-link">
           TeachAdmin
         </Link>
-        <div className="dropdown-menu" onClick={toggle_dropdown}>
+        <div className="dropdown-menu">
           <span className="dropdown-title">Menu</span>
           <div className="dropdown-content">{generateNavLinks()}</div>
         </div>

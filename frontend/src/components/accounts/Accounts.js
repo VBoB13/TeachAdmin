@@ -79,7 +79,7 @@ class Accounts extends Component {
           <dt>Career URL</dt>
           <dd>
             <a href={career_profile} target="_blank">
-              {career_profile}
+              {career_profile.slice(0, 25)}...
             </a>
           </dd>
           <dt>Member since:</dt>

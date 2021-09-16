@@ -121,7 +121,9 @@ div.dropdown-menu {
 div.dropdown-menu:hover > div.dropdown-content {
   display: block;
 }
-
+div.dropdown-menu:active > div.dropdown-content {
+  display: block;
+}
 div.dropdown-menu > span.dropdown-title {
   display: block;
   text-align: center;
@@ -130,7 +132,7 @@ div.dropdown-menu > span.dropdown-title {
 }
 
 div.dropdown-content {
-  width: 100%;
+  width: max-content;
   border-radius: 1em;
   border: 1px solid #4020ff;
   display: none;
@@ -397,6 +399,10 @@ a.navigation-link-active {
   a.navigation-link,
 a.navigation-link-active {
     font-size: 0.85em;
+  }
+
+  div.dropdown-content {
+    width: 100%;
   }
 
   main.container-guesthome-main {

@@ -177,6 +177,11 @@ div.dropdown-menu {
   &:hover > div.dropdown-content {
     display: block;
   }
+  &:active > div.dropdown-content {
+    display: block;
+  }
+  & > div.dropdown-content > a.navigation-link:active {
+  }
 }
 div.dropdown-menu > span.dropdown-title {
   display: block;
@@ -185,7 +190,7 @@ div.dropdown-menu > span.dropdown-title {
   font-size: 1em;
 }
 div.dropdown-content {
-  width: 100%;
+  width: max-content;
   border-radius: 1em;
   border: 1px solid $main-purple;
   display: none;
@@ -444,6 +449,9 @@ div.errorField li {
   a.navigation-link,
   a.navigation-link-active {
     font-size: 0.85em;
+  }
+  div.dropdown-content {
+    width: 100%;
   }
   main.container-guesthome-main {
     margin-top: 50px;
