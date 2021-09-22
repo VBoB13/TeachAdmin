@@ -180,8 +180,6 @@ div.dropdown-menu {
   &:active > div.dropdown-content {
     display: block;
   }
-  & > div.dropdown-content > a.navigation-link:active {
-  }
 }
 div.dropdown-menu > span.dropdown-title {
   display: block;

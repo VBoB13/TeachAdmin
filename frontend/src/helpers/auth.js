@@ -15,9 +15,8 @@ export function isResponseOK(response) {
   }
 }
 
-export default class Authenticator {
-  // Class made to handle authentications.
-  // Create new instance with params and use object to operate
+class RequestHandler {
+  // Base class for handling requests
   constructor(url, method = "GET", contentType = "application/json") {
     this.url = url;
     this.method = method;
@@ -32,6 +31,20 @@ export default class Authenticator {
       credentials: "same-origin",
     };
   }
+  async sendRequest() {
+    const response = await axios(this.request_conf);
+    var data = isResponseOK(response);
+    console.log(data);
+    return data;
+  }
+}
+
+export default class Authenticator extends RequestHandler {
+  // Class made to handle authentications.
+  // Create new instance with params and use object to operate
+  constructor(url, method = "GET", contentType = "application/json") {
+    super(url, method, contentType);
+  }
 
   async login() {
     let form_username = document.getElementById("username").value;
@@ -41,8 +54,7 @@ export default class Authenticator {
       password: form_password,
     };
     try {
-      const response = await axios(this.request_conf);
-      let data = isResponseOK(response);
+      let data = await this.sendRequest();
       return {
         isAuthenticated: data.isAuthenticated,
         user: data.user,
@@ -61,8 +73,7 @@ export default class Authenticator {
   async get_session() {
     let state_data = {};
     try {
-      const response = await axios(this.request_conf);
-      var session_data = isResponseOK(response);
+      var session_data = await this.sendRequest();
       state_data = {
         isAuthenticated: true,
         user: session_data.user,
@@ -82,8 +93,7 @@ export default class Authenticator {
 
   async logout() {
     try {
-      const response = await axios(this.request_conf);
-      let data = isResponseOK(response);
+      let data = await this.sendRequest();
       return {
         isAuthenticated: data.isAuthenticated,
         user: "",
@@ -103,8 +113,7 @@ export default class Authenticator {
 
   async register_get_form() {
     try {
-      const response = await axios(this.request_conf);
-      let form_data = isResponseOK(response);
+      let form_data = await this.sendRequest();
       return form_data;
     } catch (error) {
       console.error(error.toJSON());
@@ -113,8 +122,7 @@ export default class Authenticator {
 
   async register() {
     try {
-      const response = await axios(this.request_conf);
-      var data = isResponseOK(response);
+      var data = await this.sendRequest();
     } catch (error) {
       console.error(error.toJSON());
       data = error.response.data;
@@ -125,8 +133,7 @@ export default class Authenticator {
 
   async whoami() {
     try {
-      const response = await axios(this.request_conf);
-      var data = isResponseOK(response);
+      var data = this.sendRequest();
     } catch (error) {
       console.error(error.toJSON());
     }

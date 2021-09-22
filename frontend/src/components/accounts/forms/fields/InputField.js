@@ -30,7 +30,7 @@ export default class InputField extends Component {
           type={this.state.fieldtype}
           className="form-control"
           name={this.state.fieldname}
-          id={this.state.fieldname}
+          id={this.state.id}
           onChange={this.handleChange}
           value={this.state.value}
           {...this.props}

@@ -124,6 +124,7 @@ div.dropdown-menu:hover > div.dropdown-content {
 div.dropdown-menu:active > div.dropdown-content {
   display: block;
 }
+
 div.dropdown-menu > span.dropdown-title {
   display: block;
   text-align: center;

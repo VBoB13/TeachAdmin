@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import { render } from "react-dom";
 
-import axios from "axios";
 import Authenticator from "../../helpers/auth";
-import { isResponseOK } from "../../helpers/auth";
 
 import EditForm from "./forms/EditAccount";
 import ToggleCheckBox from "../togglers/toggleCheckbox";
+import UserData from "./UserData";
 
 class Accounts extends Component {
   constructor(props) {
@@ -70,22 +68,12 @@ class Accounts extends Component {
     let date_joined = this.state.data.date_joined;
 
     return (
-      <section className="user-info rounded p-2">
-        <dl>
-          <dt>Country</dt>
-          <dd>
-            {country} ({country_code})
-          </dd>
-          <dt>Career URL</dt>
-          <dd>
-            <a href={career_profile} target="_blank">
-              {career_profile.slice(0, 25)}...
-            </a>
-          </dd>
-          <dt>Member since:</dt>
-          <dd>{date_joined}</dd>
-        </dl>
-      </section>
+      <UserData
+        country={country}
+        country_code={country_code}
+        career_profile={career_profile}
+        date_joined={date_joined}
+      />
     );
   }
 
@@ -101,7 +89,7 @@ class Accounts extends Component {
   render() {
     if (!this.state.loaded) {
       return (
-        <main className="content_section">
+        <main className="content-section">
           <div className="row justify-content-center">
             <h1 className="display-4">{this.state.placeholder}</h1>
           </div>
@@ -111,39 +99,25 @@ class Accounts extends Component {
     }
     if (this.state.loaded && this.state.edit) {
       return (
-        <main className="content_section">
-          <div className="row justify-content-center align-items-center">
-            <div className="col-7">{this.generateUserRelatedData()}</div>
-            <div className="col-5">
-              <ToggleCheckBox
-                toggleEdit={this.toggleEdit}
-                stateEdit={this.state.edit}
-              />
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-12">
-              <EditForm data={this.state.data} />
-            </div>
-          </div>
+        <main className="content-section">
+          {this.generateUserRelatedData()}
+          <ToggleCheckBox
+            toggleEdit={this.toggleEdit}
+            stateEdit={this.state.edit}
+          />
+          <EditForm data={this.state.data} />
           {this.load_stylesheet()}
         </main>
       );
     }
     return (
-      <main className="content_section">
-        <div className="row justify-content-center align-items-center">
-          <div className="col-7">{this.generateUserRelatedData()}</div>
-          <div className="col-5">
-            <ToggleCheckBox
-              toggleEdit={this.toggleEdit}
-              stateEdit={this.state.edit}
-            />
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-12">{this.generateUserData()}</div>
-        </div>
+      <main className="content-section">
+        {this.generateUserRelatedData()}
+        <ToggleCheckBox
+          toggleEdit={this.toggleEdit}
+          stateEdit={this.state.edit}
+        />
+        {this.generateUserData()}
         {this.load_stylesheet()}
       </main>
     );

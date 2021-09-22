@@ -1,3 +1,11 @@
 h1.display-4 {
   text-align: center;
 }
+
+main.content-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}

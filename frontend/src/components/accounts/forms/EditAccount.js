@@ -1,8 +1,15 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
+import TextField from "./fields/TextField";
 
 function generateForm(data) {
-  return Object.keys(data).length;
+  return (
+    <TextField
+      id="career_profile"
+      fieldname="Career URL"
+      init_value={data.career_profile}
+    />
+  );
 }
 
 function formSubmit(e) {
