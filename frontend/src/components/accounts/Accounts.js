@@ -1,27 +1,32 @@
 import React, { Component } from "react";
-import { render } from "react-dom";
 
+import Authenticator from "../../helpers/auth";
 
-class Accounts extends Component{
-    constructor(props){
-        super(props);
+import EditForm from "./forms/EditAccount";
+import ToggleCheckBox from "../togglers/toggleCheckbox";
+import UserData from "./UserData";
 
-        // Registering component's methods
-        this.whoami = this.whoami.bind(this);
-        this.generateUserData = this.generateUserData.bind(this);
-        this.generateUserRelatedData = this.generateUserRelatedData.bind(this);
+class Accounts extends Component {
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            loaded: false,
-            data: null,
-            placeholder: "Now loading, please wait..."
-        };
-    }
-    
-    componentDidMount(){
-        this.whoami();
-    }
+    // Registering component's methods
+    this.load_stylesheet = this.load_stylesheet.bind(this);
+    this.whoami = this.whoami.bind(this);
+    this.updateInfo = this.updateInfo.bind(this);
+    this.generateUserData = this.generateUserData.bind(this);
+    this.generateUserRelatedData = this.generateUserRelatedData.bind(this);
+    this.toggleEdit = this.toggleEdit.bind(this);
 
+    this.state = {
+      loaded: false,
+      data: null,
+      placeholder: "Now loading, please wait...",
+      edit: false,
+    };
+  }
+
+<<<<<<< HEAD
 <<<<<<< Updated upstream
     whoami(){
         fetch("/accounts/me/", {
@@ -42,7 +47,41 @@ class Accounts extends Component{
         .catch((err) => {
             console.log(err);
         });
+||||||| merged common ancestors
+    whoami(){
+        fetch("/accounts/me/", {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "same-origin",
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            console.log("You're logged in as: " + data.user);
+            this.setState({
+                loaded: true,
+                data: data,
+                placeholder: ""
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+=======
+  async componentDidMount() {
+    let data;
+    try {
+      data = await this.whoami();
+    } catch (err) {
+      console.log(`Error: ${err.message}`);
+      this.setState({
+        loaded: false,
+        data: null,
+        placeholder: "Error! Could not get data from server.",
+      });
+>>>>>>> accounts
     }
+<<<<<<< HEAD
 ||||||| merged common ancestors
   updateInfo() {
     let data = this.whoami();
@@ -54,67 +93,103 @@ class Accounts extends Component{
     this.setState(data);
   }
 >>>>>>> Stashed changes
+||||||| merged common ancestors
+=======
+    let state_data = {
+      loaded: true,
+      data: data,
+      placeholder: "",
+    };
+    this.setState(state_data);
+  }
+>>>>>>> accounts
 
-    generateUserData(){
-        let user = this.state.data.user;
-        let country = this.state.data.country.name;
-        let country_code = this.state.data.country.code;
-        let career_profile = this.state.data.career_profile;
-        let date_joined = this.state.data.date_joined;
+  load_stylesheet() {
+    return (
+      <link
+        rel="stylesheet"
+        type="text/css"
+        href="/static/frontend/css/accounts.css"
+      />
+    );
+  }
 
-        return (
-          <section className="user-info">
-            <dl>
-              <dt>Name</dt>
-              <dd>{user}</dd>
-              <dt>Country</dt>
-              <dd>{country} ({country_code})</dd>
-              <dt>Career URL</dt>
-              <dd>
-                <a href={career_profile} target="_blank">
-                  {career_profile}
-                </a>
-              </dd>
-              <dt>Member since:</dt>
-              <dd>{date_joined}</dd>
-            </dl>
-          </section>
-        );
-    }
+  whoami() {
+    let data_obj = new Authenticator("/accounts/me/");
+    let data = data_obj.whoami();
+    return data;
+  }
 
-    generateUserRelatedData(){
-        let user = this.state.data.user;
+  updateInfo() {
+    let data = this.whoami();
+    this.setState(data);
+  }
 
-        return(
-            <h1 className="display-4">
-                {user}
-            </h1>
-        );
-    }
+  generateUserData() {
+    let country = this.state.data.country.name;
+    let country_code = this.state.data.country.code;
+    let career_profile = this.state.data.career_profile;
+    let date_joined = this.state.data.date_joined;
 
-    render(){
-        if(!this.state.loaded){
-            return (
-              <div className="content_section">
-                <div className="row">
-                  <h1 className="display-4">{this.state.placeholder}</h1>
-                </div>
-              </div>
-            );
-        }
-        return (
-          <div className="content_section">
-            <div className="row">
-              <div className="col-4">
-                  {this.generateUserData()}
-              </div>
-              <div className="col-8">
-                  {this.generateUserRelatedData()}
-              </div>
-            </div>
+    return (
+      <UserData
+        country={country}
+        country_code={country_code}
+        career_profile={career_profile}
+        date_joined={date_joined}
+      />
+    );
+  }
+
+  generateUserRelatedData() {
+    let user = this.state.data.user;
+    return <h1 className="display-4">{user}</h1>;
+  }
+
+  toggleEdit() {
+    this.setState({ edit: !this.state.edit });
+  }
+
+  render() {
+    if (!this.state.loaded) {
+      return (
+        <main className="content-section">
+          <div className="row justify-content-center">
+            <h1 className="display-4">{this.state.placeholder}</h1>
           </div>
-        );
+          {this.load_stylesheet()}
+        </main>
+      );
     }
+    if (this.state.loaded && this.state.edit) {
+      return (
+        <main className="content-section">
+          {this.generateUserRelatedData()}
+          <ToggleCheckBox
+            toggleEdit={this.toggleEdit}
+            stateEdit={this.state.edit}
+          />
+          <EditForm
+            data={this.state.data}
+            toggleEdit={this.toggleEdit}
+            updateInfo={this.updateInfo}
+          />
+          {this.load_stylesheet()}
+        </main>
+      );
+    }
+    return (
+      <main className="content-section">
+        {this.generateUserRelatedData()}
+        <ToggleCheckBox
+          toggleEdit={this.toggleEdit}
+          stateEdit={this.state.edit}
+        />
+        {this.generateUserData()}
+        {this.load_stylesheet()}
+      </main>
+    );
+  }
 }
 
 export default Accounts;

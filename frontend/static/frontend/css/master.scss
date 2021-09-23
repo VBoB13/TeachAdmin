@@ -13,100 +13,465 @@ $dark-gray: #666666;
 $gray: #b7b7b7;
 $light-gray: #f6f6f5;
 
+$extra-light-bg: #ececec;
+$light-bg: #e1e1ff;
+$main-purple: #4020ff;
+$main-purple-trans: #4020ff87;
+$main-blue: #0078ff;
+$main-blue-trans: #0078ff87;
+
 $help_text_size: 12px;
 $standard_text_size: 16px;
+$field_text_size: 20px;
+
+$shadow-80: #000000cc;
+$shadow-50: #00000087;
+$shadow-30: #00000044;
+
+// Major but basic settings
+body {
+  background-color: $light-bg;
+  font-size: 18px;
+  font-family: "Poppins", sans-serif;
+}
 
 #app {
-    width: 100%;
-    height: 100%;
-    display: flex;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+// Variables for convenience and DRY practices
+%flex-container {
+  display: flex;
+}
+%flex-container-column {
+  @extend %flex-container;
+  flex-direction: column;
+}
+
+%logo-style {
+  display: block;
+  font-size: 2em;
+  font-weight: 800;
+  text-shadow: 0.1em 0.1em 0.1em $shadow-30;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: $shadow-50;
+}
+
+%big-title {
+  font-size: 3em;
+  font-weight: 600;
+}
+
+%navigation-link {
+  display: block;
+  font-size: 1.5em;
+  font-weight: 600;
+  text-align: center;
+  align-self: center;
+}
+
+%standard-button {
+  font-size: 1.5rem;
+  padding: 0.5em;
+  border: 1px solid $shadow-50;
+  font-weight: 600;
+  text-align: center;
+  color: $light-bg;
+  box-shadow: 0.1em 0.1em 0.1em $shadow-30;
+  border-radius: 0.5em;
+  align-self: center;
+}
+
+%big-svg {
+  display: block;
+  box-sizing: border-box;
 }
 
 %unit-spacing {
-    padding: 10px;
-    margin: 5px;
+  padding: 10px;
+  margin: 5px;
 }
 
 %info-unit-color {
-    background-color: $navy-blue;
+  background-color: $navy-blue;
 }
 
 %content-unit-color {
-    background-color: $navy-blue;
-    color: $light-gray;
+  background-color: $navy-blue;
+  color: $light-gray;
 }
 
 %bordered-info-content {
-    border: $dark-brown solid 2px;
-    border-radius: 20% 7.5%;
+  border: $shadow-50 solid 2px;
 }
 
-.navbar-bg {
-    background-color: $dark-blue;
+/* ----- Navbar definitions ----- */
+
+a.logo-link {
+  @extend %logo-style;
+  color: $main-purple;
+  &:hover {
+    color: $main-blue;
+  }
+}
+a.navigation-link {
+  @extend %navigation-link;
+  color: $light-blue;
+  &:hover {
+    color: $main-purple;
+  }
+}
+a.navigation-link-active {
+  @extend %navigation-link;
+  color: $main-purple;
+  text-decoration: underline;
+  &:hover {
+    color: $main-blue;
+  }
+}
+a.navigation-button-link {
+  @extend %navigation-link;
+  color: $light-bg;
+}
+a.navigation-button-link-active {
+  @extend %navigation-link;
+  color: $main-purple;
+  & > button.standard-button {
+    background-color: $main-purple;
+  }
+  & > button.standard-button:hover {
+    background-color: $main-blue;
+  }
 }
 
-section.user-info {
-    @extend %content-unit-color;
-    @extend %bordered-info-content;
-    padding: 1.25em 1em 1.25em 1.25em;
-    margin: 1em -1em 0 0;
-    dt {
-        font-weight: bolder;
-        text-decoration: underline;
-        color: $light-blue;
-    }
-    dd {
-        text-indent: 1em;
-        a {
-            color: $light-blue;
-        }:hover{
-            color: $light-orange;
-        }
-    }
+.standard-button {
+  @extend %standard-button;
+  background-color: $main-blue;
+  &:hover {
+    background-color: $main-purple;
+  }
+}
+.standard-button-purple {
+  @extend %standard-button;
+  background-color: $main-purple;
+  &:hover {
+    background-color: $main-blue;
+  }
 }
 
-div.view_title {
-    @extend %info-unit-color;
-    @extend %unit-spacing;
+.navlink-container {
+  @extend %flex-container;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
 }
 
-div.messages {
-    @extend %info-unit-color;
-    @extend %unit-spacing;
-    p.success {
-        background-color: $success-green;
-    }
+div.dropdown-menu {
+  position: relative;
+  display: inline-block;
+  background-color: $main-blue-trans;
+  border: 1px solid $main-purple;
+  &:hover > div.dropdown-content {
+    display: block;
+  }
+  &:active > div.dropdown-content {
+    display: block;
+  }
+}
+div.dropdown-menu > span.dropdown-title {
+  display: block;
+  text-align: center;
+  color: $light-gray;
+  font-size: 1em;
+}
+div.dropdown-content {
+  width: max-content;
+  border-radius: 1em;
+  border: 1px solid $main-purple;
+  display: none;
+  position: absolute;
+  background-color: $shadow-80;
+  margin-top: 0.5em;
+  padding: 1em 1em;
 }
 
-form {
-    @extend %unit-spacing;
-    @extend %content-unit-color;
-    ul.errorlist {
-        border: $warning-red solid 2px;
-        border-radius: 10px;
-        background-color: $light-red;
-        li {
-            color: $dark-brown;
-        }
-    }
-    p {
-        span {
-            font-size: $help_text_size;
-            font-style: italic;
-            color: $gray;
-        }
-    }
-    input[type='submit'] {
-        background-color: $dark-blue;
-    }
+/* ----- Footer-related definitions ----- */
+
+div.footer-container {
+  margin-top: 3em;
+}
+footer.footer {
+  @extend %flex-container;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+footer.footer a {
+  color: inherit;
+}
+footer article.footer-link-container {
+  @extend %flex-container-column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-top: 2em;
+  width: 10vw;
+  aspect-ratio: 1/1;
+  border: 1px solid $shadow-50;
+  border-radius: 30px;
+  position: relative;
+  background-color: $extra-light-bg;
+}
+footer article.footer-link-container div.footer-link-icon-container {
+  background-color: $extra-light-bg;
+  border: 1px solid $shadow-50;
+  border-radius: 50%;
+  position: absolute;
+  top: -25px;
+}
+footer article.footer-link-container div.footer-link-icon-container img {
+  border-radius: 50%;
+  width: 2.5em;
+  height: 2.5em;
+}
+footer article.footer-link-container div.footer-link-content {
+  @extend %flex-container-column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+footer
+  article.footer-link-container
+  div.footer-link-content
+  h5.footer-link-title {
+  font-weight: 600;
+}
+footer article.footer-link-container div.footer-link-content p {
+  text-align: center;
+  font-size: 0.8rem;
 }
 
-%icon_style {
-    fill: $navy-blue;
+/* Here will first be up being categorized by
+    page because that's most likely how the
+    project is going to be done.
+    
+    ------ PAGES ------         */
+
+/* ------ GuestHome ------ */
+
+main.container-guesthome-main {
+  @extend %flex-container-column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  align-content: center;
+  width: 100%;
+  max-height: 500px;
+  margin-top: 150px;
 }
-svg.bi {
-    @extend %icon_style;
+main.container-guesthome-main a {
+  display: inline-block;
+  width: max-content;
 }
-div.menuItem svg.bi:hover {
-        fill: $light-blue;
+
+.slogan {
+  @extend %big-title;
+}
+
+h2.subslogan {
+  font-size: 1.25em;
+  color: $shadow-50;
+}
+
+.slogan,
+h2.subslogan {
+  margin-bottom: 2rem;
+}
+
+span.title-underline {
+  display: inline;
+  background-image: linear-gradient(120deg, $main-purple 0%, $main-blue 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 0.15em;
+  background-position: 0 88%;
+  transition: background-size 0.25s ease-in;
+  &:hover {
+    background-size: 100% 88%;
+    color: $light-bg;
+  }
+}
+
+#guywithcat {
+  height: 201px;
+}
+
+/* ------ About ------ */
+
+main.container-main {
+  @extend %flex-container;
+  flex-wrap: wrap;
+  height: max-content;
+  width: 100%;
+  padding: 2em;
+}
+main.container-main p.longer-text {
+  margin-bottom: 2em;
+}
+
+/* ------ Login ------ */
+
+main.container-main-center {
+  @extend %flex-container;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  padding: 2em;
+}
+
+div.form-content,
+div.form-content form {
+  @extend %flex-container-column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+div.form-content {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  width: 100%;
+}
+div.form-content form,
+div.form-content form div.form-group,
+div.form-content > form > fieldset {
+  width: 100%;
+}
+div.form-content input[type="submit"] {
+  align-self: center;
+  border-radius: 2em;
+  padding: 0.25em 3em;
+}
+div.form-group .form-control {
+  width: 100%;
+  border-radius: 2em;
+}
+
+div.form-group label {
+  margin-bottom: 0.1em;
+  font-weight: 600;
+}
+
+small.help-block {
+  font-size: 0.75em;
+  padding: 0 1em 0 1em;
+}
+
+div.errorField {
+  background-color: $light-red;
+  border-radius: 1em;
+}
+
+div.errorField li {
+  font-size: 0.75em;
+}
+
+#computerAuth {
+  aspect-ratio: 50/29;
+  width: 20em;
+}
+#register_buddy {
+  width: 30vw;
+  margin-bottom: 1em;
+}
+
+/* MEDIA queries */
+
+@media screen and (min-width: 600px) and (max-width: 949px) {
+  #register-button > .standard-button {
+    font-size: 0.8em;
+  }
+  #register-button > .standard-button-purple {
+    font-size: 0.8em;
+  }
+  .standard-button,
+  .standard-button-purple {
+    font-size: 1.25em;
+  }
+  #navbar_logout {
+    font-size: 0.8em;
+  }
+  a.logo-link {
+    font-size: 1.5em;
+  }
+  a.navigation-link,
+  a.navigation-link-active {
+    font-size: 1em;
+    margin: 0.5em;
+  }
+  main.container-guesthome-main {
+    margin-top: 50px;
+    align-items: center;
+  }
+  #guywithcat {
+    display: none;
+  }
+  #register_buddy {
+    width: 60vw;
+  }
+  footer article.footer-link-container {
+    width: 30vw;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #register-button > .standard-button {
+    font-size: 0.5em;
+  }
+  #register-button > .standard-button-purple {
+    font-size: 0.5em;
+  }
+  .standard-button,
+  .standard-button-purple {
+    font-size: 1em;
+  }
+  #navbar_logout {
+    font-size: 0.75em;
+  }
+  a.logo-link {
+    font-size: 0.9em;
+  }
+  a.navigation-link,
+  a.navigation-link-active {
+    font-size: 0.85em;
+  }
+  div.dropdown-content {
+    width: 100%;
+  }
+  main.container-guesthome-main {
+    margin-top: 50px;
+    align-items: center;
+    max-height: max-content;
+  }
+  #guywithcat {
+    display: none;
+  }
+  #register_buddy {
+    width: 80vw;
+  }
+  footer article.footer-link-container {
+    width: 30vw;
+  }
+  main.container-main p.longer-text {
+    font-size: 0.8em;
+  }
+  .slogan {
+    font-size: 2em;
+  }
+  div.form-content {
+    width: 100%;
+  }
 }

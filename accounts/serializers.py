@@ -5,11 +5,23 @@ from django_countries.serializer_fields import CountryField
 from .models import Teacher
 
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        exclude = ('password')
+
+
+class TeacherCareerUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Teacher
+        fields = ('career_profile',)
+
+
 class TeacherSerializer(CountryFieldMixin, serializers.ModelSerializer):
     user = serializers.StringRelatedField()
     country = CountryField(country_dict=True)
     career_profile = serializers.URLField(required=False)
-    
+
     class Meta:
         model = Teacher
         fields = (
@@ -22,7 +34,8 @@ class TeacherSerializer(CountryFieldMixin, serializers.ModelSerializer):
 
 class RegisterTeacherSerializer(CountryFieldMixin, serializers.ModelSerializer):
     country = CountryField(country_dict=True)
-    career_profile = serializers.URLField(required=False)
+    career_profile = serializers.URLField(
+        required=False, allow_blank=True, default="")
 
     class Meta:
         model = Teacher
@@ -30,7 +43,13 @@ class RegisterTeacherSerializer(CountryFieldMixin, serializers.ModelSerializer):
             'country',
             'career_profile')
 
-class UserSerializer(serializers.ModelSerializer):
+    def get_validation_exclusions(self):
+        exclusions = super(RegisterTeacherSerializer,
+                           self).get_validation_exclusions()
+        return exclusions + ['career_profile']
+
+
+class UserRegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(
         style={'input_type': 'password'},
         write_only=True
@@ -39,10 +58,11 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'first_name', 'last_name', 'password', 'teacher')
+        fields = ('username', 'email', 'first_name',
+                  'last_name', 'password', 'teacher')
         depth = 0
 
-    def create(self, validated_data, instance=None):
+    def create(self, validated_data):
         teacher_data = validated_data.pop('teacher')
         user = User.objects.create(**validated_data)
         user.set_password(validated_data['password'])
