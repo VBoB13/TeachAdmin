@@ -1,6 +1,9 @@
-from django.urls import path
+from django.urls import include, path
+
 from . import views
 
+app_name = 'students'
+
 urlpatterns = [
-    path('scores/', views.SchoolListCreate.as_view(), name='list_create'),
+    path('', views.StudentList.as_view(), name='list'),
 ]

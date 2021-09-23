@@ -1,8 +1,9 @@
 from rest_framework import serializers
-from .models import School
+
+from .models import Student
 
 
-class SchoolSerializer(serializers.ModelSerializer):
+class StudentSerializer(serializers.ModelSerializer):
     class Meta:
-        model = School
-        fields = ('id', 'name', 'country', 'city')
+        model = Student
+        exclude = ('teacher',)

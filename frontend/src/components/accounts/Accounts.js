@@ -22,6 +22,7 @@ class Accounts extends Component{
         this.whoami();
     }
 
+<<<<<<< Updated upstream
     whoami(){
         fetch("/accounts/me/", {
           headers: {
@@ -42,6 +43,17 @@ class Accounts extends Component{
             console.log(err);
         });
     }
+||||||| merged common ancestors
+  updateInfo() {
+    let data = this.whoami();
+    this.setState(data);
+  }
+=======
+  async updateInfo() {
+    let data = await this.whoami();
+    this.setState(data);
+  }
+>>>>>>> Stashed changes
 
     generateUserData(){
         let user = this.state.data.user;
