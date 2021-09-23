@@ -25,49 +25,11 @@ class Accounts extends Component {
       edit: false,
     };
   }
-
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-    whoami(){
-        fetch("/accounts/me/", {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "same-origin",
-        })
-        .then((res) => res.json())
-        .then((data) => {
-            console.log("You're logged in as: " + data.user);
-            this.setState({
-                loaded: true,
-                data: data,
-                placeholder: ""
-            });
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-||||||| merged common ancestors
-    whoami(){
-        fetch("/accounts/me/", {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "same-origin",
-        })
-        .then((res) => res.json())
-        .then((data) => {
-            console.log("You're logged in as: " + data.user);
-            this.setState({
-                loaded: true,
-                data: data,
-                placeholder: ""
-            });
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-=======
+  whoami() {
+    let data_obj = new Authenticator("/accounts/me/");
+    let data = data_obj.whoami();
+    return data;
+  }
   async componentDidMount() {
     let data;
     try {
@@ -79,30 +41,12 @@ class Accounts extends Component {
         data: null,
         placeholder: "Error! Could not get data from server.",
       });
->>>>>>> accounts
     }
-<<<<<<< HEAD
-||||||| merged common ancestors
-  updateInfo() {
-    let data = this.whoami();
-    this.setState(data);
   }
-=======
   async updateInfo() {
     let data = await this.whoami();
     this.setState(data);
   }
->>>>>>> Stashed changes
-||||||| merged common ancestors
-=======
-    let state_data = {
-      loaded: true,
-      data: data,
-      placeholder: "",
-    };
-    this.setState(state_data);
-  }
->>>>>>> accounts
 
   load_stylesheet() {
     return (
