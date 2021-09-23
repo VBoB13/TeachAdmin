@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from django.shortcuts import render
 from django.http import Http404
 
@@ -40,9 +39,3 @@ class StudentList(APIView):
     def perform_create(self, serializer):
         teacher = self.get_teacher(self.request.user)
         serializer.save(teacher=teacher)
-||||||| merged common ancestors
-=======
-from django.shortcuts import render
-
-# Create your views here.
->>>>>>> accounts

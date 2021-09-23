@@ -120,8 +120,8 @@ class Accounts extends Component {
     return data;
   }
 
-  updateInfo() {
-    let data = this.whoami();
+  async updateInfo() {
+    let data = await this.whoami();
     this.setState(data);
   }
 
