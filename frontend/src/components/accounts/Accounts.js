@@ -25,15 +25,22 @@ class Accounts extends Component {
       edit: false,
     };
   }
+
   whoami() {
     let data_obj = new Authenticator("/accounts/me/");
     let data = data_obj.whoami();
     return data;
   }
+
   async componentDidMount() {
     let data;
     try {
       data = await this.whoami();
+      this.setState({
+        loaded: true,
+        data: data,
+        placeholder: "",
+      });
     } catch (err) {
       console.log(`Error: ${err.message}`);
       this.setState({
@@ -43,6 +50,7 @@ class Accounts extends Component {
       });
     }
   }
+
   async updateInfo() {
     let data = await this.whoami();
     this.setState(data);
@@ -66,6 +74,7 @@ class Accounts extends Component {
 
   async updateInfo() {
     let data = await this.whoami();
+    data["loaded"] = true;
     this.setState(data);
   }
 
