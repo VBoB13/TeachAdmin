@@ -15,7 +15,7 @@ export function isResponseOK(response) {
   }
 }
 
-class RequestHandler {
+export class RequestHandler {
   // Base class for handling requests
   constructor(url, method = "GET", contentType = "application/json") {
     this.url = url;
@@ -34,7 +34,6 @@ class RequestHandler {
   async sendRequest() {
     const response = await axios(this.request_conf);
     var data = isResponseOK(response);
-    console.log(data);
     return data;
   }
 }

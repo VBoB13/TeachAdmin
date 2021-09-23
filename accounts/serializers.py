@@ -11,6 +11,12 @@ class UserSerializer(serializers.ModelSerializer):
         exclude = ('password')
 
 
+class TeacherCareerUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Teacher
+        fields = ('career_profile',)
+
+
 class TeacherSerializer(CountryFieldMixin, serializers.ModelSerializer):
     user = serializers.StringRelatedField()
     country = CountryField(country_dict=True)
@@ -56,7 +62,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
                   'last_name', 'password', 'teacher')
         depth = 0
 
-    def create(self, validated_data, instance=None):
+    def create(self, validated_data):
         teacher_data = validated_data.pop('teacher')
         user = User.objects.create(**validated_data)
         user.set_password(validated_data['password'])

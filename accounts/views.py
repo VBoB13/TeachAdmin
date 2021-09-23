@@ -22,18 +22,21 @@ from rest_framework import generics, status, mixins
 from rest_framework.parsers import JSONParser
 from rest_framework.renderers import HTMLFormRenderer, JSONRenderer
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework import permissions
 
 from . import forms
 from .models import Teacher
-from .serializers import TeacherSerializer, UserRegisterSerializer
+from .serializers import TeacherSerializer, UserRegisterSerializer, TeacherCareerUpdateSerializer
+from .permissions import IsOwnerOrReadOnly
 
 # Create your views here.
 
 
-class TeacherView(generics.GenericAPIView, mixins.RetrieveModelMixin):
+class TeacherView(generics.GenericAPIView,
+                  mixins.RetrieveModelMixin,
+                  mixins.UpdateModelMixin):
     serializer_class = TeacherSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
     renderer_classes = [JSONRenderer]
 
     def get_object(self, user):
@@ -55,10 +58,23 @@ class TeacherView(generics.GenericAPIView, mixins.RetrieveModelMixin):
         pprint(serializer.data)
         return JsonResponse(data=serializer.data, safe=False)
 
+    def put(self, request, *args, **kwargs):
+        """
+        Standard implementation of DRF's
+        """
+        teacher = self.get_object(user=request.user)
+        serializer = TeacherCareerUpdateSerializer(
+            instance=teacher, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(data=serializer.data)
+        print(serializer.errors)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class RegisterView(generics.GenericAPIView, mixins.CreateModelMixin):
     serializer_class = UserRegisterSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [permissions.AllowAny]
 
     def get(self, request, *args, **kwargs):
         """
@@ -93,38 +109,6 @@ class RegisterView(generics.GenericAPIView, mixins.CreateModelMixin):
             'errors': {'form': 'Could not read form data.'}
         },
             status=status.HTTP_400_BAD_REQUEST)
-
-
-def register(request):
-    registered = False
-
-    if request.method == "POST":
-        user_form = forms.UserForm(request.POST)
-        teacher_form = forms.TeacherForm(request.POST)
-
-        if user_form.is_valid() and teacher_form.is_valid():
-            user = user_form.save()
-            user.set_password(user.password)
-            user.save()
-
-            teacher = teacher_form.save(commit=False)
-            teacher.user = user
-            teacher.save()
-
-            registered = True
-        else:
-            print(user_form.errors, teacher_form.errors)
-    else:
-        user_form = forms.UserForm()
-        teacher_form = forms.TeacherForm()
-
-    return render(request, "accounts/register.html",
-                  {
-                      "title": "Register",
-                      "user_form": user_form,
-                      "teacher_form": teacher_form,
-                      "registered": registered
-                  })
 
 
 @require_POST

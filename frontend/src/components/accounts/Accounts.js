@@ -13,6 +13,7 @@ class Accounts extends Component {
     // Registering component's methods
     this.load_stylesheet = this.load_stylesheet.bind(this);
     this.whoami = this.whoami.bind(this);
+    this.updateInfo = this.updateInfo.bind(this);
     this.generateUserData = this.generateUserData.bind(this);
     this.generateUserRelatedData = this.generateUserRelatedData.bind(this);
     this.toggleEdit = this.toggleEdit.bind(this);
@@ -61,6 +62,11 @@ class Accounts extends Component {
     return data;
   }
 
+  updateInfo() {
+    let data = this.whoami();
+    this.setState(data);
+  }
+
   generateUserData() {
     let country = this.state.data.country.name;
     let country_code = this.state.data.country.code;
@@ -105,7 +111,11 @@ class Accounts extends Component {
             toggleEdit={this.toggleEdit}
             stateEdit={this.state.edit}
           />
-          <EditForm data={this.state.data} />
+          <EditForm
+            data={this.state.data}
+            toggleEdit={this.toggleEdit}
+            updateInfo={this.updateInfo}
+          />
           {this.load_stylesheet()}
         </main>
       );
