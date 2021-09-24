@@ -335,8 +335,9 @@ div.card-base {
   justify-content: space-between;
   align-content: center;
   align-items: center;
+  aspect-ratio: 5/6;
   width: 250px;
-  height: 300px;
+  height: auto;
   border-radius: 20px;
   border: 1px solid #00000087;
   box-sizing: border-box;
@@ -351,7 +352,7 @@ div.card-base > div.card-titlebox {
 }
 
 div.card-base > img.card-logo {
-  max-width: 150px;
+  max-width: 125px;
   height: auto;
 }
 
@@ -414,6 +415,22 @@ a.navigation-link-active {
   footer article.footer-link-container {
     width: 30vw;
   }
+
+  div.card-base {
+    width: 200px;
+  }
+
+  div.card-base > div.card-titlebox {
+    font-size: 1.5em;
+  }
+
+  div.card-base > img.card-logo {
+    max-width: 100px;
+  }
+
+  div.card-base > div.card-textbox > span.card-text {
+    font-size: 1.25em;
+  }
 }
 @media screen and (max-width: 600px) {
   #register-button > .standard-button {
@@ -474,6 +491,22 @@ a.navigation-link-active {
 
   div.form-content {
     width: 100%;
+  }
+
+  div.card-base {
+    width: 150px;
+  }
+
+  div.card-base > div.card-titlebox {
+    font-size: 1.2em;
+  }
+
+  div.card-base > img.card-logo {
+    max-width: 80px;
+  }
+
+  div.card-base > div.card-textbox > span.card-text {
+    font-size: 1em;
   }
 }
 

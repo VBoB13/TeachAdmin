@@ -16,13 +16,29 @@ function AccountLinkButton(props) {
   );
 }
 
+function StudentsLinkButton(props) {
+  return (
+    <LinkCard
+      title="Students"
+      logo="/static/frontend/svg/red_beard_avatar.svg"
+      img_alt="Bearded Student"
+      text="Shows all your students"
+    />
+  );
+}
+
 export default function HomePage(props) {
   return (
     <div className="container-fluid">
       <div className="row p-1 my-1">
-        <div className="col-4 p-2">
+        <div className="col-6 p-2">
           <Link to="/account/">
             <AccountLinkButton />
+          </Link>
+        </div>
+        <div className="col-6 p-2">
+          <Link to="/students/">
+            <StudentsLinkButton />
           </Link>
         </div>
       </div>
