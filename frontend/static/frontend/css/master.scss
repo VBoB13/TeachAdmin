@@ -20,6 +20,8 @@ $main-purple-trans: #4020ff87;
 $main-blue: #0078ff;
 $main-blue-trans: #0078ff87;
 
+$card-textbox-bg: #63456b;
+
 $help_text_size: 12px;
 $standard_text_size: 16px;
 $field_text_size: 20px;
@@ -389,7 +391,48 @@ div.errorField li {
   margin-bottom: 1em;
 }
 
-/* MEDIA queries */
+/* ------------------- Cards -------------------- */
+
+div.card-base {
+  @extend %flex-container-column;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  width: 250px;
+  height: 300px;
+  border-radius: 20px;
+  border: 1px solid $shadow-50;
+  box-sizing: border-box;
+  background-color: $main-blue-trans;
+}
+
+div.card-base > div.card-titlebox {
+  font-size: 2em;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 1px 1px 2px $shadow-80;
+}
+
+div.card-base > img.card-logo {
+  max-width: 150px;
+  height: auto;
+}
+
+div.card-base > div.card-textbox {
+  display: flex;
+  justify-content: center;
+  background-color: $card-textbox-bg;
+  border-radius: 0 0 20px 20px;
+}
+
+div.card-base > div.card-textbox > span.card-text {
+  font-size: 1.5em;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 0.5px 0.5px 1px $shadow-80;
+}
+
+/* ------------------- MEDIA queries -------------------- */
 
 @media screen and (min-width: 600px) and (max-width: 949px) {
   #register-button > .standard-button {

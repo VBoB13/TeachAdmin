@@ -10,12 +10,12 @@ body {
   display: flex;
 }
 
-main.container-main-center, main.container-main, footer.footer, .navlink-container, div.form-content,
+main.container-main-center, main.container-main, footer.footer, .navlink-container, div.card-base, div.form-content,
 div.form-content form, main.container-guesthome-main, footer article.footer-link-container div.footer-link-content, footer article.footer-link-container {
   display: flex;
 }
 
-div.form-content,
+div.card-base, div.form-content,
 div.form-content form, main.container-guesthome-main, footer article.footer-link-container div.footer-link-content, footer article.footer-link-container {
   flex-direction: column;
 }
@@ -330,7 +330,46 @@ div.errorField li {
   margin-bottom: 1em;
 }
 
-/* MEDIA queries */
+/* ------------------- Cards -------------------- */
+div.card-base {
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  width: 250px;
+  height: 300px;
+  border-radius: 20px;
+  border: 1px solid #00000087;
+  box-sizing: border-box;
+  background-color: #0078ff87;
+}
+
+div.card-base > div.card-titlebox {
+  font-size: 2em;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 1px 1px 2px #000000cc;
+}
+
+div.card-base > img.card-logo {
+  max-width: 150px;
+  height: auto;
+}
+
+div.card-base > div.card-textbox {
+  display: flex;
+  justify-content: center;
+  background-color: #63456b;
+  border-radius: 0 0 20px 20px;
+}
+
+div.card-base > div.card-textbox > span.card-text {
+  font-size: 1.5em;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 0.5px 0.5px 1px #000000cc;
+}
+
+/* ------------------- MEDIA queries -------------------- */
 @media screen and (min-width: 600px) and (max-width: 949px) {
   #register-button > .standard-button {
     font-size: 0.8em;
