@@ -1,4 +1,5 @@
 $light-blue: #54b8eb;
+$light-blue-trans: #54b8eb87;
 $standard-blue: #007dc3;
 $dark-blue: #0169a4;
 $navy-blue: #072a62;
@@ -78,9 +79,9 @@ body {
   font-size: 1.5rem;
   padding: 0.5em;
   border: 1px solid $shadow-50;
-  font-weight: 600;
+  font-weight: 700;
   text-align: center;
-  color: $light-bg;
+  color: $navy-blue;
   box-shadow: 0.1em 0.1em 0.1em $shadow-30;
   border-radius: 0.5em;
   align-self: center;
@@ -150,7 +151,7 @@ a.navigation-button-link-active {
 
 .standard-button {
   @extend %standard-button;
-  background-color: $main-blue;
+  background-color: $main-blue-trans;
   &:hover {
     background-color: $main-purple;
   }
@@ -186,7 +187,8 @@ div.dropdown-menu {
 div.dropdown-menu > span.dropdown-title {
   display: block;
   text-align: center;
-  color: $light-gray;
+  color: $navy-blue;
+  font-weight: 700;
   font-size: 1em;
 }
 div.dropdown-content {
@@ -412,6 +414,7 @@ div.card-base > div.card-titlebox {
   font-weight: 700;
   text-align: center;
   text-shadow: 1px 1px 2px $shadow-80;
+  color: $main-purple;
 }
 
 div.card-base > img.card-logo {
@@ -428,9 +431,10 @@ div.card-base > div.card-textbox {
 
 div.card-base > div.card-textbox > span.card-text {
   font-size: 1.5em;
-  font-weight: 700;
+  font-weight: 600;
   text-align: center;
   text-shadow: 0.5px 0.5px 1px $shadow-80;
+  color: $extra-light-bg;
 }
 
 /* ------------------- MEDIA queries -------------------- */
@@ -544,7 +548,7 @@ div.card-base > div.card-textbox > span.card-text {
   }
 
   div.card-base > img.card-logo {
-    max-width: 80px;
+    max-width: 60px;
   }
 
   div.card-base > div.card-textbox > span.card-text {

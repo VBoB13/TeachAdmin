@@ -46,9 +46,9 @@ a.navigation-button-link-active, a.navigation-button-link, a.navigation-link-act
   font-size: 1.5rem;
   padding: 0.5em;
   border: 1px solid #00000087;
-  font-weight: 600;
+  font-weight: 700;
   text-align: center;
-  color: #e1e1ff;
+  color: #072a62;
   box-shadow: 0.1em 0.1em 0.1em #00000044;
   border-radius: 0.5em;
   align-self: center;
@@ -92,7 +92,7 @@ a.navigation-button-link-active > button.standard-button:hover {
 }
 
 .standard-button {
-  background-color: #0078ff;
+  background-color: #0078ff87;
 }
 .standard-button:hover {
   background-color: #4020ff;
@@ -128,7 +128,8 @@ div.dropdown-menu:active > div.dropdown-content {
 div.dropdown-menu > span.dropdown-title {
   display: block;
   text-align: center;
-  color: #f6f6f5;
+  color: #072a62;
+  font-weight: 700;
   font-size: 1em;
 }
 
@@ -349,6 +350,7 @@ div.card-base > div.card-titlebox {
   font-weight: 700;
   text-align: center;
   text-shadow: 1px 1px 2px #000000cc;
+  color: #4020ff;
 }
 
 div.card-base > img.card-logo {
@@ -365,9 +367,10 @@ div.card-base > div.card-textbox {
 
 div.card-base > div.card-textbox > span.card-text {
   font-size: 1.5em;
-  font-weight: 700;
+  font-weight: 600;
   text-align: center;
   text-shadow: 0.5px 0.5px 1px #000000cc;
+  color: #ececec;
 }
 
 /* ------------------- MEDIA queries -------------------- */
@@ -502,7 +505,7 @@ a.navigation-link-active {
   }
 
   div.card-base > img.card-logo {
-    max-width: 80px;
+    max-width: 60px;
   }
 
   div.card-base > div.card-textbox > span.card-text {
