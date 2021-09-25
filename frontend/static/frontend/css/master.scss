@@ -393,6 +393,24 @@ div.errorField li {
   margin-bottom: 1em;
 }
 
+/* ------------------------------------------------- */
+/* ------------------- HomePage -------------------- */
+/* ------------------------------------------------- */
+
+/* ------------------- Links -------------------- */
+
+main.link-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+main.link-container > section.link-slot {
+  margin: 0.5em 1em;
+}
+
 /* ------------------- Cards -------------------- */
 
 div.card-base {
