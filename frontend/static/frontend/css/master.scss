@@ -399,7 +399,7 @@ div.errorField li {
 
 /* ------------------- Links -------------------- */
 
-main.link-container {
+.link-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -407,7 +407,7 @@ main.link-container {
   align-items: center;
 }
 
-main.link-container > section.link-slot {
+.link-container > section.link-slot {
   margin: 0.5em 1em;
 }
 

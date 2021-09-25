@@ -8,7 +8,8 @@ from accounts.models import Teacher
 
 class Student(models.Model):
     name = models.CharField(max_length=25)
-    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
+    teacher = models.ForeignKey(
+        Teacher, related_name="students", on_delete=models.CASCADE)
     country = CountryField(
         blank=True,
         blank_label='(Select Country)',

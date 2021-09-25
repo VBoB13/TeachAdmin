@@ -55,6 +55,7 @@ class TeacherView(generics.GenericAPIView,
         """
         teacher = self.get_object(request.user)
         serializer = self.serializer_class(instance=teacher)
+        pprint(serializer.data)
         return JsonResponse(data=serializer.data, safe=False)
 
     def put(self, request, *args, **kwargs):

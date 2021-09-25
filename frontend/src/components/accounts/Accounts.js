@@ -5,6 +5,7 @@ import Authenticator from "../../helpers/auth";
 import EditForm from "./forms/EditAccount";
 import ToggleCheckBox from "../togglers/toggleCheckbox";
 import UserData from "./UserData";
+import { DataCard } from "../cards/cards";
 
 class Accounts extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class Accounts extends Component {
     this.updateInfo = this.updateInfo.bind(this);
     this.generateUserData = this.generateUserData.bind(this);
     this.generateUserRelatedData = this.generateUserRelatedData.bind(this);
+    this.generateUserDataCards = this.generateUserDataCards.bind(this);
     this.toggleEdit = this.toggleEdit.bind(this);
 
     this.state = {
@@ -96,7 +98,11 @@ class Accounts extends Component {
 
   generateUserRelatedData() {
     let user = this.state.data.user;
-    return <h1 className="display-4">{user}</h1>;
+    return <h1 style={{ fontSize: 3.5 + "em", fontWeight: 400 }}>{user}</h1>;
+  }
+
+  generateUserDataCards() {
+    return;
   }
 
   toggleEdit() {

@@ -18,5 +18,12 @@ export default function LinkCard(props) {
 }
 
 export function DataCard(props) {
-  return "meh";
+  return (
+    <BaseCard>
+      <div className="card-titlebox">{props.number}</div>
+      <div className="card-textbox">
+        <span className="card-text">{props.text}</span>
+      </div>
+    </BaseCard>
+  );
 }
