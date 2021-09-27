@@ -21,7 +21,6 @@ class TeacherSerializer(CountryFieldMixin, serializers.ModelSerializer):
     user = serializers.StringRelatedField()
     country = CountryField(country_dict=True)
     career_profile = serializers.URLField(required=False)
-    students = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = Teacher
@@ -30,8 +29,7 @@ class TeacherSerializer(CountryFieldMixin, serializers.ModelSerializer):
             'user',
             'country',
             'career_profile',
-            'date_joined',
-            'students')
+            'date_joined')
 
 
 class RegisterTeacherSerializer(CountryFieldMixin, serializers.ModelSerializer):

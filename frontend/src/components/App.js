@@ -16,10 +16,11 @@ import Navbar from "./navbar/Navbar";
 import Footer from "./footer/Footer";
 import HomePage from "./homepage/HomePage";
 import Register from "./accounts/Register";
-import Accounts from "./accounts/Accounts";
 import GuestHome from "./homepage/GuestHome";
 import About from "./homepage/About";
 import Login from "./accounts/Login";
+import Accounts from "./accounts/Accounts";
+import Students from "./students/students";
 
 export default class App extends Component {
   constructor(props) {
@@ -77,10 +78,15 @@ export default class App extends Component {
             <Route path="/account">
               <Accounts />
             </Route>
+            <Route path="/students">
+              <Students />
+            </Route>
             <Route path="/">
               <HomePage user={this.state.user} />
             </Route>
           </Switch>
+          <hr />
+          <Footer />
         </div>
       );
     }

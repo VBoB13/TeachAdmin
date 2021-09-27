@@ -18,11 +18,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import AnonymousUser, User
 
-from rest_framework import generics, status, mixins
+from rest_framework import generics, status, mixins, permissions
 from rest_framework.parsers import JSONParser
 from rest_framework.renderers import HTMLFormRenderer, JSONRenderer
 from rest_framework.response import Response
-from rest_framework import permissions
 
 from . import forms
 from .models import Teacher

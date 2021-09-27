@@ -12,12 +12,10 @@ class Accounts extends Component {
     super(props);
 
     // Registering component's methods
-    this.load_stylesheet = this.load_stylesheet.bind(this);
     this.whoami = this.whoami.bind(this);
     this.updateInfo = this.updateInfo.bind(this);
     this.generateUserData = this.generateUserData.bind(this);
     this.generateUserRelatedData = this.generateUserRelatedData.bind(this);
-    this.generateUserDataCards = this.generateUserDataCards.bind(this);
     this.toggleEdit = this.toggleEdit.bind(this);
 
     this.state = {
@@ -58,16 +56,6 @@ class Accounts extends Component {
     this.setState(data);
   }
 
-  load_stylesheet() {
-    return (
-      <link
-        rel="stylesheet"
-        type="text/css"
-        href="/static/frontend/css/accounts.css"
-      />
-    );
-  }
-
   whoami() {
     let data_obj = new Authenticator("/accounts/me/");
     let data = data_obj.whoami();
@@ -101,10 +89,6 @@ class Accounts extends Component {
     return <h1 style={{ fontSize: 3.5 + "em", fontWeight: 400 }}>{user}</h1>;
   }
 
-  generateUserDataCards() {
-    return;
-  }
-
   toggleEdit() {
     this.setState({ edit: !this.state.edit });
   }
@@ -116,7 +100,6 @@ class Accounts extends Component {
           <div className="row justify-content-center">
             <h1 className="display-4">{this.state.placeholder}</h1>
           </div>
-          {this.load_stylesheet()}
         </main>
       );
     }
@@ -133,7 +116,6 @@ class Accounts extends Component {
             toggleEdit={this.toggleEdit}
             updateInfo={this.updateInfo}
           />
-          {this.load_stylesheet()}
         </main>
       );
     }
@@ -145,7 +127,6 @@ class Accounts extends Component {
           stateEdit={this.state.edit}
         />
         {this.generateUserData()}
-        {this.load_stylesheet()}
       </main>
     );
   }

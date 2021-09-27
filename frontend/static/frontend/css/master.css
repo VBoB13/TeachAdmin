@@ -334,6 +334,14 @@ div.errorField li {
 /* ------------------------------------------------- */
 /* ------------------- HomePage -------------------- */
 /* ------------------------------------------------- */
+main.content-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
 /* ------------------- Links -------------------- */
 .link-container {
   display: flex;
