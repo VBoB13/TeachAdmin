@@ -10,7 +10,6 @@ export default class DateField extends InputField {
 
   handleChange(event) {
     event.preventDefault();
-    console.log(`Date value: ${event.target.value}`);
     const chosen_date = new Date(event.target.value);
     const today = new Date();
 
