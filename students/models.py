@@ -10,6 +10,8 @@ class Student(models.Model):
     name = models.CharField(max_length=25)
     teacher = models.ForeignKey(
         Teacher, related_name="students", on_delete=models.CASCADE)
+    student_number = models.CharField(
+        max_length=10, blank=True, help_text="(almost) Anything within 10 characters.")
     country = CountryField(
         blank=True,
         blank_label='(Select Country)',
