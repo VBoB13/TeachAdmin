@@ -26,8 +26,12 @@ function createStudent(e) {
   console.log(`${student_name}: ${student_bday}`);
 }
 
-function StudentsList(props) {
-  return <section className="studentList">{props.children}</section>;
+function goBack() {
+  history.back();
+}
+
+function StudentsList({ children }) {
+  return <section className="studentList">{children}</section>;
 }
 
 // Create Student
@@ -59,6 +63,9 @@ function StudentForm(props) {
           required={true}
         />
         <input type="submit" className="standard-button" value="Add Student" />
+        <button className="standard-button-cancel" onClick={goBack}>
+          Cancel
+        </button>
       </form>
     </div>
   );

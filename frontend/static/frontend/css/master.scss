@@ -76,15 +76,16 @@ body {
 }
 
 %standard-button {
-  font-size: 1.5rem;
+  font-size: 1rem;
   padding: 0.5em;
   border: 1px solid $shadow-50;
   font-weight: 700;
   text-align: center;
   color: $navy-blue;
   box-shadow: 0.1em 0.1em 0.1em $shadow-30;
-  border-radius: 0.5em;
+  border-radius: 2em;
   align-self: center;
+  margin-top: 0.25em;
 }
 
 %big-svg {
@@ -161,6 +162,14 @@ a.navigation-button-link-active {
   background-color: $main-purple;
   &:hover {
     background-color: $main-blue;
+  }
+}
+
+.standard-button-cancel {
+  @extend %standard-button;
+  background-color: $gray;
+  &:hover {
+    background-color: $dark-gray;
   }
 }
 

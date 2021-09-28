@@ -45,7 +45,7 @@ class StudentList(APIView):
 
 class StudentDetail(APIView):
     """
-    Retrieve, upadte or delete a student instance.
+    Retrieve, update or delete a student instance.
     """
 
     def get_object(self, pk):

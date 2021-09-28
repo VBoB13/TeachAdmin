@@ -17,7 +17,7 @@ class Student(models.Model):
         blank_label='(Select Country)',
         help_text="Optional."
     )
-    birthday = models.DateField(default=datetime.date.today)
+    birthday = models.DateField(null=True)
 
     def __str__(self):
         return "{}".format(self.name)

@@ -42,16 +42,17 @@ a.navigation-button-link-active, a.navigation-button-link, a.navigation-link-act
   align-self: center;
 }
 
-.standard-button-purple, .standard-button {
-  font-size: 1.5rem;
+.standard-button-cancel, .standard-button-purple, .standard-button {
+  font-size: 1rem;
   padding: 0.5em;
   border: 1px solid #00000087;
   font-weight: 700;
   text-align: center;
   color: #072a62;
   box-shadow: 0.1em 0.1em 0.1em #00000044;
-  border-radius: 0.5em;
+  border-radius: 2em;
   align-self: center;
+  margin-top: 0.25em;
 }
 
 /* ----- Navbar definitions ----- */
@@ -103,6 +104,13 @@ a.navigation-button-link-active > button.standard-button:hover {
 }
 .standard-button-purple:hover {
   background-color: #0078ff;
+}
+
+.standard-button-cancel {
+  background-color: #b7b7b7;
+}
+.standard-button-cancel:hover {
+  background-color: #666666;
 }
 
 .navlink-container {
