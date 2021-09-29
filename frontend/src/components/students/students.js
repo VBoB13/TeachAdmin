@@ -15,6 +15,7 @@ import SelectField, {
   SelectOption,
 } from "../accounts/forms/fields/SelectField";
 
+// Fetching students from API
 async function getStudents() {
   var reqObj = new RequestHandler("/students/all/");
   let response = await reqObj.sendRequest();
@@ -22,11 +23,33 @@ async function getStudents() {
   return response;
 }
 
+// POST request to ADD Student
+async function addStudent(studentObj) {
+  var reqObj = new RequestHandler("/students/all/", "POST");
+  reqObj.request_conf["data"] = JSON.stringify(studentObj);
+  let response = await reqObj.sendRequest();
+  return response;
+}
+
+// Creating the Student object which is then sent to 'addStudent'
 function createStudent(e) {
   e.preventDefault();
+  let teacher_id = document.getElementById("teacher_id").value;
   let student_name = document.getElementById("student_name").value;
   let student_bday = document.getElementById("student_bday").value;
-  console.log(`${student_name}: ${student_bday}`);
+  let student_num = document.getElementById("student_num").value;
+  let student_country = document.getElementById("student_country").value;
+  let student = {
+    name: student_name,
+    teacher: teacher_id,
+    birthday: student_bday,
+    student_number: student_num,
+    country: student_country,
+  };
+  console.log(
+    `${student_name}: \nBirthday: ${student_bday}\nStudent number: ${student_num}\nTeacher ID: ${teacher_id}`
+  );
+  addStudent(student);
 }
 
 function StudentsList({ children }) {
@@ -41,6 +64,7 @@ function StudentForm(props) {
   return (
     <div className="form-content">
       <form className="rounded" onSubmit={createStudent}>
+        <input id="teacher_id" type="hidden" value={props.teacher_id} />
         <TextField
           id="student_name"
           fieldname="name"
@@ -86,12 +110,14 @@ export default function Students(props) {
   // State to hold values
   const [students, setStudents] = useState([]);
   const country_options = useRef([]);
+  const teacher_id = useRef(0);
   // Effect to fetch values
   useEffect(() => {
     const fetchStudents = async () => {
       try {
         const response = await getStudents();
         country_options.current = response.countries;
+        teacher_id.current = response.data.id;
         setStudents(response.data.students);
       } catch (error) {
         console.error(error);
@@ -100,24 +126,25 @@ export default function Students(props) {
     fetchStudents();
   }, []);
 
-  console.log("Countries:", country_options.current);
-
   return (
     <main className="content-section">
       <h1>Students</h1>
       <span>
         You have <b>{`${students.length}`}</b> students.
       </span>
-      <section className="add-student">
-        <Switch>
-          <Route path={`${match.path}/new/`}>
-            <StudentForm country_options={country_options.current} />
-          </Route>
-          <Route path={`${match.path}`}>
-            <Link to={`${match.url}new/`}>Add a student?</Link>
-          </Route>
-        </Switch>
-      </section>
+      <Switch>
+        <Route path={`${match.path}/new/`}>
+          <section className="add-student">
+            <StudentForm
+              teacher_id={teacher_id.current}
+              country_options={country_options.current}
+            />
+          </section>
+        </Route>
+        <Route path={`${match.path}`}>
+          <Link to={`${match.url}new/`}>Add a student?</Link>
+        </Route>
+      </Switch>
     </main>
   );
 }
