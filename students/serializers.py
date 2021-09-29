@@ -11,8 +11,8 @@ class StudentSerializer(serializers.ModelSerializer):
 
 
 class TeacherStudentSerializer(serializers.ModelSerializer):
-    students = StudentSerializer(many=True, read_only=True)
+    students = StudentSerializer(many=True)
 
     class Meta:
         model = Teacher
-        fields = ('students',)
+        fields = ('pk', 'students',)

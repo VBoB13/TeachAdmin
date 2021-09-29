@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Switch,
   Route,
@@ -11,6 +11,9 @@ import { RequestHandler } from "../../helpers/auth";
 import TextField from "../accounts/forms/fields/TextField";
 import InputField from "../accounts/forms/fields/InputField";
 import DateField from "../accounts/forms/fields/DateField";
+import SelectField, {
+  SelectOption,
+} from "../accounts/forms/fields/SelectField";
 
 async function getStudents() {
   var reqObj = new RequestHandler("/students/all/");
@@ -26,10 +29,6 @@ function createStudent(e) {
   console.log(`${student_name}: ${student_bday}`);
 }
 
-function goBack() {
-  history.back();
-}
-
 function StudentsList({ children }) {
   return <section className="studentList">{children}</section>;
 }
@@ -37,12 +36,7 @@ function StudentsList({ children }) {
 // Create Student
 function StudentForm(props) {
   var today = new Date();
-  var month = today.getMonth() + 1;
-  if (month < 10) {
-    var month_str = `0${month}`;
-  } else {
-    var month_str = `${month}`;
-  }
+  var date_str = today.toISOString().split("T")[0];
 
   return (
     <div className="form-content">
@@ -58,12 +52,28 @@ function StudentForm(props) {
           id="student_bday"
           fieldname="birthday"
           min="1921-01-01"
-          max={`${today.getFullYear()}-${month_str}-${today.getDate()}`}
-          init_value={`${today.getFullYear()}-${month_str}-${today.getDate()}`}
+          max={`${date_str}`}
+          init_value={`${date_str}`}
           required={true}
         />
+        <TextField
+          id="student_num"
+          fieldname="student number"
+          fieldtype="text"
+          help_text="Optional."
+        />
+        <SelectField
+          fieldID="student_country"
+          fieldname="country"
+          options={props.country_options}
+        />
         <input type="submit" className="standard-button" value="Add Student" />
-        <button className="standard-button-cancel" onClick={goBack}>
+        <button
+          className="standard-button-cancel"
+          onClick={() => {
+            history.back();
+          }}
+        >
           Cancel
         </button>
       </form>
@@ -75,11 +85,13 @@ export default function Students(props) {
   let match = useRouteMatch();
   // State to hold values
   const [students, setStudents] = useState([]);
+  const country_options = useRef([]);
   // Effect to fetch values
   useEffect(() => {
     const fetchStudents = async () => {
       try {
         const response = await getStudents();
+        country_options.current = response.countries;
         setStudents(response.data.students);
       } catch (error) {
         console.error(error);
@@ -88,32 +100,24 @@ export default function Students(props) {
     fetchStudents();
   }, []);
 
-  // If there are NO students
-  if (students.length === 0) {
-    return (
-      <main className="content-section">
-        <h1>Students</h1>
-        <span>
-          You have <b>{`${students.length}`}</b> students.
-        </span>
-        <section className="add-student">
-          <Switch>
-            <Route path={`${match.path}/new/`}>
-              <StudentForm />
-            </Route>
-            <Route path={`${match.path}`}>
-              <Link to={`${match.url}new/`}>Add a student?</Link>
-            </Route>
-          </Switch>
-        </section>
-      </main>
-    );
-  }
+  console.log("Countries:", country_options.current);
 
-  // If there are students
   return (
     <main className="content-section">
       <h1>Students</h1>
+      <span>
+        You have <b>{`${students.length}`}</b> students.
+      </span>
+      <section className="add-student">
+        <Switch>
+          <Route path={`${match.path}/new/`}>
+            <StudentForm country_options={country_options.current} />
+          </Route>
+          <Route path={`${match.path}`}>
+            <Link to={`${match.url}new/`}>Add a student?</Link>
+          </Route>
+        </Switch>
+      </section>
     </main>
   );
 }

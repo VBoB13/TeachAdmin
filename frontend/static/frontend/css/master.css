@@ -293,6 +293,12 @@ div.form-content {
   max-width: 600px;
 }
 
+div.form-content select {
+  width: 100%;
+  border-radius: 2em;
+  padding: 0.25em;
+}
+
 div.form-content form,
 div.form-content form div.form-group,
 div.form-content > form > fieldset {
@@ -403,6 +409,14 @@ div.card-base > div.card-textbox > span.card-text {
   text-align: center;
   text-shadow: 0.5px 0.5px 1px #000000cc;
   color: #ececec;
+}
+
+/* ------------------------------------------------- */
+/* ------------------- Students -------------------- */
+/* ------------------------------------------------- */
+/* ------------------- Add Students -------------------- */
+section.add-student {
+  width: 80%;
 }
 
 /* ------------------- MEDIA queries -------------------- */
