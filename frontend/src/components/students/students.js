@@ -49,7 +49,13 @@ function createStudent(e) {
   console.log(
     `${student_name}: \nBirthday: ${student_bday}\nStudent number: ${student_num}\nTeacher ID: ${teacher_id}`
   );
-  addStudent(student);
+  try {
+    addStudent(student);
+  } catch (error) {
+    console.log("Something went wrong when trying to add a student.");
+    console.error(error);
+  }
+  location.replace("/students/");
 }
 
 function StudentsList({ children }) {
