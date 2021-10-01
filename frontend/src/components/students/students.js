@@ -58,8 +58,40 @@ function createStudent(e) {
   location.replace("/students/");
 }
 
+function StudentItem(props) {
+  const [truncate, setTruncate] = useState(true);
+
+  // Making a "+" or "-" string for truncate-button
+  const truncateString = (truncate) => {
+    if (truncate) return "+";
+    return "-";
+  };
+
+  return (
+    <li className="studentItem">
+      {props.name}
+      <button
+        className="truncate-button"
+        onClick={() => {
+          setTruncate(!truncate);
+        }}
+      >
+        {truncateString(truncate)}
+      </button>
+      <dl className="studentData" hidden={truncate}>
+        <dt>Student number:</dt>
+        <dd>{props.student_number}</dd>
+        <dt>Birthday:</dt>
+        <dd>{props.birthday}</dd>
+        <dt>Country:</dt>
+        <dd>{props.country}</dd>
+      </dl>
+    </li>
+  );
+}
+
 function StudentsList({ children }) {
-  return <section className="studentList">{children}</section>;
+  return <ol className="studentList">{children}</ol>;
 }
 
 // Create Student
@@ -132,6 +164,19 @@ export default function Students(props) {
     fetchStudents();
   }, []);
 
+  var studentItems = students.map((student, index) => {
+    return (
+      <StudentItem
+        key={index}
+        id={student.id}
+        name={student.name}
+        student_number={student.student_number}
+        birthday={student.birthday}
+        country={country_options.current[`${student.country}`]}
+      />
+    );
+  });
+
   return (
     <main className="content-section">
       <h1>Students</h1>
@@ -148,6 +193,7 @@ export default function Students(props) {
           </section>
         </Route>
         <Route path={`${match.path}`}>
+          <StudentsList>{studentItems}</StudentsList>
           <Link to={`${match.url}new/`}>Add a student?</Link>
         </Route>
       </Switch>

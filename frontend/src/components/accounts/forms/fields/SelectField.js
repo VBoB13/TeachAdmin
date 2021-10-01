@@ -17,9 +17,8 @@ export default function SelectField(props) {
   };
 
   const generate_options = () => {
-    let element_list = props.options.map((country_array, index) => {
-      return generate_country_option(country_array, index);
-    });
+    let element_list = [];
+    for (var [key, value] of props.options) element_list.push([key, value]);
     return element_list;
   };
 

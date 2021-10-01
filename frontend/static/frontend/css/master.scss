@@ -483,6 +483,24 @@ div.card-base > div.card-textbox > span.card-text {
 /* ------------------- Students -------------------- */
 /* ------------------------------------------------- */
 
+/* ------------------- Students Home (List) -------------------- */
+
+button.truncate-button {
+  @extend %standard-button;
+  border-radius: 50%;
+  aspect-ratio: 1/1;
+  height: 2.3em;
+  width: auto;
+  &:active {
+    background-color: $shadow-80;
+    color: $light-blue;
+  }
+  &:hover {
+    background-color: $main-purple;
+    color: $light-orange;
+  }
+}
+
 /* ------------------- Add Students -------------------- */
 section.add-student {
   width: 80%;

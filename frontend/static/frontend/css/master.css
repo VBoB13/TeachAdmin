@@ -42,7 +42,7 @@ a.navigation-button-link-active, a.navigation-button-link, a.navigation-link-act
   align-self: center;
 }
 
-.standard-button-cancel, .standard-button-purple, .standard-button {
+button.truncate-button, .standard-button-cancel, .standard-button-purple, .standard-button {
   font-size: 1rem;
   padding: 0.5em;
   border: 1px solid #00000087;
@@ -414,6 +414,22 @@ div.card-base > div.card-textbox > span.card-text {
 /* ------------------------------------------------- */
 /* ------------------- Students -------------------- */
 /* ------------------------------------------------- */
+/* ------------------- Students Home (List) -------------------- */
+button.truncate-button {
+  border-radius: 50%;
+  aspect-ratio: 1/1;
+  height: 2.3em;
+  width: auto;
+}
+button.truncate-button:active {
+  background-color: #000000cc;
+  color: #54b8eb;
+}
+button.truncate-button:hover {
+  background-color: #4020ff;
+  color: #e68851;
+}
+
 /* ------------------- Add Students -------------------- */
 section.add-student {
   width: 80%;

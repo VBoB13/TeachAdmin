@@ -28,7 +28,7 @@ class StudentList(APIView):
     def get(self, request, format=None):
         teacher = self.get_teacher(request.user)
         serializer = TeacherStudentSerializer(instance=teacher)
-        countries_opt = list(countries)
+        countries_opt = dict(countries)
         return Response(data={"data": serializer.data, "countries": countries_opt})
 
     def post(self, request, format=None):
