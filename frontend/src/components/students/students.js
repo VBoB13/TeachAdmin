@@ -63,8 +63,8 @@ function StudentItem(props) {
 
   // Making a "+" or "-" string for truncate-button
   const truncateString = (truncate) => {
-    if (truncate) return "+";
-    return "-";
+    if (truncate) return ">";
+    return "v";
   };
 
   return (
