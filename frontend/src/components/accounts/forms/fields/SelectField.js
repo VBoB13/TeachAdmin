@@ -7,18 +7,17 @@ export function SelectOption(props) {
 }
 
 export default function SelectField(props) {
-  const generate_country_option = (country_array, index) => {
-    return (
-      <option
-        key={index}
-        value={`${country_array[0]}`}
-      >{`${country_array[1]}`}</option>
-    );
+  const generate_country_option = (code, name, count) => {
+    return <option key={count} value={`${code}`}>{`${name}`}</option>;
   };
 
   const generate_options = () => {
     let element_list = [];
-    for (var [key, value] of props.options) element_list.push([key, value]);
+    let count = 1;
+    for (var [code, name] of Object.entries(props.options)) {
+      element_list.push(generate_country_option(code, name, count));
+      count += 1;
+    }
     return element_list;
   };
 

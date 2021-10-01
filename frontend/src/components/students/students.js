@@ -69,7 +69,7 @@ function StudentItem(props) {
 
   return (
     <li className="studentItem">
-      {props.name}
+      {props.name} (<b>#{props.student_number}</b>)
       <button
         className="truncate-button"
         onClick={() => {
@@ -79,8 +79,6 @@ function StudentItem(props) {
         {truncateString(truncate)}
       </button>
       <dl className="studentData" hidden={truncate}>
-        <dt>Student number:</dt>
-        <dd>{props.student_number}</dd>
         <dt>Birthday:</dt>
         <dd>{props.birthday}</dd>
         <dt>Country:</dt>
