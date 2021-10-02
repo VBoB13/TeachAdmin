@@ -78,6 +78,10 @@ function StudentItem(props) {
       >
         {truncateString(truncate)}
       </button>
+      {/* Here will a DELETE-button be placed
+          When clicked, it simply redirects the user to
+          "/students/delete/{id}/" where another component
+          that handles the deletion of that student */}
       <dl className="studentData" hidden={truncate}>
         <dt>Birthday:</dt>
         <dd>{props.birthday}</dd>
