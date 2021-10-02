@@ -415,6 +415,20 @@ div.card-base > div.card-textbox > span.card-text {
 /* ------------------- Students -------------------- */
 /* ------------------------------------------------- */
 /* ------------------- Students Home (List) -------------------- */
+ol.studentList {
+  background-color: #00000044;
+  width: fit-content;
+  border-radius: 2em;
+  padding: 1em;
+  box-sizing: border-box;
+  list-style-position: inside;
+  box-shadow: 0.1em 0.1em 0.1em #00000044;
+}
+
+ol.studentList > li {
+  text-align: left;
+}
+
 button.truncate-button {
   border-radius: 50%;
   aspect-ratio: 1/1;

@@ -190,6 +190,7 @@ export default function Students(props) {
             />
           </section>
         </Route>
+        <Route path={`${match.path}/delete/:id`}></Route>
         <Route path={`${match.path}`}>
           <StudentsList>{studentItems}</StudentsList>
           <Link to={`${match.url}new/`}>Add a student?</Link>
