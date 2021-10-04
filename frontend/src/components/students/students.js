@@ -195,6 +195,10 @@ export function StudentDelete(props) {
           className="standard-button-delete"
           onClick={() => {
             try {
+              // MAYBE re-write this part to function better
+              // with various responses. We don't expect any data,
+              // but we do expect a certain response code, namely 204.
+              // Maybe 'RequestHandler' ?
               var data = deleteStudent(student.id);
             } catch (error) {
               console.error(error);
