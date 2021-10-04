@@ -28,6 +28,12 @@ async function addStudent(studentObj) {
   return response;
 }
 
+async function deleteStudent(studentID) {
+  var reqObj = new RequestHandler(`/students/${studentID}/`, "DELETE");
+  let response = await reqObj.sendRequest();
+  return response;
+}
+
 // Creating the Student object which is then sent to 'addStudent'
 function createStudent(e) {
   e.preventDefault();
@@ -75,10 +81,6 @@ function StudentItem(props) {
       >
         {truncateString(truncate)}
       </button>
-      {/* Here will a DELETE-button be placed
-          When clicked, it simply redirects the user to
-          "/students/delete/{id}/" where another component
-          that handles the deletion of that student */}
       <button
         className="standard-button-delete-small"
         onClick={() => {
@@ -189,7 +191,22 @@ export function StudentDelete(props) {
               : "N/A"}
           </p>
         </div>
-        <button className="standard-button-delete">Delete</button>
+        <button
+          className="standard-button-delete"
+          onClick={() => {
+            try {
+              var data = deleteStudent(student.id);
+            } catch (error) {
+              console.error(error);
+            } finally {
+              setTimeout(() => {
+                location.replace("/students/");
+              }, 3000);
+            }
+          }}
+        >
+          Delete
+        </button>
         <button
           className="standard-button-cancel"
           onClick={() => {

@@ -4,13 +4,12 @@ import axios from "axios";
 const cookies = new Cookies();
 
 export function isResponseOK(response) {
+  console.log(response);
   if (response.status >= 200 && response.status <= 299) {
     return response.data;
   } else if (response.status >= 400 && response.status <= 499) {
-    console.log(response);
     return response.data;
   } else {
-    console.log(response);
     throw new Error("Response ERROR!");
   }
 }

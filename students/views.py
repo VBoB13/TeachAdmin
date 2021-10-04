@@ -57,6 +57,12 @@ class StudentDetail(APIView):
         except Student.DoesNotExist:
             raise Http404
 
+    def get_teacher(self, user):
+        try:
+            return Teacher.objects.get(user=user)
+        except Teacher.DoesNotExist:
+            raise Http404
+
     def get(self, request, pk, format=None):
         student = self.get_object(pk)
         serializer = StudentSerializer(student)
@@ -72,5 +78,8 @@ class StudentDetail(APIView):
 
     def delete(self, request, pk, format=None):
         student = self.get_object(pk)
-        student.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        current_teacher = self.get_teacher(request.user)
+        if current_teacher == student.teacher:
+            student.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(data={"message": "ERROR: Can't delete other teachers' students."}, status=status.HTTP_403_FORBIDDEN)
