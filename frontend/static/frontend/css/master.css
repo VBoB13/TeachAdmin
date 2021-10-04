@@ -10,12 +10,12 @@ body {
   display: flex;
 }
 
-main.container-main-center, main.container-main, footer.footer, .navlink-container, div.card-base, div.form-content,
+main.container-main-center, main.container-main, footer.footer, .navlink-container, section.student-delete, div.card-base, div.form-content,
 div.form-content form, main.container-guesthome-main, footer article.footer-link-container div.footer-link-content, footer article.footer-link-container {
   display: flex;
 }
 
-div.card-base, div.form-content,
+section.student-delete, div.card-base, div.form-content,
 div.form-content form, main.container-guesthome-main, footer article.footer-link-container div.footer-link-content, footer article.footer-link-container {
   flex-direction: column;
 }
@@ -42,7 +42,7 @@ a.navigation-button-link-active, a.navigation-button-link, a.navigation-link-act
   align-self: center;
 }
 
-button.truncate-button, .standard-button-cancel, .standard-button-purple, .standard-button {
+button.standard-button-delete-small, button.standard-button-delete, button.truncate-button, .standard-button-cancel, .standard-button-purple, .standard-button {
   font-size: 1rem;
   padding: 0.5em;
   border: 1px solid #00000087;
@@ -173,12 +173,13 @@ footer article.footer-link-container {
   align-items: center;
   flex-wrap: wrap;
   padding-top: 2em;
-  width: 10vw;
+  width: 13vw;
   aspect-ratio: 1/1;
   border: 1px solid #00000087;
   border-radius: 30px;
   position: relative;
   background-color: #ececec;
+  flex-shrink: 2;
 }
 
 footer article.footer-link-container div.footer-link-icon-container {
@@ -392,8 +393,8 @@ div.card-base > div.card-titlebox {
 }
 
 div.card-base > img.card-logo {
-  max-width: 125px;
-  height: auto;
+  width: auto;
+  max-height: 125px;
 }
 
 div.card-base > div.card-textbox {
@@ -444,9 +445,53 @@ button.truncate-button:hover {
   color: #e68851;
 }
 
+button.standard-button-delete {
+  background-color: #aa3434;
+  border-radius: 0.5em;
+}
+button.standard-button-delete:active {
+  background-color: #000000cc;
+  color: #54b8eb;
+}
+button.standard-button-delete:hover {
+  background-color: #4020ff;
+  color: #e68851;
+}
+
+button.standard-button-delete-small {
+  background-color: #aa3434;
+  border-radius: 50%;
+  aspect-ratio: 1/1;
+  height: 2.3em;
+  width: auto;
+}
+button.standard-button-delete-small:active {
+  background-color: #000000cc;
+  color: #54b8eb;
+}
+button.standard-button-delete-small:hover {
+  background-color: #4020ff;
+  color: #e68851;
+}
+
 /* ------------------- Add Students -------------------- */
 section.add-student {
   width: 80%;
+}
+
+/* ------------------- Delete Students -------------------- */
+section.student-delete {
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+div.student-data {
+  background-color: #00000044;
+  width: fit-content;
+  border-radius: 2em;
+  padding: 1em;
+  box-sizing: border-box;
 }
 
 /* ------------------- MEDIA queries -------------------- */
@@ -492,7 +537,7 @@ a.navigation-link-active {
   }
 
   footer article.footer-link-container {
-    width: 30vw;
+    width: 20vw;
   }
 
   div.card-base {
@@ -504,7 +549,7 @@ a.navigation-link-active {
   }
 
   div.card-base > img.card-logo {
-    max-width: 100px;
+    max-height: 100px;
   }
 
   div.card-base > div.card-textbox > span.card-text {
@@ -573,7 +618,7 @@ a.navigation-link-active {
   }
 
   div.card-base {
-    width: 150px;
+    width: 140px;
   }
 
   div.card-base > div.card-titlebox {
@@ -581,7 +626,7 @@ a.navigation-link-active {
   }
 
   div.card-base > img.card-logo {
-    max-width: 60px;
+    max-height: 60px;
   }
 
   div.card-base > div.card-textbox > span.card-text {

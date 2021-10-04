@@ -9,11 +9,8 @@ import {
 
 import { RequestHandler } from "../../helpers/auth";
 import TextField from "../accounts/forms/fields/TextField";
-import InputField from "../accounts/forms/fields/InputField";
 import DateField from "../accounts/forms/fields/DateField";
-import SelectField, {
-  SelectOption,
-} from "../accounts/forms/fields/SelectField";
+import SelectField from "../accounts/forms/fields/SelectField";
 
 // Fetching students from API
 async function getStudents() {
@@ -82,11 +79,19 @@ function StudentItem(props) {
           When clicked, it simply redirects the user to
           "/students/delete/{id}/" where another component
           that handles the deletion of that student */}
+      <button
+        className="standard-button-delete-small"
+        onClick={() => {
+          location.replace(`/students/delete/${props.id}`);
+        }}
+      >
+        X
+      </button>
       <dl className="studentData" hidden={truncate}>
         <dt>Birthday:</dt>
         <dd>{props.birthday}</dd>
         <dt>Country:</dt>
-        <dd>{props.country}</dd>
+        <dd>{props.country ?? "N/A"}</dd>
       </dl>
     </li>
   );
@@ -145,6 +150,64 @@ function StudentForm(props) {
   );
 }
 
+export function StudentDelete(props) {
+  const { id } = useParams();
+  const [student, setStudent] = useState(null);
+
+  useEffect(() => {
+    const getStudent = async (id) => {
+      try {
+        let reqObj = new RequestHandler(`/students/${id}/`);
+        let student = await reqObj.sendRequest();
+        setStudent(student);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getStudent(id);
+  }, []);
+
+  console.log(student);
+  if (student) {
+    return (
+      <section className="student-delete">
+        <h1>Delete student?</h1>
+        <div className="student-data">
+          <h3>
+            <u>{student.name}</u>
+          </h3>
+          <p>
+            <b>Student #:</b> {student.student_number}
+          </p>
+          <p>
+            <b>Birthday:</b> {student.birthday}
+          </p>
+          <p>
+            <b>Country:</b>{" "}
+            {props.countries[`${student.country}`]
+              ? props.countries[`${student.country}`]
+              : "N/A"}
+          </p>
+        </div>
+        <button className="standard-button-delete">Delete</button>
+        <button
+          className="standard-button-cancel"
+          onClick={() => {
+            history.back();
+          }}
+        >
+          Cancel
+        </button>
+      </section>
+    );
+  }
+  return (
+    <section className="student-delete">
+      <h1>Loading...</h1>
+    </section>
+  );
+}
+
 export default function Students(props) {
   let match = useRouteMatch();
   // State to hold values
@@ -181,10 +244,6 @@ export default function Students(props) {
 
   return (
     <main className="content-section">
-      <h1>Students</h1>
-      <span>
-        You have <b>{`${students.length}`}</b> students.
-      </span>
       <Switch>
         <Route path={`${match.path}/new/`}>
           <section className="add-student">
@@ -194,8 +253,15 @@ export default function Students(props) {
             />
           </section>
         </Route>
-        <Route path={`${match.path}/delete/:id`}></Route>
+        <Route
+          path={`${match.path}/delete/:id`}
+          children={<StudentDelete countries={country_options.current} />}
+        />
         <Route path={`${match.path}`}>
+          <h1>Students</h1>
+          <span>
+            You have <b>{`${students.length}`}</b> students.
+          </span>
           <StudentsList>{studentItems}</StudentsList>
           <Link to={`${match.url}new/`}>Add a student?</Link>
         </Route>

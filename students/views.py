@@ -49,6 +49,7 @@ class StudentDetail(APIView):
     """
     Retrieve, update or delete a student instance.
     """
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self, pk):
         try:
