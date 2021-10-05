@@ -195,17 +195,18 @@ export function StudentDelete(props) {
           className="standard-button-delete"
           onClick={() => {
             try {
-              // MAYBE re-write this part to function better
-              // with various responses. We don't expect any data,
-              // but we do expect a certain response code, namely 204.
-              // Maybe 'RequestHandler' ?
-              var data = deleteStudent(student.id);
+              var response = deleteStudent(student.id);
             } catch (error) {
               console.error(error);
             } finally {
+              if (response.status !== 204) {
+                alert(
+                  "Something went wrong! You most likely tried to delete a student that wasn't yours, and that is NOT allowed. Redirecting back to /students/ in a couple of seconds..."
+                );
+              }
               setTimeout(() => {
                 location.replace("/students/");
-              }, 3000);
+              }, 2000);
             }
           }}
         >

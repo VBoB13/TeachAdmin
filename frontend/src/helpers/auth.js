@@ -6,9 +6,11 @@ const cookies = new Cookies();
 export function isResponseOK(response) {
   console.log(response);
   if (response.status >= 200 && response.status <= 299) {
-    return response.data;
+    if (response.data) return response.data;
+    return response;
   } else if (response.status >= 400 && response.status <= 499) {
-    return response.data;
+    if (response.data) return response.data;
+    return response;
   } else {
     throw new Error("Response ERROR!");
   }
