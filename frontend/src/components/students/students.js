@@ -34,6 +34,12 @@ async function deleteStudent(studentID) {
   return response;
 }
 
+// Editing a Student
+function editStudent(e) {
+  e.preventDefault();
+  console.log("EDIT!");
+}
+
 // Creating the Student object which is then sent to 'addStudent'
 function createStudent(e) {
   e.preventDefault();
@@ -74,7 +80,8 @@ function StudentItem(props) {
 
   return (
     <li className="studentItem">
-      {props.name} (<b>#{props.student_number}</b>)
+      <Link to={`/students/detail/${props.id}/`}>{props.name}</Link> (
+      <b>#{props.student_number}</b>)
       <button
         className="truncate-button"
         onClick={() => {
@@ -86,7 +93,7 @@ function StudentItem(props) {
       <button
         className="standard-button-delete-small"
         onClick={() => {
-          location.replace(`/students/delete/${props.id}`);
+          location.replace(`/students/delete/${props.id}/`);
         }}
       >
         X
@@ -105,20 +112,27 @@ function StudentsList({ children }) {
   return <ol className="studentList">{children}</ol>;
 }
 
-// Create Student
+// Create/Edit Student
 function StudentForm(props) {
   var today = new Date();
   var date_str = today.toISOString().split("T")[0];
+  var addEdit = props.edit ? "Edit" : "Add";
+
+  const createOReditStudent = () => {
+    if (props.edit) return editStudent;
+    return createStudent;
+  };
 
   return (
     <div className="form-content">
-      <form className="rounded" onSubmit={createStudent}>
+      <form className="rounded" onSubmit={createOReditStudent()}>
         <input id="teacher_id" type="hidden" value={props.teacher_id} />
         <TextField
           id="student_name"
           fieldname="name"
           fieldtype="text"
           required={true}
+          init_value={props.student ? props.student.name : ""}
           autoFocus
         />
         <DateField
@@ -126,21 +140,27 @@ function StudentForm(props) {
           fieldname="birthday"
           min="1921-01-01"
           max={`${date_str}`}
-          init_value={`${date_str}`}
+          init_value={props.student ? props.student.birthday : `${date_str}`}
           required={true}
         />
         <TextField
           id="student_num"
           fieldname="student number"
           fieldtype="text"
+          init_value={props.student ? props.student.student_number : ""}
           help_text="Optional."
         />
         <SelectField
           fieldID="student_country"
           fieldname="country"
           options={props.country_options}
+          student={props.student ?? null}
         />
-        <input type="submit" className="standard-button" value="Add Student" />
+        <input
+          type="submit"
+          className="standard-button"
+          value={`${addEdit} Student`}
+        />
         <button
           className="standard-button-cancel"
           onClick={() => {
@@ -154,6 +174,7 @@ function StudentForm(props) {
   );
 }
 
+// DELETE Student
 export function StudentDelete(props) {
   const { id } = useParams();
   const [student, setStudent] = useState(null);
@@ -233,6 +254,47 @@ export function StudentDelete(props) {
   );
 }
 
+// Student DETAIL
+export function StudentDetail(props) {
+  const { id } = useParams();
+  const [student, setStudent] = useState(null);
+
+  useEffect(() => {
+    const getStudent = async (id) => {
+      try {
+        let reqObj = new RequestHandler(`/students/${id}/`);
+        let student = await reqObj.sendRequest();
+        setStudent(student);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getStudent(id);
+  }, []);
+
+  if (student) {
+    return (
+      <section className="student-detail">
+        <h1>{student.name}</h1>
+        <section className="add-student">
+          <StudentForm
+            teacher_id={props.teacher_id}
+            student={student}
+            country_options={props.countries}
+            edit={true}
+          />
+        </section>
+      </section>
+    );
+  }
+  return (
+    <section className="student-detail">
+      <h1>Loading...</h1>
+    </section>
+  );
+}
+
+// Students-page MAIN
 export default function Students(props) {
   let match = useRouteMatch();
   // State to hold values
@@ -281,6 +343,15 @@ export default function Students(props) {
         <Route
           path={`${match.path}/delete/:id`}
           children={<StudentDelete countries={country_options.current} />}
+        />
+        <Route
+          path={`${match.path}/detail/:id`}
+          children={
+            <StudentDetail
+              teacher_id={teacher_id.current}
+              countries={country_options.current}
+            />
+          }
         />
         <Route path={`${match.path}`}>
           <h1>Students</h1>
