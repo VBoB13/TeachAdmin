@@ -58,7 +58,9 @@ function createStudent(e) {
     console.log("Something went wrong when trying to add a student.");
     console.error(error);
   }
-  location.replace("/students/");
+  setTimeout(() => {
+    location.replace("/students/");
+  }, 100);
 }
 
 function StudentItem(props) {
@@ -193,15 +195,16 @@ export function StudentDelete(props) {
         </div>
         <button
           className="standard-button-delete"
-          onClick={() => {
+          onClick={async () => {
             try {
-              var response = deleteStudent(student.id);
+              var response = await deleteStudent(student.id);
             } catch (error) {
               console.error(error);
             } finally {
+              console.log(response);
               if (response.status !== 204) {
                 alert(
-                  "Something went wrong! You most likely tried to delete a student that wasn't yours, and that is NOT allowed. Redirecting back to /students/ in a couple of seconds..."
+                  `Something went wrong! You most likely tried to delete a student that wasn't yours, and that is NOT allowed. Redirecting back to /students/ in a couple of seconds...`
                 );
               }
               setTimeout(() => {
