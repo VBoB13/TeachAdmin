@@ -34,10 +34,41 @@ async function deleteStudent(studentID) {
   return response;
 }
 
+async function putStudent(studentObj) {
+  var reqObj = new RequestHandler(`/students/${studentObj.id}/`, "PUT");
+  reqObj.request_conf["data"] = JSON.stringify(studentObj);
+  let response = await reqObj.sendRequest();
+  return response;
+}
+
 // Editing a Student
 function editStudent(e) {
   e.preventDefault();
-  console.log("EDIT!");
+  let teacher_id = document.getElementById("teacher_id").value;
+  let student_id = document.getElementById("student_id").value;
+  let student_name = document.getElementById("student_name").value;
+  let student_bday = document.getElementById("student_bday").value;
+  let student_num = document.getElementById("student_num").value;
+  let student_country = document.getElementById("student_country").value;
+  let student = {
+    id: student_id,
+    name: student_name,
+    teacher: teacher_id,
+    birthday: student_bday,
+    student_number: student_num,
+    country: student_country,
+  };
+  try {
+    putStudent(student);
+  } catch (error) {
+    console.log(
+      "Something went wrong when trying to edit a student's information!"
+    );
+    console.error(error);
+  }
+  setTimeout(() => {
+    location.reload();
+  }, 200);
 }
 
 // Creating the Student object which is then sent to 'addStudent'
@@ -66,7 +97,7 @@ function createStudent(e) {
   }
   setTimeout(() => {
     location.replace("/students/");
-  }, 100);
+  }, 200);
 }
 
 function StudentItem(props) {
@@ -117,9 +148,7 @@ function StudentForm(props) {
   var today = new Date();
   var date_str = today.toISOString().split("T")[0];
   var addEdit = props.edit ? "Edit" : "Add";
-  const [editable, seteditable] = useState(props.edit ? true : false);
-
-  // useEffect(() => {}, [editable]);
+  // const [submittable, setsubmittable] = useState(props.edit ? false : true);
 
   const createOReditStudent = () => {
     if (props.edit) return editStudent;
@@ -130,6 +159,7 @@ function StudentForm(props) {
     <div className="form-content">
       <form className="rounded" onSubmit={createOReditStudent()}>
         <input id="teacher_id" type="hidden" value={props.teacher_id} />
+        <input id="student_id" type="hidden" value={props.student.id} />
         <TextField
           id="student_name"
           fieldname="name"
