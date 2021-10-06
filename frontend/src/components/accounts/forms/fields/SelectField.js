@@ -33,7 +33,7 @@ export default function SelectField(props) {
         name={`${props.fieldname}`}
         id={`${props.fieldID}`}
         className="countries"
-        defaultValue={props.student.country ? `${props.student.country}` : ""}
+        defaultValue={props?.student?.country ? `${props.student.country}` : ""}
       >
         {generate_options()}
       </select>

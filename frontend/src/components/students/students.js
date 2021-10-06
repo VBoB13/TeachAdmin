@@ -117,6 +117,9 @@ function StudentForm(props) {
   var today = new Date();
   var date_str = today.toISOString().split("T")[0];
   var addEdit = props.edit ? "Edit" : "Add";
+  const [editable, seteditable] = useState(props.edit ? true : false);
+
+  // useEffect(() => {}, [editable]);
 
   const createOReditStudent = () => {
     if (props.edit) return editStudent;
