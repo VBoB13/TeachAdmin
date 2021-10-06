@@ -10,12 +10,12 @@ body {
   display: flex;
 }
 
-main.container-main-center, main.container-main, footer.footer, .navlink-container, section.student-delete, div.card-base, div.form-content,
+main.container-main-center, main.container-main, footer.footer, .navlink-container, section.student-detail, section.student-delete, div.card-base, div.form-content,
 div.form-content form, main.container-guesthome-main, footer article.footer-link-container div.footer-link-content, footer article.footer-link-container {
   display: flex;
 }
 
-section.student-delete, div.card-base, div.form-content,
+section.student-detail, section.student-delete, div.card-base, div.form-content,
 div.form-content form, main.container-guesthome-main, footer article.footer-link-container div.footer-link-content, footer article.footer-link-container {
   flex-direction: column;
 }
@@ -492,6 +492,13 @@ div.student-data {
   border-radius: 2em;
   padding: 1em;
   box-sizing: border-box;
+}
+
+/* ------------------- Student Detail -------------------- */
+section.student-detail {
+  justify-content: center;
+  align-content: center;
+  align-items: center;
 }
 
 /* ------------------- MEDIA queries -------------------- */

@@ -569,6 +569,15 @@ div.student-data {
   box-sizing: border-box;
 }
 
+/* ------------------- Student Detail -------------------- */
+
+section.student-detail {
+  @extend %flex-container-column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
 /* ------------------- MEDIA queries -------------------- */
 
 @media screen and (min-width: 600px) and (max-width: 949px) {

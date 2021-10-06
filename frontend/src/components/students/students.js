@@ -273,6 +273,7 @@ export function StudentDetail(props) {
   }, []);
 
   if (student) {
+    console.log({ student });
     return (
       <section className="student-detail">
         <h1>{student.name}</h1>
