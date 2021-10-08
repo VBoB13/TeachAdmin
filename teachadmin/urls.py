@@ -22,6 +22,7 @@ from django.views.static import serve
 urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('admin/', admin.site.urls),
+    path('courses/', include('courses.urls')),
     path('students/', include('students.urls')),
     re_path(r'^(?P<path>.*)/', include('frontend.urls')),
     path('', include('frontend.urls'))
