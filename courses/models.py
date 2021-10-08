@@ -26,15 +26,17 @@ class Subject(models.Model):
 class Course(models.Model):
     name = models.CharField(max_length=50)
     grade = models.SmallIntegerField(null=True, default=None)
-    subject = models.ForeignKey(Subject, null=True, on_delete=models.SET_NULL)
+    subject = models.ForeignKey(
+        Subject, related_name="courses", null=True, on_delete=models.SET_NULL)
     start_date = models.DateField(default=datetime.date.today)
     end_date = models.DateField()
-    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
+    teacher = models.ForeignKey(
+        Teacher, related_name="courses", on_delete=models.CASCADE)
     students = models.ManyToManyField(
-        Student, through='CourseEnrollment')
+        Student, related_name="enrollments", through='CourseEnrollment')
 
     class Meta:
-        ordering = ['start_date', 'name']
+        ordering = ['start_date', 'name', 'grade']
 
     def __str__(self):
         return self.name
