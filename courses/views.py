@@ -28,7 +28,7 @@ class CoursesListCreateView(APIView):
     def get(self, request, format=None):
         teacher = self.get_teacher(request.user)
         serializer = TeacherCoursesSerializer(instance=teacher)
-        return Response(data=serializer.data, status=status.HTTP_200)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, format=None):
         serializer = CourseSerializer(data=request.data)

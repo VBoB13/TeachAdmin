@@ -21,6 +21,7 @@ import About from "./homepage/About";
 import Login from "./accounts/Login";
 import Accounts from "./accounts/Accounts";
 import Students from "./students/students";
+import Courses from "./courses/courses";
 
 export default class App extends Component {
   constructor(props) {
@@ -77,6 +78,9 @@ export default class App extends Component {
             <Redirect from="/login" to="/" />
             <Route path="/account">
               <Accounts />
+            </Route>
+            <Route path="/courses/">
+              <Courses />
             </Route>
             <Route path="/students">
               <Students />

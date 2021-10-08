@@ -10,7 +10,7 @@ import {
 
 import NavbarLink from "./NavbarLinks";
 
-const navlinks = ["/scores", "/curriculum", "/observatory", "/account"];
+const navlinks = ["/students", "/courses", "/account"];
 
 function LogoutButton(props) {
   return (
