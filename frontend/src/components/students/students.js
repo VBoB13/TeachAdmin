@@ -150,16 +150,20 @@ function StudentForm(props) {
   var addEdit = props.edit ? "Edit" : "Add";
   // const [submittable, setsubmittable] = useState(props.edit ? false : true);
 
-  const createOReditStudent = () => {
+  const createOrEditStudent = () => {
     if (props.edit) return editStudent;
     return createStudent;
   };
 
   return (
     <div className="form-content">
-      <form className="rounded" onSubmit={createOReditStudent()}>
+      <form className="rounded" onSubmit={createOrEditStudent()}>
         <input id="teacher_id" type="hidden" value={props.teacher_id} />
-        <input id="student_id" type="hidden" value={props.student.id} />
+        <input
+          id="student_id"
+          type="hidden"
+          value={props.student ? props.student.id : ""}
+        />
         <TextField
           id="student_name"
           fieldname="name"

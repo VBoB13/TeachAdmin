@@ -1,3 +1,4 @@
+import React from "react";
 import { RequestHandler } from "../../helpers/auth";
 
 export async function getCourses() {
@@ -6,8 +7,28 @@ export async function getCourses() {
   return response;
 }
 
+export function CourseListItem(props) {
+  return (
+    <div className="course-list-item">
+      <h5>{props.course.name}</h5>
+      <span className="help-text">
+        Grade {props.course.grade} ({props.course.start_date} -{" "}
+        {props.course.end_date})
+      </span>
+    </div>
+  );
+}
+
 export default class Course {
-  constructor(name, grade, subject, start_date, end_date, teacher, students) {
+  constructor({
+    name,
+    grade,
+    subject,
+    start_date,
+    end_date,
+    teacher,
+    students,
+  }) {
     this.name = name;
     this.grade = grade;
     this.subject = subject;
@@ -18,14 +39,7 @@ export default class Course {
   }
 
   to_list_component() {
-    return (
-      <div className="course-list-item">
-        <h5>{this.name}</h5>
-        <span className="help-text">
-          Grade {this.grade} ({this.start_date} - {this.end_date})
-        </span>
-      </div>
-    );
+    return <CourseListItem course={this} />;
   }
 
   to_detail_component() {
