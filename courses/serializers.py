@@ -14,8 +14,6 @@ class CourseSerializer(serializers.ModelSerializer):
 
 
 class SubjectSerializer(serializers.ModelSerializer):
-    courses = CourseSerializer(many=True)
-
     class Meta:
         model = Subject
         fields = '__all__'
@@ -28,11 +26,9 @@ class CourseEnrollmentSerializer(serializers.ModelSerializer):
 
 
 class StudentCourseSerializer(serializers.ModelSerializer):
-    enrollments = CourseEnrollmentSerializer(many=True)
-
     class Meta:
         model = Student
-        fields = 'enrollments'
+        fields = ('courses',)
 
 
 class TeacherCoursesSerializer(serializers.ModelSerializer):

@@ -1,6 +1,10 @@
 import React from "react";
 import { RequestHandler } from "../../helpers/auth";
 
+import SelectField, {
+  SelectOption,
+} from "../accounts/forms/fields/SelectField";
+
 export async function getCourses() {
   let reqObj = new RequestHandler("/courses/all/");
   let response = await reqObj.sendRequest();
@@ -19,8 +23,25 @@ export function CourseListItem(props) {
   );
 }
 
+export class Subject {
+  constructor({ id, name }) {
+    this.id = id;
+    this.name = name;
+  }
+  to_option() {
+    return (
+      <SelectOption
+        key={this.id}
+        option_value={this.id}
+        option_text={this.name}
+      />
+    );
+  }
+}
+
 export default class Course {
   constructor({
+    id,
     name,
     grade,
     subject,
@@ -29,6 +50,7 @@ export default class Course {
     teacher,
     students,
   }) {
+    this.id = id;
     this.name = name;
     this.grade = grade;
     this.subject = subject;
@@ -39,7 +61,7 @@ export default class Course {
   }
 
   to_list_component() {
-    return <CourseListItem course={this} />;
+    return <CourseListItem key={this.id} course={this} />;
   }
 
   to_detail_component() {

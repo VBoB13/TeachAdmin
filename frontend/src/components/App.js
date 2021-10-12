@@ -23,6 +23,8 @@ import Accounts from "./accounts/Accounts";
 import Students from "./students/students";
 import Courses from "./courses/courses";
 
+export const TeacherContext = React.createContext();
+
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -32,7 +34,7 @@ export default class App extends Component {
 
     this.state = {
       isAuthenticated: false,
-      user: "",
+      user: {},
       user_link: "",
       error: "",
     };
@@ -64,33 +66,33 @@ export default class App extends Component {
     if (this.state.isAuthenticated) {
       return (
         <div className="container-fluid">
-          <div className="row justify-content-center align-items-center py-2">
-            <Navbar
-              isAuthenticated={this.state.isAuthenticated}
-              user={this.state.user}
-              user_link={this.state.user_link}
-              logout={this.logout}
-            />
-          </div>
-          <hr />
-          <Switch>
-            <Redirect from="/register" to="/" />
-            <Redirect from="/login" to="/" />
-            <Route path="/account">
-              <Accounts />
-            </Route>
-            <Route path="/courses/">
-              <Courses />
-            </Route>
-            <Route path="/students">
-              <Students />
-            </Route>
-            <Route path="/">
-              <HomePage user={this.state.user} />
-            </Route>
-          </Switch>
-          <hr />
-          <Footer />
+          <TeacherContext.Provider value={this.state.user}>
+            <div className="row justify-content-center align-items-center py-2">
+              <Navbar
+                isAuthenticated={this.state.isAuthenticated}
+                logout={this.logout}
+              />
+            </div>
+            <hr />
+            <Switch>
+              <Redirect from="/register" to="/" />
+              <Redirect from="/login" to="/" />
+              <Route path="/account">
+                <Accounts />
+              </Route>
+              <Route path="/courses/">
+                <Courses />
+              </Route>
+              <Route path="/students">
+                <Students />
+              </Route>
+              <Route path="/">
+                <HomePage user={this.state.user.user} />
+              </Route>
+            </Switch>
+            <hr />
+            <Footer />
+          </TeacherContext.Provider>
         </div>
       );
     }

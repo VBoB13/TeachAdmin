@@ -133,7 +133,7 @@ def login_view(request):
     teacher = get_object_or_404(Teacher, user=user)
     return JsonResponse({
         "isAuthenticated": True,
-        "user": user.get_username(),
+        "user": TeacherSerializer(instance=teacher).data,
         "user_link": teacher.get_absolute_url(),
         "detail": "Welcome, {}.".format(user.get_username())
     })
@@ -160,7 +160,7 @@ def session_view(request):
     teacher = get_object_or_404(Teacher, user=request.user)
     return JsonResponse({
         "isAuthenticated": True,
-        "user": request.user.username,
+        "user": TeacherSerializer(instance=teacher).data,
         "user_link": teacher.get_absolute_url()
     })
 

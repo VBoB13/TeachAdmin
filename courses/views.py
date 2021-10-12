@@ -7,8 +7,9 @@ from rest_framework.response import Response
 
 from accounts.models import Teacher
 from students.models import Student
+from .models import Subject
 
-from .serializers import CourseSerializer, TeacherCoursesSerializer
+from .serializers import CourseSerializer, TeacherCoursesSerializer, SubjectSerializer
 
 # Create your views here.
 
@@ -41,3 +42,22 @@ class CoursesListCreateView(APIView):
     def perform_create(self, serializer):
         teacher = self.get_teacher(self.request.user)
         serializer.save(teacher=teacher)
+
+
+class SubjectListCreateView(APIView):
+    """
+    List all Subjects available OR create a new Subject.
+    """
+
+    def get(self, request, format=None):
+        subjects = Subject.objects.all()
+        serializer = SubjectSerializer(subjects, many=True)
+        return Response(data=serializer.data)
+
+    def post(self, request, format=None):
+        serializer = SubjectSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        print(serializer.errors)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
