@@ -33,7 +33,7 @@ class Course(models.Model):
     teacher = models.ForeignKey(
         Teacher, related_name="courses", on_delete=models.CASCADE)
     students = models.ManyToManyField(
-        Student, related_name="enrollments", through='CourseEnrollment')
+        Student, related_name="courses", through='CourseEnrollment')
 
     class Meta:
         ordering = ['start_date', 'name', 'grade']
