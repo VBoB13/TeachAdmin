@@ -75,7 +75,7 @@ export default class Authenticator extends RequestHandler {
     try {
       var session_data = await this.sendRequest();
       state_data = {
-        isAuthenticated: true,
+        isAuthenticated: session_data.isAuthenticated,
         user: session_data.user,
         user_link: session_data.user_link,
       };
@@ -101,6 +101,7 @@ export default class Authenticator extends RequestHandler {
         error: "",
       };
     } catch (error) {
+      console.log(error);
       console.error(error.toJSON());
       return {
         isAuthenticated: false,
