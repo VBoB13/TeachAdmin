@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Switch, Route, Link, useParams, useRouteMatch } from "react-router";
+import { Switch, Route, useParams, useRouteMatch } from "react-router";
+import { Link } from "react-router-dom";
 
 import { RequestHandler } from "../../helpers/auth";
 import TextField from "../accounts/forms/fields/TextField";
@@ -21,18 +22,18 @@ export function CourseForm(props) {
   return (
     <div className="form-content">
       <form onSubmit={createStudent} className="rounded">
-        <TextField id="course_name" name="course_name" />
-        <NumberField id="course_grade" name="course_grade" />
+        <TextField id="course_name" fieldname="course_name" />
+        <NumberField id="course_grade" fieldname="course_grade" />
         <DateField
           id="course_start_date"
-          name="course_start_date"
+          fieldname="course_start_date"
           init_value={today.toISOString().split("T")[0]}
         />
         <DateField
           id="course_end_date"
-          name="course_end_date"
+          fieldname="course_end_date"
           init_value={
-            new Date(today.getFullYear + 1).toISOString().split("T")[0]
+            new Date(today.getFullYear() + 1).toISOString().split("T")[0]
           }
         />
         <HiddenTeacherField />
@@ -79,6 +80,7 @@ export default function Courses(props) {
       <main className="content-section">
         <Route path={`${match.path}/`}>
           <CourseList>{emptyListOrNot()}</CourseList>
+          <Link to={`${match.path}/new/`}>Add new course?</Link>
         </Route>
         <Route path={`${match.path}/new/`}>
           <CourseForm />
