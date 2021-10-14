@@ -50,6 +50,9 @@ export function CourseForm(props) {
     }
     console.log(`Successfully added: \n${created_course}`);
     console.log(created_course);
+    setTimeout(() => {
+      location.replace("/courses/");
+    }, 1000);
   };
   return (
     <div className="form-content">
