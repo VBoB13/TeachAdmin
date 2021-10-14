@@ -6,7 +6,9 @@ export default class InputField extends Component {
 
     this.state = {
       id: props.id,
-      fieldname: props.fieldname,
+      fieldname: props.fieldname.includes("_")
+        ? props.fieldname.split("_").join(" ")
+        : props.fieldname,
       fieldtype: props.fieldtype ?? "text",
       value: props.init_value ?? "",
       help_text: props.help_text ?? "",

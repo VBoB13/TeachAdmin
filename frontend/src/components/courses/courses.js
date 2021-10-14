@@ -80,12 +80,12 @@ export default function Courses(props) {
       <main className="content-section">
         <Route path={`${match.path}/`}>
           <CourseList>{emptyListOrNot()}</CourseList>
-          <Link to={`${match.path}/new/`}>Add new course?</Link>
+          <Link to={`${match.path}new/`}>Add new course?</Link>
         </Route>
-        <Route path={`${match.path}/new/`}>
+        <Route path={`${match.path}new/`}>
           <CourseForm />
         </Route>
-        <Route path={`${match.path}/edit/`}>
+        <Route path={`${match.path}edit/`}>
           {/* Currently thinking something like
               <CourseDetail course={courses[i]} />
               Alternatively, I could use a useRef(courses[i])
