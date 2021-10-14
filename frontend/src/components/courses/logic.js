@@ -50,7 +50,7 @@ export default class Course {
     teacher,
     students,
   }) {
-    this.id = id;
+    this.id = id ?? null;
     this.name = name;
     this.grade = grade;
     this.subject = subject;
@@ -58,6 +58,22 @@ export default class Course {
     this.end_date = end_date;
     this.teacher = teacher;
     this.students = students;
+  }
+
+  toString() {
+    return `Course: ${this.name}\nGrade: ${this.grade}`;
+  }
+
+  to_new_course() {
+    return JSON.stringify({
+      name: this.name,
+      grade: this.grade,
+      subject: this.subject,
+      start_date: this.start_date,
+      end_date: this.end_date,
+      teacher: this.teacher,
+      students: this.students,
+    });
   }
 
   to_list_component() {

@@ -37,6 +37,7 @@ class Course(models.Model):
 
     class Meta:
         ordering = ['start_date', 'name', 'grade']
+        unique_together = ['teacher', 'name']
 
     def __str__(self):
         return self.name
@@ -53,6 +54,7 @@ class CourseEnrollment(models.Model):
 
     class Meta:
         ordering = ['course', 'student']
+        unique_together = ['student', 'course']
 
     def __str__(self):
         return "{} enrolled in {} ({})".format(

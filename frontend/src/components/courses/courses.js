@@ -17,26 +17,72 @@ export function CourseForm(props) {
   const today = new Date();
   const createStudent = async (e) => {
     e.preventDefault();
-    alert("Submitted!");
+    console.log("Submitted!");
+    let name = document.getElementById("course_name").value;
+    let grade = document.getElementById("course_grade").value;
+    let start_date = document.getElementById("course_start_date").value;
+    let end_date = document.getElementById("course_end_date").value;
+    let teacher = document.getElementById("teacher_id").value;
+    let students = [];
+
+    let new_course = new Course({
+      name,
+      grade,
+      start_date,
+      end_date,
+      teacher,
+      students,
+    }).to_new_course();
+
+    let reqObj = new RequestHandler("/courses/all/", "POST");
+    reqObj.request_conf["data"] = new_course;
+
+    try {
+      var course_data = await reqObj.sendRequest();
+      var created_course = new Course(course_data);
+    } catch (error) {
+      console.log("Could not add student!");
+      console.error(error);
+      console.log("You will be redirected on a second...");
+      setTimeout(() => {
+        location.replace("/courses/");
+      }, 10000);
+    }
+    console.log(`Successfully added: \n${created_course}`);
+    console.log(created_course);
   };
   return (
     <div className="form-content">
       <form onSubmit={createStudent} className="rounded">
-        <TextField id="course_name" fieldname="course_name" />
-        <NumberField id="course_grade" fieldname="course_grade" />
+        <TextField
+          id="course_name"
+          fieldname="course_name"
+          help_text="Anything within 50 characters."
+        />
+        <NumberField
+          id="course_grade"
+          fieldname="course_grade"
+          help_text="Numbers only."
+        />
         <DateField
           id="course_start_date"
           fieldname="course_start_date"
           init_value={today.toISOString().split("T")[0]}
+          help_text="Pick date OR type date in initial format."
         />
         <DateField
           id="course_end_date"
           fieldname="course_end_date"
           init_value={
-            new Date(today.getFullYear() + 1).toISOString().split("T")[0]
+            new Date(today.getFullYear() + 1, today.getMonth(), today.getDate())
+              .toISOString()
+              .split("T")[0]
           }
         />
         <HiddenTeacherField />
+        <button type="submit" className="standard-button">
+          Add Course
+        </button>
       </form>
     </div>
   );
@@ -64,7 +110,7 @@ export default function Courses(props) {
   const emptyListOrNot = () => {
     if (courses.length >= 0) {
       return courses.map((course) => {
-        return course.to_list_item();
+        return course.to_list_component();
       });
     }
     return;
