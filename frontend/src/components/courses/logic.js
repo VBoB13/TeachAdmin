@@ -15,10 +15,10 @@ export function CourseListItem(props) {
   return (
     <div className="course-list-item">
       <h5>{props.course.name}</h5>
-      <span className="help-text">
+      <small className="help-text">
         Grade {props.course.grade} ({props.course.start_date} -{" "}
         {props.course.end_date})
-      </span>
+      </small>
     </div>
   );
 }

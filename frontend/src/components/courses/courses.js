@@ -86,6 +86,14 @@ export function CourseForm(props) {
         <button type="submit" className="standard-button">
           Add Course
         </button>
+        <button
+          className="standard-button-cancel"
+          onClick={() => {
+            history.back();
+          }}
+        >
+          Cancel
+        </button>
       </form>
     </div>
   );

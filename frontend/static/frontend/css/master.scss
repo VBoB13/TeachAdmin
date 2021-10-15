@@ -578,6 +578,37 @@ section.student-detail {
   align-items: center;
 }
 
+/* ------------------------------------------------- */
+/* -------------------- Courses -------------------- */
+/* ------------------------------------------------- */
+
+/* ------------------- Course List View -------------------- */
+
+section.course-list {
+  @extend %flex-container-column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+div.course-list-item {
+  margin-bottom: 1em;
+  border: 2px solid $dark-brown;
+  border-radius: 2em;
+  padding: 0.75em;
+  & > h5 {
+    text-align: center;
+    font-weight: 600;
+  }
+  & > small {
+    display: none;
+  }
+  &:hover > small {
+    display: inline;
+  }
+}
+
 /* ------------------- MEDIA queries -------------------- */
 
 @media screen and (min-width: 600px) and (max-width: 949px) {

@@ -10,12 +10,12 @@ body {
   display: flex;
 }
 
-main.container-main-center, main.container-main, footer.footer, .navlink-container, section.student-detail, section.student-delete, div.card-base, div.form-content,
+main.container-main-center, main.container-main, footer.footer, .navlink-container, section.course-list, section.student-detail, section.student-delete, div.card-base, div.form-content,
 div.form-content form, main.container-guesthome-main, footer article.footer-link-container div.footer-link-content, footer article.footer-link-container {
   display: flex;
 }
 
-section.student-detail, section.student-delete, div.card-base, div.form-content,
+section.course-list, section.student-detail, section.student-delete, div.card-base, div.form-content,
 div.form-content form, main.container-guesthome-main, footer article.footer-link-container div.footer-link-content, footer article.footer-link-container {
   flex-direction: column;
 }
@@ -499,6 +499,34 @@ section.student-detail {
   justify-content: center;
   align-content: center;
   align-items: center;
+}
+
+/* ------------------------------------------------- */
+/* -------------------- Courses -------------------- */
+/* ------------------------------------------------- */
+/* ------------------- Course List View -------------------- */
+section.course-list {
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+div.course-list-item {
+  margin-bottom: 1em;
+  border: 2px solid #464646;
+  border-radius: 2em;
+  padding: 0.75em;
+}
+div.course-list-item > h5 {
+  text-align: center;
+  font-weight: 600;
+}
+div.course-list-item > small {
+  display: none;
+}
+div.course-list-item:hover > small {
+  display: inline;
 }
 
 /* ------------------- MEDIA queries -------------------- */
