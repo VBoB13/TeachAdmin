@@ -7,7 +7,7 @@ from rest_framework.response import Response
 
 from accounts.models import Teacher
 from students.models import Student
-from .models import Subject
+from .models import Subject, Course
 
 from .serializers import CourseSerializer, TeacherCoursesSerializer, SubjectSerializer
 
@@ -42,6 +42,44 @@ class CoursesListCreateView(APIView):
     def perform_create(self, serializer):
         teacher = self.get_teacher(self.request.user)
         serializer.save(teacher=teacher)
+
+
+class CoursesDetailView(APIView):
+    """
+    Retrieve, update or delete a course instance.
+    """
+
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_object(self, pk):
+        try:
+            Course.objects.get(pk=pk)
+        except Course.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        course = self.get_object(pk)
+        serializer = CourseSerializer(course)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        course = self.get_object(pk)
+        serializer = CourseSerializer(data=request.data, instance=course)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        print(serializer.errors)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        try:
+            course = self.get_object(pk)
+        except Course.DoesNotExist:
+            print("Could not delete course!")
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        else:
+            course.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class SubjectListCreateView(APIView):

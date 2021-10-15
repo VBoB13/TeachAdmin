@@ -11,7 +11,16 @@ export async function getCourses() {
   return response;
 }
 
+export async function deleteCourse(id) {
+  let reqObj = new RequestHandler(`/courses/${id}/`, "DELETE");
+  let response = await reqObj.sendRequest();
+  return response;
+}
+
 export function CourseListItem(props) {
+  const removeCourse = () => {
+    deleteCourse(props.course.id);
+  };
   return (
     <div className="course-list-item">
       <h5>{props.course.name}</h5>
@@ -19,6 +28,7 @@ export function CourseListItem(props) {
         Grade {props.course.grade} ({props.course.start_date} -{" "}
         {props.course.end_date})
       </small>
+      <button className="standard-button-delete-small">X</button>
     </div>
   );
 }
