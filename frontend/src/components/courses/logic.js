@@ -12,14 +12,32 @@ export async function getCourses() {
 }
 
 export async function deleteCourse(id) {
+  // console.log(`Attempting to delete course with ID: ${id}`);
   let reqObj = new RequestHandler(`/courses/${id}/`, "DELETE");
   let response = await reqObj.sendRequest();
   return response;
 }
 
+export function redirectListView() {
+  setTimeout(() => {
+    location.replace("/courses/");
+  }, 10000);
+}
+
 export function CourseListItem(props) {
   const removeCourse = () => {
-    deleteCourse(props.course.id);
+    let response = deleteCourse(props.course.id);
+    console.log("Got this as response:", response);
+    if (response.status === 204) {
+      console.log(`Successfully deleted ${props.course} !`);
+      console.log("Redirecting back to list view...");
+      redirectListView();
+    } else {
+      console.log(
+        `Server responded with the following status code: ${response.status}`
+      );
+      redirectListView();
+    }
   };
   return (
     <div className="course-list-item">
@@ -28,7 +46,9 @@ export function CourseListItem(props) {
         Grade {props.course.grade} ({props.course.start_date} -{" "}
         {props.course.end_date})
       </small>
-      <button className="standard-button-delete-small">X</button>
+      <button className="standard-button-delete-small" onClick={removeCourse}>
+        X
+      </button>
     </div>
   );
 }
