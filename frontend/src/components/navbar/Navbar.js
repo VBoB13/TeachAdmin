@@ -10,7 +10,7 @@ import {
 
 import NavbarLink from "./NavbarLinks";
 
-const navlinks = ["/account", "/students", "/courses"];
+const NAVLINKS = ["/account", "/students", "/courses"];
 
 function LogoutButton(props) {
   return (
@@ -26,17 +26,8 @@ function LogoutButton(props) {
 }
 
 function generateNavLinks() {
-  let navlinks_list = navlinks.map((url_string, index) => {
-    return (
-      <NavLink
-        to={url_string}
-        className="navigation-link"
-        activeClassName="navigation-link-active"
-        key={index}
-      >
-        {url_string[1].toUpperCase() + url_string.slice(2)}
-      </NavLink>
-    );
+  let navlinks_list = NAVLINKS.map((url_string, index) => {
+    return <NavbarLink key={index} url_string={url_string} />;
   });
   return navlinks_list;
 }
