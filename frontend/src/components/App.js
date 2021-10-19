@@ -80,7 +80,7 @@ export default class App extends Component {
               <Route path="/account">
                 <Accounts />
               </Route>
-              <Route path="/courses/">
+              <Route path="/courses">
                 <Courses />
               </Route>
               <Route path="/students">
