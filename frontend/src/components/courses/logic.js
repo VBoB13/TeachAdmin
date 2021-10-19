@@ -20,8 +20,8 @@ export async function deleteCourse(id) {
 
 export function redirectListView() {
   setTimeout(() => {
-    location.replace("/courses/");
-  }, 10000);
+    location.reload();
+  }, 500);
 }
 
 export function CourseListItem(props) {

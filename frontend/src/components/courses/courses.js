@@ -132,22 +132,23 @@ export default function Courses(props) {
   }
 
   console.log("Courses:", courses);
+  console.log(`${match.path}`);
   return (
     <Switch>
       <main className="content-section">
-        <Route path={`${match.path}/`}>
-          <CourseList>{emptyListOrNot()}</CourseList>
-          <Link to={`${match.path}new/`}>Add new course?</Link>
-        </Route>
-        <Route path={`${match.path}new/`}>
+        <Route path={`${match.path}/new/`}>
           <CourseForm />
         </Route>
-        <Route path={`${match.path}edit/`}>
+        <Route path={`${match.path}/edit/`}>
           {/* Currently thinking something like
               <CourseDetail course={courses[i]} />
               Alternatively, I could use a useRef(courses[i])
               which would then be the context in which
-              <CourseDetail /> opens. */}
+            <CourseDetail /> opens. */}
+        </Route>
+        <Route path={`${match.path}/`}>
+          <CourseList>{emptyListOrNot()}</CourseList>
+          <Link to={`${match.path}/new/`}>Add new course?</Link>
         </Route>
       </main>
     </Switch>
