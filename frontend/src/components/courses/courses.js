@@ -147,6 +147,13 @@ export default function Courses(props) {
               which would then be the context in which
             <CourseDetail /> opens. */}
         </Route>
+        <Route path={`${match.path}/detail/`}>
+          {/* Currently thinking something like
+              <CourseDetail course={courses[key]} />
+              Alternatively, I could use a useRef(courses[i])
+              which would then be the context in which
+            <CourseDetail /> opens. */}
+        </Route>
         <Route path={`${match.path}/`} exact={true}>
           <CourseList>{emptyListOrNot()}</CourseList>
           <Link to={`${match.path}/new/`}>Add new course?</Link>
