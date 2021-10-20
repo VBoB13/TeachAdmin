@@ -58,6 +58,7 @@ body {
   display: block;
   font-size: 2em;
   font-weight: 800;
+  line-height: 1.2em;
   text-shadow: 0.1em 0.1em 0.1em $shadow-30;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: $shadow-50;
@@ -113,6 +114,11 @@ body {
 }
 
 /* ----- Navbar definitions ----- */
+
+div.navlink-container {
+  @extend %flex-container;
+  justify-content: space-between;
+}
 
 a.logo-link {
   @extend %logo-style;

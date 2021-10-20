@@ -10,7 +10,7 @@ body {
   display: flex;
 }
 
-main.container-main-center, main.container-main, footer.footer, .navlink-container, section.course-list, section.student-detail, section.student-delete, div.card-base, div.form-content,
+main.container-main-center, main.container-main, footer.footer, .navlink-container, div.navlink-container, section.course-list, section.student-detail, section.student-delete, div.card-base, div.form-content,
 div.form-content form, main.container-guesthome-main, footer article.footer-link-container div.footer-link-content, footer article.footer-link-container {
   display: flex;
 }
@@ -24,6 +24,7 @@ a.logo-link {
   display: block;
   font-size: 2em;
   font-weight: 800;
+  line-height: 1.2em;
   text-shadow: 0.1em 0.1em 0.1em #00000044;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #00000087;
@@ -56,6 +57,10 @@ button.standard-button-delete-small, button.standard-button-delete, button.trunc
 }
 
 /* ----- Navbar definitions ----- */
+div.navlink-container {
+  justify-content: space-between;
+}
+
 a.logo-link {
   color: #4020ff;
 }

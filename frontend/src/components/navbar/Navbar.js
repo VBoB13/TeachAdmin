@@ -37,7 +37,8 @@ function Navbar(props) {
     return (
       <nav className="navlink-container">
         <Link to="/" className="logo-link">
-          TeachAdmin
+          <span style={{ fontSize: 2 + "em" }}>T</span>each<br></br>
+          <span style={{ fontSize: 2 + "em" }}>A</span>dmin
         </Link>
         <div className="dropdown-menu">
           <span className="dropdown-title">Menu</span>
