@@ -605,11 +605,13 @@ div.course-list-item {
     text-align: center;
     font-weight: 600;
   }
-  & > small {
-    display: none;
+  & > small,
+  > button {
+    display: none !important;
   }
-  &:hover > small {
-    display: inline;
+  &:hover > small,
+  &:hover > button {
+    display: inline !important;
   }
 }
 

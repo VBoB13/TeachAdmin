@@ -87,6 +87,7 @@ export function CourseForm(props) {
           Add Course
         </button>
         <button
+          type="button"
           className="standard-button-cancel"
           onClick={() => {
             history.back();
@@ -146,7 +147,7 @@ export default function Courses(props) {
               which would then be the context in which
             <CourseDetail /> opens. */}
         </Route>
-        <Route path={`${match.path}/`}>
+        <Route path={`${match.path}/`} exact={true}>
           <CourseList>{emptyListOrNot()}</CourseList>
           <Link to={`${match.path}/new/`}>Add new course?</Link>
         </Route>

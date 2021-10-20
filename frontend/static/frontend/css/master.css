@@ -525,11 +525,12 @@ div.course-list-item > h5 {
   text-align: center;
   font-weight: 600;
 }
-div.course-list-item > small {
-  display: none;
+div.course-list-item > small,
+div.course-list-item > button {
+  display: none !important;
 }
-div.course-list-item:hover > small {
-  display: inline;
+div.course-list-item:hover > small, div.course-list-item:hover > button {
+  display: inline !important;
 }
 
 /* ------------------- MEDIA queries -------------------- */
