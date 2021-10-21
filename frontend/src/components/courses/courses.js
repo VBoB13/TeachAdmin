@@ -151,8 +151,8 @@ export default function Courses(props) {
 
   console.log("Courses:", courses);
   return (
-    <Switch>
-      <main className="content-section">
+    <main className="content-section">
+      <Switch>
         <Route path={`${match.path}/new/`}>
           <CourseForm />
         </Route>
@@ -173,7 +173,7 @@ export default function Courses(props) {
           <CourseList>{emptyListOrNot()}</CourseList>
           <Link to={`${match.path}/new/`}>Add new course?</Link>
         </Route>
-      </main>
-    </Switch>
+      </Switch>
+    </main>
   );
 }
