@@ -35,6 +35,7 @@ export class RequestHandler {
   async sendRequest() {
     const response = await axios(this.request_conf);
     var data = isResponseOK(response);
+    console.log(data);
     return data;
   }
 }
