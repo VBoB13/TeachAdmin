@@ -7,7 +7,7 @@ import TextField from "../accounts/forms/fields/TextField";
 import DateField from "../accounts/forms/fields/DateField";
 import NumberField from "../accounts/forms/fields/NumberField";
 import HiddenTeacherField from "../accounts/forms/fields/HiddenTeacher";
-import Course, { getCourses } from "./logic";
+import Course, { CourseDetailItem, getCourses } from "./logic";
 
 export const CourseDetailContext = React.createContext();
 
@@ -111,10 +111,11 @@ export function CourseForm(props) {
   );
 }
 
+export function CourseDetail(props) {}
+
 export default function Courses(props) {
   let match = useRouteMatch();
   const [courses, setCourses] = useState(null);
-  const course_detail = useRef(null);
   useEffect(() => {
     const fetchCourses = async () => {
       try {
@@ -131,15 +132,10 @@ export default function Courses(props) {
     fetchCourses();
   }, []);
 
-  const setDetailItem = (course) => {
-    course_detail.current = course;
-    location.replace(`${match.path}/detail/`);
-  };
-
   const emptyListOrNot = () => {
     if (courses.length >= 0) {
       return courses.map((course) => {
-        return course.to_list_component(setDetailItem);
+        return course.to_list_component();
       });
     }
     return;
@@ -163,11 +159,9 @@ export default function Courses(props) {
               which would then be the context in which
             <CourseDetail /> opens. */}
         </Route>
-        <Route path={`${match.path}/detail/`}>
-          <CourseDetailContext.Provider value={course_detail.current}>
-            {/* {<CourseDetail />} */}
-            <Link to={`${match.path}/`}>Back</Link>
-          </CourseDetailContext.Provider>
+        <Route path={`${match.path}/detail/:id`}>
+          <CourseDetailItem />
+          <Link to={`${match.path}/`}>Back</Link>
         </Route>
         <Route path={`${match.path}/`} exact={true}>
           <CourseList>{emptyListOrNot()}</CourseList>

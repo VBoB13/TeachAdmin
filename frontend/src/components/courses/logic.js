@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { RequestHandler } from "../../helpers/auth";
+import { CourseDetailContext } from "./courses";
 
 import SelectField, {
   SelectOption,
 } from "../accounts/forms/fields/SelectField";
+import { useParams } from "react-router";
 
-export async function getCourses() {
-  let reqObj = new RequestHandler("/courses/all/");
+export async function getCourses(url = "/courses/all/", method = "GET") {
+  let reqObj = new RequestHandler(url, method);
   let response = await reqObj.sendRequest();
   return response;
 }
@@ -43,7 +45,7 @@ export function CourseListItem(props) {
     <div className="course-list-item">
       <h5
         onClick={() => {
-          props.to_detail(props.course);
+          props.course.nav_to_detail();
         }}
       >
         {props.course.name}
@@ -57,6 +59,26 @@ export function CourseListItem(props) {
       </button>
     </div>
   );
+}
+
+export function CourseDetailItem(props) {
+  const { id } = useParams();
+  const [course, setCourse] = useState(null);
+  useEffect(() => {
+    const getCourse = async () => {
+      try {
+        const current_course = await getCourses(`/courses/${id}/`);
+        console.log(current_course);
+        setCourse(new Course(current_course));
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getCourse();
+  }, []);
+  console.log(props.course);
+  if (course !== null) return course.to_detail_component();
+  return <h1>Loading...</h1>;
 }
 
 export class Subject {
@@ -112,13 +134,26 @@ export default class Course {
     });
   }
 
-  to_list_component(detail_func) {
-    return (
-      <CourseListItem key={this.id} course={this} to_detail={detail_func} />
-    );
+  to_list_component() {
+    return <CourseListItem key={this.id} course={this} />;
+  }
+
+  nav_to_detail() {
+    location.replace(`/courses/detail/${this.id}`);
   }
 
   to_detail_component() {
-    return;
+    return (
+      <section className="course-detail">
+        <h3 className="course-title">{this.name}</h3>
+        <ul className="course-attribute-list">
+          <li className="course-attribute">Grade: {this.grade}</li>
+          <li className="course-attribute">Subject: {this.subject}</li>
+          <li className="course-attribute">Start date: {this.start_date}</li>
+          <li className="course-attribute">End date: {this.end_date}</li>
+          <li className="course-attribute">Students: {this.students}</li>
+        </ul>
+      </section>
+    );
   }
 }
