@@ -610,6 +610,10 @@ div.course-list-item {
   & > h5 {
     text-align: center;
     font-weight: 600;
+    cursor: pointer;
+    &:hover {
+      color: $main-purple;
+    }
   }
   & > small,
   > button {

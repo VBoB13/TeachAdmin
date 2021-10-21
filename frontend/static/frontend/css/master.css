@@ -529,6 +529,10 @@ div.course-list-item {
 div.course-list-item > h5 {
   text-align: center;
   font-weight: 600;
+  cursor: pointer;
+}
+div.course-list-item > h5:hover {
+  color: #4020ff;
 }
 div.course-list-item > small,
 div.course-list-item > button {
