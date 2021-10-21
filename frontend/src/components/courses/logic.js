@@ -41,7 +41,13 @@ export function CourseListItem(props) {
   };
   return (
     <div className="course-list-item">
-      <h5>{props.course.name}</h5>
+      <h5
+        onClick={() => {
+          props.to_detail(props.course);
+        }}
+      >
+        {props.course.name}
+      </h5>
       <small className="help-text">
         Grade {props.course.grade} ({props.course.start_date} -{" "}
         {props.course.end_date})
@@ -106,8 +112,10 @@ export default class Course {
     });
   }
 
-  to_list_component() {
-    return <CourseListItem key={this.id} course={this} />;
+  to_list_component(detail_func) {
+    return (
+      <CourseListItem key={this.id} course={this} to_detail={detail_func} />
+    );
   }
 
   to_detail_component() {

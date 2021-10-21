@@ -9,15 +9,20 @@ import NumberField from "../accounts/forms/fields/NumberField";
 import HiddenTeacherField from "../accounts/forms/fields/HiddenTeacher";
 import Course, { getCourses } from "./logic";
 
+export const CourseDetailContext = React.createContext();
+
 export function CourseList(props) {
   return <section className="course-list">{props.children}</section>;
 }
 
 export function CourseForm(props) {
+  // Date for later use within form
   const today = new Date();
-  const createStudent = async (e) => {
+  // Function to create a course.
+  const createCourse = async (e) => {
     e.preventDefault();
     console.log("Submitted!");
+    // Getting values from fields
     let name = document.getElementById("course_name").value;
     let grade = document.getElementById("course_grade").value;
     let start_date = document.getElementById("course_start_date").value;
@@ -25,6 +30,9 @@ export function CourseForm(props) {
     let teacher = document.getElementById("teacher_id").value;
     let students = [];
 
+    // Putting those values into a Course object
+    // which then gets converted to needed format with
+    // the Course method 'to_new_course'
     let new_course = new Course({
       name,
       grade,
@@ -34,9 +42,12 @@ export function CourseForm(props) {
       students,
     }).to_new_course();
 
+    // Creating request object and adding data
     let reqObj = new RequestHandler("/courses/all/", "POST");
     reqObj.request_conf["data"] = new_course;
 
+    // Making async-call with try-catch block to
+    // handle the request to add the course to the server
     try {
       var course_data = await reqObj.sendRequest();
       var created_course = new Course(course_data);
@@ -56,7 +67,7 @@ export function CourseForm(props) {
   };
   return (
     <div className="form-content">
-      <form onSubmit={createStudent} className="rounded">
+      <form onSubmit={createCourse} className="rounded">
         <TextField
           id="course_name"
           fieldname="course_name"
@@ -103,6 +114,7 @@ export function CourseForm(props) {
 export default function Courses(props) {
   let match = useRouteMatch();
   const [courses, setCourses] = useState(null);
+  const course_detail = useRef(null);
   useEffect(() => {
     const fetchCourses = async () => {
       try {
@@ -119,21 +131,25 @@ export default function Courses(props) {
     fetchCourses();
   }, []);
 
+  const setDetailItem = (course) => {
+    course_detail.current = course;
+    location.replace(`${match.path}/detail/`);
+  };
+
   const emptyListOrNot = () => {
     if (courses.length >= 0) {
       return courses.map((course) => {
-        return course.to_list_component();
+        return course.to_list_component(setDetailItem);
       });
     }
     return;
   };
 
-  if (!courses) {
+  if (courses === "undefined" || courses === null) {
     return <h1 className="loading">Loading...</h1>;
   }
 
   console.log("Courses:", courses);
-  console.log(`${match.path}`);
   return (
     <Switch>
       <main className="content-section">
@@ -148,11 +164,10 @@ export default function Courses(props) {
             <CourseDetail /> opens. */}
         </Route>
         <Route path={`${match.path}/detail/`}>
-          {/* Currently thinking something like
-              <CourseDetail course={courses[key]} />
-              Alternatively, I could use a useRef(courses[i])
-              which would then be the context in which
-            <CourseDetail /> opens. */}
+          <CourseDetailContext.Provider value={course_detail.current}>
+            {/* {<CourseDetail />} */}
+            <Link to={`${match.path}/`}>Back</Link>
+          </CourseDetailContext.Provider>
         </Route>
         <Route path={`${match.path}/`} exact={true}>
           <CourseList>{emptyListOrNot()}</CourseList>
