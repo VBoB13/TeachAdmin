@@ -22,7 +22,7 @@ export function CourseForm(props) {
   const course = props.course ?? null;
 
   // Function to create a course.
-  const createCourse = async (e) => {
+  const submitCourse = async (e) => {
     e.preventDefault();
     console.log("Submitted!");
 
@@ -37,18 +37,35 @@ export function CourseForm(props) {
     // Putting those values into a Course object
     // which then gets converted to needed format with
     // the Course method 'to_new_course'
-    let new_course = new Course({
-      name,
-      grade,
-      start_date,
-      end_date,
-      teacher,
-      students,
-    }).to_new_course();
+    let method = "POST";
+    let url = "/courses/all/";
+    if (course) {
+      let id = document.getElementById("course_id").value;
+      method = "PUT";
+      url = `/courses/${id}/`;
+      var course_update_or_new = new Course({
+        id,
+        name,
+        grade,
+        start_date,
+        end_date,
+        teacher,
+        students,
+      }).to_update_course();
+    } else {
+      var course_update_or_new = new Course({
+        name,
+        grade,
+        start_date,
+        end_date,
+        teacher,
+        students,
+      }).to_new_course();
+    }
 
     // Creating request object and adding data
-    let reqObj = new RequestHandler("/courses/all/", "POST");
-    reqObj.request_conf["data"] = new_course;
+    let reqObj = new RequestHandler(url, method);
+    reqObj.request_conf["data"] = course_update_or_new;
 
     // Making async-call with try-catch block to
     // handle the request to add the course to the server
@@ -56,14 +73,16 @@ export function CourseForm(props) {
       var course_data = await reqObj.sendRequest();
       var created_course = new Course(course_data);
     } catch (error) {
-      console.log("Could not add student!");
+      if (course) console.log("Could not update course!");
+      else console.log("Could not add student!");
       console.error(error);
       console.log("You will be redirected on a second...");
       setTimeout(() => {
         location.replace("/courses/");
       }, 10000);
     }
-    console.log(`Successfully added: \n${created_course}`);
+    if (course) console.log(`Successfully edited: \n${created_course}`);
+    else console.log(`Successfully added: \n${created_course}`);
     console.log(created_course);
     setTimeout(() => {
       location.replace("/courses/");
@@ -72,12 +91,8 @@ export function CourseForm(props) {
 
   return (
     <div className="form-content">
-      <form onSubmit={createCourse} className="rounded">
-        <input
-          type="hidden"
-          name="course_id"
-          value={course ? course.id : null}
-        />
+      <form onSubmit={submitCourse} className="rounded">
+        <input type="hidden" id="course_id" value={course ? course.id : null} />
         <TextField
           id="course_name"
           fieldname="course_name"

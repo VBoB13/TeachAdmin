@@ -155,8 +155,8 @@ export default class Course {
     });
   }
 
-  to_object_literal() {
-    return {
+  to_update_course() {
+    return JSON.stringify({
       id: this.id,
       name: this.name,
       grade: this.grade,
@@ -165,7 +165,7 @@ export default class Course {
       end_date: this.end_date,
       teacher: this.teacher,
       students: this.students,
-    };
+    });
   }
 
   to_list_component() {
