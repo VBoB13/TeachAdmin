@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router";
 import { RequestHandler } from "../../helpers/auth";
-import { CourseDetailContext } from "./courses";
 
 import SelectField, {
   SelectOption,
 } from "../accounts/forms/fields/SelectField";
-import { useParams } from "react-router";
+import ToggleCheckBox from "../togglers/toggleCheckbox";
+import { CourseForm } from "./courses";
 
 export async function getCourses(url = "/courses/all/", method = "GET") {
   let reqObj = new RequestHandler(url, method);
@@ -64,6 +65,12 @@ export function CourseListItem(props) {
 export function CourseDetailItem(props) {
   const { id } = useParams();
   const [course, setCourse] = useState(null);
+  const [edit, setEdit] = useState(false);
+
+  const toggleEdit = () => {
+    setEdit(!edit);
+  };
+
   useEffect(() => {
     const getCourse = async () => {
       try {
@@ -77,7 +84,21 @@ export function CourseDetailItem(props) {
     getCourse();
   }, []);
   console.log(props.course);
-  if (course !== null) return course.to_detail_component();
+  if (course !== null) {
+    if (edit === false)
+      return (
+        <div className="course-detail">
+          <ToggleCheckBox stateEdit={edit} toggleEdit={toggleEdit} />
+          {course.to_detail_component()}
+        </div>
+      );
+    return (
+      <div className="course-detail">
+        <ToggleCheckBox stateEdit={edit} toggleEdit={toggleEdit} />
+        <CourseForm course={course} />
+      </div>
+    );
+  }
   return <h1>Loading...</h1>;
 }
 
@@ -132,6 +153,19 @@ export default class Course {
       teacher: this.teacher,
       students: this.students,
     });
+  }
+
+  to_object_literal() {
+    return {
+      id: this.id,
+      name: this.name,
+      grade: this.grade,
+      subject: this.subject,
+      start_date: this.start_date,
+      end_date: this.end_date,
+      teacher: this.teacher,
+      students: this.students,
+    };
   }
 
   to_list_component() {

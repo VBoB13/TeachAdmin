@@ -18,10 +18,14 @@ export function CourseList(props) {
 export function CourseForm(props) {
   // Date for later use within form
   const today = new Date();
+
+  const course = props.course ?? null;
+
   // Function to create a course.
   const createCourse = async (e) => {
     e.preventDefault();
     console.log("Submitted!");
+
     // Getting values from fields
     let name = document.getElementById("course_name").value;
     let grade = document.getElementById("course_grade").value;
@@ -65,37 +69,53 @@ export function CourseForm(props) {
       location.replace("/courses/");
     }, 1000);
   };
+
   return (
     <div className="form-content">
       <form onSubmit={createCourse} className="rounded">
+        <input
+          type="hidden"
+          name="course_id"
+          value={course ? course.id : null}
+        />
         <TextField
           id="course_name"
           fieldname="course_name"
+          init_value={course ? course.name : ""}
           help_text="Anything within 50 characters."
         />
         <NumberField
           id="course_grade"
           fieldname="course_grade"
+          init_value={course ? course.grade : null}
           help_text="Numbers only."
         />
         <DateField
           id="course_start_date"
           fieldname="course_start_date"
-          init_value={today.toISOString().split("T")[0]}
+          init_value={
+            course ? course.start_date : today.toISOString().split("T")[0]
+          }
           help_text="Pick date OR type date in initial format."
         />
         <DateField
           id="course_end_date"
           fieldname="course_end_date"
           init_value={
-            new Date(today.getFullYear() + 1, today.getMonth(), today.getDate())
-              .toISOString()
-              .split("T")[0]
+            course
+              ? course.end_date
+              : new Date(
+                  today.getFullYear() + 1,
+                  today.getMonth(),
+                  today.getDate()
+                )
+                  .toISOString()
+                  .split("T")[0]
           }
         />
         <HiddenTeacherField />
         <button type="submit" className="standard-button">
-          Add Course
+          {course ? "Edit" : "Add"} Course
         </button>
         <button
           type="button"
@@ -110,8 +130,6 @@ export function CourseForm(props) {
     </div>
   );
 }
-
-export function CourseDetail(props) {}
 
 export default function Courses(props) {
   let match = useRouteMatch();
