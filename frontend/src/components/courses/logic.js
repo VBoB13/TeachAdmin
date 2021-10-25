@@ -75,7 +75,6 @@ export function CourseDetailItem(props) {
     const getCourse = async () => {
       try {
         const current_course = await getCourses(`/courses/${id}/`);
-        console.log(current_course);
         setCourse(new Course(current_course));
       } catch (error) {
         console.error(error);
@@ -83,7 +82,7 @@ export function CourseDetailItem(props) {
     };
     getCourse();
   }, []);
-  console.log(props.course);
+
   if (course !== null) {
     if (edit === false)
       return (
