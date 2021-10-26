@@ -6,7 +6,23 @@ export function SelectOption(props) {
   );
 }
 
+export function CountrySelectField(props) {
+  return (
+    <SelectField
+      init_value={props?.student?.country ? `${props.student.country}` : ""}
+      {...props}
+    />
+  );
+}
+
 export default function SelectField(props) {
+  /* 
+  PARAMS:
+    - fieldname (String)
+    - fieldID (String)
+    - options (Object {"option_value": "option_name", ...})
+    - init_value (Object {"option_value": "option_name"})
+  */
   // Function for handling SelectField options
   const generate_options = () => {
     let element_list = [];
@@ -14,9 +30,9 @@ export default function SelectField(props) {
       <SelectOption key={0} option_value="" option_text="None" />
     );
     let count = 1;
-    for (var [code, name] of Object.entries(props.options)) {
+    for (var [value, name] of Object.entries(props.options)) {
       element_list.push(
-        <SelectOption key={count} option_value={code} option_text={name} />
+        <SelectOption key={count} option_value={value} option_text={name} />
       );
       count += 1;
     }
@@ -33,7 +49,7 @@ export default function SelectField(props) {
         name={`${props.fieldname}`}
         id={`${props.fieldID}`}
         className="countries"
-        defaultValue={props?.student?.country ? `${props.student.country}` : ""}
+        defaultValue={props.init_value ? `${props.init_value}` : ""}
       >
         {generate_options()}
       </select>

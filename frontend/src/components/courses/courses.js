@@ -6,6 +6,7 @@ import { RequestHandler } from "../../helpers/auth";
 import TextField from "../accounts/forms/fields/TextField";
 import DateField from "../accounts/forms/fields/DateField";
 import NumberField from "../accounts/forms/fields/NumberField";
+import SelectField from "../accounts/forms/fields/SelectField";
 import HiddenTeacherField from "../accounts/forms/fields/HiddenTeacher";
 import Course, { CourseDetailItem, getCourses } from "./logic";
 
@@ -19,6 +20,7 @@ export function CourseForm(props) {
   // Date for later use within form
   const today = new Date();
 
+  // Setting course if a Course is passed as prop
   const course = props.course ?? null;
 
   // Function to create a course.
@@ -92,17 +94,22 @@ export function CourseForm(props) {
   return (
     <div className="form-content">
       <form onSubmit={submitCourse} className="rounded">
-        <input type="hidden" id="course_id" value={course ? course.id : null} />
+        <input
+          type="hidden"
+          id="course_id"
+          value={course ? course.id : undefined}
+        />
         <TextField
           id="course_name"
           fieldname="course_name"
           init_value={course ? course.name : ""}
           help_text="Anything within 50 characters."
         />
+        {/* INSERT SelectField for Subjects here! */}
         <NumberField
           id="course_grade"
           fieldname="course_grade"
-          init_value={course ? course.grade : null}
+          init_value={course ? course.grade : undefined}
           help_text="Numbers only."
         />
         <DateField

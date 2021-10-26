@@ -10,7 +10,9 @@ import {
 import { RequestHandler } from "../../helpers/auth";
 import TextField from "../accounts/forms/fields/TextField";
 import DateField from "../accounts/forms/fields/DateField";
-import SelectField from "../accounts/forms/fields/SelectField";
+import SelectField, {
+  CountrySelectField,
+} from "../accounts/forms/fields/SelectField";
 
 // Fetching students from API
 async function getStudents() {
@@ -187,7 +189,7 @@ function StudentForm(props) {
           init_value={props.student ? props.student.student_number : ""}
           help_text="Optional."
         />
-        <SelectField
+        <CountrySelectField
           fieldID="student_country"
           fieldname="country"
           options={props.country_options}
@@ -397,7 +399,7 @@ export default function Students(props) {
             You have <b>{`${students.length}`}</b> students.
           </span>
           <StudentsList>{studentItems}</StudentsList>
-          <Link to={`${match.url}new/`}>Add a student?</Link>
+          <Link to={`${match.path}/new/`}>Add a student?</Link>
         </Route>
       </Switch>
     </main>
