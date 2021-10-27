@@ -20,7 +20,7 @@ export default function SelectField(props) {
   PARAMS:
     - fieldname (String)
     - fieldID (String)
-    - options (Object {"option_value": "option_name", ...})
+    - options (Array([Object, Object...]) [{"option_value": "option_name"}, ...])
     - init_value (Object {"option_value": "option_name"})
   */
   // Function for handling SelectField options
