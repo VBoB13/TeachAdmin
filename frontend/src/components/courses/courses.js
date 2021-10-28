@@ -1,5 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Switch, Route, useParams, useRouteMatch } from "react-router";
+import {
+  Switch,
+  Route,
+  useParams,
+  useRouteMatch,
+  Redirect,
+} from "react-router";
 import { Link } from "react-router-dom";
 
 import { RequestHandler } from "../../helpers/auth";
@@ -155,7 +161,7 @@ export function CourseForm(props) {
 
 export default function Courses(props) {
   let match = useRouteMatch();
-  const [courses, setCourses] = useState(null);
+  const [courses, setCourses] = useState([]);
   useEffect(() => {
     const fetchCourses = async () => {
       try {
@@ -178,12 +184,8 @@ export default function Courses(props) {
         return course.to_list_component();
       });
     }
-    return;
+    return <Redirect to={"/courses/new/"} />;
   };
-
-  if (courses === "undefined" || courses === null) {
-    return <h1 className="loading">Loading...</h1>;
-  }
 
   console.log("Courses:", courses);
   return (
@@ -191,13 +193,6 @@ export default function Courses(props) {
       <Switch>
         <Route path={`${match.path}/new/`}>
           <CourseForm />
-        </Route>
-        <Route path={`${match.path}/edit/`}>
-          {/* Currently thinking something like
-              <CourseDetail course={courses[i]} />
-              Alternatively, I could use a useRef(courses[i])
-              which would then be the context in which
-            <CourseDetail /> opens. */}
         </Route>
         <Route path={`${match.path}/detail/:id`}>
           <CourseDetailItem />
