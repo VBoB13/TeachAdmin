@@ -64,7 +64,6 @@ export default function SelectField(props) {
     } else {
       props.options.forEach((subject) => {
         element_list.push(subject.to_option());
-        count += 1;
       });
     }
     return element_list;
