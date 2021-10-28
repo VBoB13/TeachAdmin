@@ -1,3 +1,5 @@
+from pprint import pprint
+
 from django.shortcuts import render
 from django.http import Http404
 
@@ -86,10 +88,14 @@ class SubjectListCreateView(APIView):
     """
     List all Subjects available OR create a new Subject.
     """
+    queryset = Subject.objects.all()
 
     def get(self, request, format=None):
         subjects = Subject.objects.all()
         serializer = SubjectSerializer(subjects, many=True)
+        pprint(serializer.data)
+        for value in serializer.data:
+            print(value)
         return Response(data=serializer.data)
 
     def post(self, request, format=None):

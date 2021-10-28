@@ -12,7 +12,9 @@ import { RequestHandler } from "../../helpers/auth";
 import TextField from "../accounts/forms/fields/TextField";
 import DateField from "../accounts/forms/fields/DateField";
 import NumberField from "../accounts/forms/fields/NumberField";
-import SelectField from "../accounts/forms/fields/SelectField";
+import SelectField, {
+  SubjectSelectField,
+} from "../accounts/forms/fields/SelectField";
 import HiddenTeacherField from "../accounts/forms/fields/HiddenTeacher";
 import Course, { CourseDetailItem, getCourses } from "./logic";
 
@@ -111,7 +113,11 @@ export function CourseForm(props) {
           init_value={course ? course.name : ""}
           help_text="Anything within 50 characters."
         />
-        {/* INSERT SelectField for Subjects here! */}
+        <SubjectSelectField
+          fieldID="subject"
+          fieldname="subject"
+          init_value={course?.subject ?? ""}
+        />
         <NumberField
           id="course_grade"
           fieldname="course_grade"

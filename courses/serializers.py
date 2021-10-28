@@ -37,9 +37,3 @@ class TeacherCoursesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
         fields = ('courses',)
-
-
-# class CourseDetailSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Course
-#         fields = '__all__'

@@ -26,7 +26,7 @@ export default function HomePage(props) {
             title="Students"
             logo="/static/frontend/svg/red_beard_avatar.svg"
             img_alt="Bearded Student"
-            text="Shows all your students"
+            text="Shows your students"
           />
         </Link>
       </section>
@@ -36,7 +36,7 @@ export default function HomePage(props) {
             title="Courses"
             logo="/static/frontend/svg/teaching_guy.svg"
             img_alt="Teacher"
-            text="Shows all your Courses"
+            text="Shows your Courses"
           />
         </Link>
       </section>

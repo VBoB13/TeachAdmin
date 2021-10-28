@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { RequestHandler } from "../../../../helpers/auth";
+import { Subject } from "../../../courses/logic";
 
 export function SelectOption(props) {
   return (
@@ -15,6 +17,26 @@ export function CountrySelectField(props) {
   );
 }
 
+export function SubjectSelectField(props) {
+  const [subjects, setSubjects] = useState([]);
+
+  useEffect(() => {
+    const getSubjects = async () => {
+      let reqObj = new RequestHandler("/courses/subjects/");
+      const data = await reqObj.sendRequest();
+      setSubjects(
+        data.map((item) => {
+          return new Subject(item);
+        })
+      );
+    };
+    getSubjects();
+  }, []);
+  console.log({ subjects });
+
+  return <SelectField options={subjects} {...props} />;
+}
+
 export default function SelectField(props) {
   /* 
   PARAMS:
@@ -29,14 +51,22 @@ export default function SelectField(props) {
     element_list.push(
       <SelectOption key={0} option_value="" option_text="None" />
     );
-    let count = 1;
-    for (var [value, name] of Object.entries(props.options)) {
-      element_list.push(
-        <SelectOption key={count} option_value={value} option_text={name} />
-      );
-      count += 1;
-    }
 
+    var count = 1;
+
+    if (!Array.isArray(props.options)) {
+      for (var [value, name] of Object.entries(props.options)) {
+        element_list.push(
+          <SelectOption key={count} option_value={value} option_text={name} />
+        );
+        count += 1;
+      }
+    } else {
+      props.options.forEach((subject) => {
+        element_list.push(subject.to_option());
+        count += 1;
+      });
+    }
     return element_list;
   };
 
@@ -49,7 +79,7 @@ export default function SelectField(props) {
         name={`${props.fieldname}`}
         id={`${props.fieldID}`}
         className="countries"
-        defaultValue={props.init_value ? `${props.init_value}` : ""}
+        defaultValue={props?.init_value ? `${props.init_value}` : ""}
       >
         {generate_options()}
       </select>
