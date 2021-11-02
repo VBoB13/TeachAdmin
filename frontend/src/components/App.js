@@ -36,7 +36,7 @@ export default class App extends Component {
       isAuthenticated: false,
       user: {},
       user_link: "",
-      error: "",
+      error: null,
     };
   }
 
@@ -53,6 +53,7 @@ export default class App extends Component {
   async login() {
     let authObj = new Authenticator("/accounts/login/", "POST");
     const loginObj = await authObj.login();
+    loginObj.error ? {} : loginObj["error"] === null;
     this.setState(loginObj);
   }
 
@@ -93,6 +94,32 @@ export default class App extends Component {
             <hr />
             <Footer />
           </TeacherContext.Provider>
+        </div>
+      );
+    } else if(this.state.error === null) {
+      return (
+        <div className="container-fluid">
+          <div className="row justify-content-center align-items-center py-2">
+            <Navbar isAuthenticated={this.state.isAuthenticated} />
+          </div>
+          <hr />
+          <Switch>
+            <Route path="/about">
+              <About />
+            </Route>
+            <Route path="/login">
+              <Login login={this.login} error={this.state.error} />
+            </Route>
+            <Route path="/register">
+              <Register />
+            </Route>
+            <Route path="/">
+              <GuestHome />
+            </Route>
+            <Redirect to="/" />
+          </Switch>
+          <hr />
+          <Footer />
         </div>
       );
     }

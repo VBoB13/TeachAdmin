@@ -130,7 +130,17 @@ def login_view(request):
         )
 
     login(request, user)
-    teacher = get_object_or_404(Teacher, user=user)
+    try:
+        teacher = Teacher.objects.get(user=user)
+    except Teacher.DoesNotExist as error:
+        print(error)
+        errormsg = "\
+User found, but no Teacher profile has been assigned with username'{}'".format(
+        username)
+        print(errormsg)
+        return JsonResponse(data={
+            "detail": errormsg    
+        }, status=404)
     return JsonResponse({
         "isAuthenticated": True,
         "user": TeacherSerializer(instance=teacher).data,
