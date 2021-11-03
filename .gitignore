@@ -72,6 +72,7 @@ db.sqlite3-journal
 settings.py
 *.code-workspace
 **/frontend/main.js*
+*mydatabase*
 
 # Flask stuff:
 instance/
