@@ -28,6 +28,17 @@ export default function HomePage(props) {
           />
         </Link>
       </section>
+      <section className="link-slot">
+        <Link to="/courses/">
+          <LinkCard
+            title="Courses"
+            logo="/static/frontend/svg/teaching_guy.svg"
+            img_alt="Teacher in Classroom"
+            text="Shows all your courses"
+          />
+          {/* TWEAK THIS TOMORROW! */}
+        </Link>
+      </section>
     </main>
   );
 }
