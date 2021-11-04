@@ -114,7 +114,7 @@ export class Subject {
         option_text={this.name}
       />
     );
-  }
+  };
 }
 
 export default class Course {

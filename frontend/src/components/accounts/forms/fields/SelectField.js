@@ -3,9 +3,7 @@ import { RequestHandler } from "../../../../helpers/auth";
 import { Subject } from "../../../courses/logic";
 
 export function SelectOption(props) {
-  return (
-    <option value={`${props.option_value}`}>{`${props.option_text}`}</option>
-  );
+  return <option value={`${props.option_value}`} >{`${props.option_text}`}</option>;
 }
 
 export function CountrySelectField(props) {
@@ -43,10 +41,10 @@ export default function SelectField(props) {
     - fieldname (String)
     - fieldID (String)
     - options (Array([Object, Object...]) [{"option_value": "option_name"}, ...])
-    - init_value (Object {"option_value": "option_name"})
+    - init_value (String "option_value")
   */
-  // Function for handling SelectField options
   const generate_options = () => {
+    // Function for handling SelectField options
     let element_list = [];
     element_list.push(
       <SelectOption key={0} option_value="" option_text="None" />
@@ -69,10 +67,19 @@ export default function SelectField(props) {
     return element_list;
   };
 
+  const nameToString = () => {
+    // Converts props.fieldname into a properly formatted name
+    if(props.fieldname.indexOf("_")){
+      var full_field_name = `${props.fieldname.split("_").join(" ")}`;
+      return `${full_field_name[0].toUpperCase() + full_field_name.slice(1)}`;
+    };
+    return `${props.fieldname[0].toUpperCase() + props.fieldname.slice(1)}`;
+  };
+
   return (
     <div className="form-group">
       <label htmlFor={props.fieldname}>
-        {props.fieldname[0].toUpperCase() + props.fieldname.slice(1)}:
+        {nameToString()}:
       </label>
       <select
         name={`${props.fieldname}`}

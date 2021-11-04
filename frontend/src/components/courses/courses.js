@@ -39,6 +39,7 @@ export function CourseForm(props) {
     // Getting values from fields
     let name = document.getElementById("course_name").value;
     let grade = document.getElementById("course_grade").value;
+    let subject = document.getElementById("course_subject").value;
     let start_date = document.getElementById("course_start_date").value;
     let end_date = document.getElementById("course_end_date").value;
     let teacher = document.getElementById("teacher_id").value;
@@ -56,6 +57,7 @@ export function CourseForm(props) {
       var course_update_or_new = new Course({
         id,
         name,
+        subject,
         grade,
         start_date,
         end_date,
@@ -65,6 +67,7 @@ export function CourseForm(props) {
     } else {
       var course_update_or_new = new Course({
         name,
+        subject,
         grade,
         start_date,
         end_date,
@@ -114,9 +117,9 @@ export function CourseForm(props) {
           help_text="Anything within 50 characters."
         />
         <SubjectSelectField
-          fieldID="subject"
-          fieldname="subject"
-          init_value={course?.subject ?? ""}
+          fieldID="course_subject"
+          fieldname="course_subject"
+          init_value={course?.subject ?? null}
         />
         <NumberField
           id="course_grade"
