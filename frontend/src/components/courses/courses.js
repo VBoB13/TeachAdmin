@@ -54,7 +54,7 @@ export function CourseForm(props) {
       let id = document.getElementById("course_id").value;
       method = "PUT";
       url = `/courses/${id}/`;
-      var course_update_or_new = new Course({
+      const course_update_or_new = new Course({
         id,
         name,
         subject,
@@ -65,7 +65,7 @@ export function CourseForm(props) {
         students,
       }).to_update_course();
     } else {
-      var course_update_or_new = new Course({
+      const course_update_or_new = new Course({
         name,
         subject,
         grade,
@@ -83,8 +83,8 @@ export function CourseForm(props) {
     // Making async-call with try-catch block to
     // handle the request to add the course to the server
     try {
-      var course_data = await reqObj.sendRequest();
-      var created_course = new Course(course_data);
+      const course_data = await reqObj.sendRequest();
+      const created_course = new Course(course_data);
     } catch (error) {
       if (course) console.log("Could not update course!");
       else console.log("Could not add student!");
@@ -119,7 +119,7 @@ export function CourseForm(props) {
         <SubjectSelectField
           fieldID="course_subject"
           fieldname="course_subject"
-          init_value={course?.subject ?? null}
+          init_value={course?.subject?.id ?? null}
         />
         <NumberField
           id="course_grade"

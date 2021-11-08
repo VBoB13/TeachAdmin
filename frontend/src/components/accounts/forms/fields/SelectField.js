@@ -32,7 +32,7 @@ export function SubjectSelectField(props) {
   }, []);
   console.log({ subjects });
 
-  return <SelectField options={subjects} {...props} />;
+  return <SelectField init_value={props.init_value} options={subjects} {...props} />;
 }
 
 export default function SelectField(props) {

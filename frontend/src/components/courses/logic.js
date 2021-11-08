@@ -181,7 +181,7 @@ export default class Course {
         <h3 className="course-title">{this.name}</h3>
         <ul className="course-attribute-list">
           <li className="course-attribute">Grade: {this.grade}</li>
-          <li className="course-attribute">Subject: {this.subject}</li>
+          <li className="course-attribute">Subject: {this.subject.name}</li>
           <li className="course-attribute">Start date: {this.start_date}</li>
           <li className="course-attribute">End date: {this.end_date}</li>
           <li className="course-attribute">Students: {this.students}</li>
