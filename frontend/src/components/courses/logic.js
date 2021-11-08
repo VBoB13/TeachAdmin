@@ -101,20 +101,44 @@ export function CourseDetailItem(props) {
   return <h1>Loading...</h1>;
 }
 
-export class Subject {
-  constructor({ id, name }) {
-    this.id = id;
-    this.name = name;
-  }
-  to_option() {
-    return (
+// export class SubjectClass extends React.Component {
+//   constructor(props) {
+//     super(this.props);
+//     this.id = this.props.subject.id;
+//     this.name = this.props.subject.name;
+//   }
+
+//   render(){
+//     if(this.state.option){
+//       return (
+//         <SelectOption
+//           key={this.id}
+//           option_value={this.id}
+//           option_text={this.name}
+//         />
+//       );
+//     }
+//     return(<h1>{this.name}</h1>);
+//   }
+// }
+
+export function Subject(props){
+  const id = props.subject.id;
+  const name = props.subject.name;
+
+  console.log(id, name, props.subject);
+  if(props.option){
+    return(
       <SelectOption
-        key={this.id}
-        option_value={this.id}
-        option_text={this.name}
+        key={id}
+        option_value={id}
+        option_text={name}
       />
     );
-  };
+  }
+  return(
+    <h1>{name} - {id}</h1>
+  );
 }
 
 export default class Course {

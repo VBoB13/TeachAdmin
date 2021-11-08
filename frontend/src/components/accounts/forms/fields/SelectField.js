@@ -24,7 +24,7 @@ export function SubjectSelectField(props) {
       const data = await reqObj.sendRequest();
       setSubjects(
         data.map((item) => {
-          return new Subject(item);
+          return <Subject subject={item} />;
         })
       );
     };
@@ -47,10 +47,10 @@ export default function SelectField(props) {
     // Function for handling SelectField options
     let element_list = [];
     element_list.push(
-      <SelectOption key={0} option_value="" option_text="None" />
+      <SelectOption key={0} option_value="0" option_text="None" />
     );
 
-    var count = 1;
+    let count = 1;
 
     if (!Array.isArray(props.options)) {
       for (var [value, name] of Object.entries(props.options)) {
@@ -60,8 +60,14 @@ export default function SelectField(props) {
         count += 1;
       }
     } else {
-      props.options.forEach((subject) => {
-        element_list.push(subject.to_option());
+      props.options.forEach((subjectEl) => {
+        element_list.push(
+          <SelectOption
+            key={count} 
+            option_value={subjectEl.props.subject.id} 
+            option_text={subjectEl.props.subject.name} />
+        );
+        count += 1;
       });
     }
     return element_list;
@@ -79,13 +85,13 @@ export default function SelectField(props) {
   return (
     <div className="form-group">
       <label htmlFor={props.fieldname}>
-        {nameToString()}:
+        {nameToString()}
       </label>
       <select
         name={`${props.fieldname}`}
         id={`${props.fieldID}`}
         className="countries"
-        defaultValue={props?.init_value ? `${props.init_value}` : ""}
+        defaultValue={props?.init_value ? props.init_value : ""}
       >
         {generate_options()}
       </select>
