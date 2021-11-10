@@ -96,7 +96,7 @@ class SubjectListCreateView(APIView):
         pprint(serializer.data)
         for value in serializer.data:
             print(value)
-        return Response(data=serializer.data)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, format=None):
         serializer = SubjectSerializer(data=request.data)

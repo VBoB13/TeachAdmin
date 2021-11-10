@@ -45,6 +45,7 @@ export function CourseForm(props) {
     let teacher = document.getElementById("teacher_id").value;
     let students = [];
 
+    let course_update_or_new = null;
     // Putting those values into a Course object
     // which then gets converted to needed format with
     // the Course method 'to_new_course'
@@ -54,7 +55,7 @@ export function CourseForm(props) {
       let id = document.getElementById("course_id").value;
       method = "PUT";
       url = `/courses/${id}/`;
-      const course_update_or_new = new Course({
+      course_update_or_new = new Course({
         id,
         name,
         subject,
@@ -65,7 +66,7 @@ export function CourseForm(props) {
         students,
       }).to_update_course();
     } else {
-      const course_update_or_new = new Course({
+      course_update_or_new = new Course({
         name,
         subject,
         grade,
@@ -82,9 +83,9 @@ export function CourseForm(props) {
 
     // Making async-call with try-catch block to
     // handle the request to add the course to the server
+    const course_data = {};
     try {
-      const course_data = await reqObj.sendRequest();
-      const created_course = new Course(course_data);
+      course_data = await reqObj.sendRequest();
     } catch (error) {
       if (course) console.log("Could not update course!");
       else console.log("Could not add student!");
@@ -94,6 +95,7 @@ export function CourseForm(props) {
         location.replace("/courses/");
       }, 10000);
     }
+    const created_course = new Course(course_data);
     if (course) console.log(`Successfully edited: \n${created_course}`);
     else console.log(`Successfully added: \n${created_course}`);
     console.log(created_course);

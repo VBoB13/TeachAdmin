@@ -14,8 +14,13 @@ class SubjectSerializer(serializers.ModelSerializer):
         model = Subject
         fields = '__all__'
 
+
+class SubjectToCourseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subject
+        fields = ('id',)
+
 class CourseSerializer(serializers.ModelSerializer):
-    subject = SubjectSerializer()
     class Meta:
         model = Course
         fields = '__all__'
