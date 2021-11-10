@@ -83,7 +83,7 @@ export function CourseForm(props) {
 
     // Making async-call with try-catch block to
     // handle the request to add the course to the server
-    const course_data = {};
+    let course_data = {};
     try {
       course_data = await reqObj.sendRequest();
     } catch (error) {
