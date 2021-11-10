@@ -17,22 +17,33 @@ export function CountrySelectField(props) {
 
 export function SubjectSelectField(props) {
   const [subjects, setSubjects] = useState([]);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     const getSubjects = async () => {
       let reqObj = new RequestHandler("/courses/subjects/");
-      const data = await reqObj.sendRequest();
-      setSubjects(
-        data.map((item) => {
-          return <Subject subject={item} />;
-        })
-      );
+      try{
+        const data = await reqObj.sendRequest();
+        setSubjects(
+          data.map((item) => {
+            return <Subject subject={item} />;
+          })
+        );
+        setLoaded(true);
+      }
+      catch(error){
+        console.log(`Something went wrong when trying load Subjects from server!`);
+        console.error(error);
+        setLoaded(false);
+      }
+      
     };
     getSubjects();
   }, []);
   console.log({ subjects });
 
-  return <SelectField init_value={props.init_value} options={subjects} {...props} />;
+  if(loaded) return <SelectField init_value={props.init_value} options={subjects} {...props} />;
+  return <span>Loading Subject list...</span>;
 }
 
 export default function SelectField(props) {
