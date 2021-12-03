@@ -77,7 +77,7 @@ class CoursesDetailView(APIView):
         try:
             course = self.get_object(pk)
         except Course.DoesNotExist:
-            print("Could not delete course!")
+            print("Could not delete course because it does not exist!")
             return Response(status=status.HTTP_404_NOT_FOUND)
         else:
             course.delete()
@@ -93,7 +93,6 @@ class SubjectListCreateView(APIView):
     def get(self, request, format=None):
         subjects = Subject.objects.all()
         serializer = SubjectSerializer(subjects, many=True)
-        pprint(serializer.data)
         for value in serializer.data:
             print(value)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
@@ -105,3 +104,23 @@ class SubjectListCreateView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         print(serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class SubjectDetailView(APIView):
+    """
+    Retrieve a single Subject instance.
+    This will be used mostly for look-ups due to the fact
+        that users cannot add Subjects themselves.
+    """
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_object(self, pk):
+        try:
+            return Subject.objects.get(pk=pk)
+        except Subject.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        subject = self.get_object(pk)
+        serializer = SubjectSerializer(subject)
+        return Response(serializer.data, status=status.HTTP_200_OK)

@@ -50,10 +50,10 @@ export default class Authenticator extends RequestHandler {
   async login() {
     let form_username = document.getElementById("username").value;
     let form_password = document.getElementById("password").value;
-    this.request_conf["data"] = {
+    this.request_conf["data"] = JSON.stringify({
       username: form_username,
       password: form_password,
-    };
+    });
     try {
       let data = await this.sendRequest();
       return {

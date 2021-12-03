@@ -121,7 +121,7 @@ export function CourseForm(props) {
         <SubjectSelectField
           fieldID="course_subject"
           fieldname="course_subject"
-          init_value={course?.subject?.id ?? null}
+          init_value={course?.subject ?? null}
         />
         <NumberField
           id="course_grade"

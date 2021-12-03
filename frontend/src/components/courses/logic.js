@@ -65,6 +65,7 @@ export function CourseListItem(props) {
 export function CourseDetailItem(props) {
   const { id } = useParams();
   const [course, setCourse] = useState(null);
+  const [loaded, setLoaded] = useState(false);
   const [edit, setEdit] = useState(false);
 
   const toggleEdit = () => {
@@ -76,14 +77,16 @@ export function CourseDetailItem(props) {
       try {
         const current_course = await getCourses(`/courses/${id}/`);
         setCourse(new Course(current_course));
+        setLoaded(true);
       } catch (error) {
         console.error(error);
+        setLoaded(false);
       }
     };
     getCourse();
   }, []);
 
-  if (course !== null) {
+  if ((course !== null) && loaded) {
     if (edit === false)
       return (
         <div className="course-detail">
@@ -100,27 +103,6 @@ export function CourseDetailItem(props) {
   }
   return <h1>Loading...</h1>;
 }
-
-// export class SubjectClass extends React.Component {
-//   constructor(props) {
-//     super(this.props);
-//     this.id = this.props.subject.id;
-//     this.name = this.props.subject.name;
-//   }
-
-//   render(){
-//     if(this.state.option){
-//       return (
-//         <SelectOption
-//           key={this.id}
-//           option_value={this.id}
-//           option_text={this.name}
-//         />
-//       );
-//     }
-//     return(<h1>{this.name}</h1>);
-//   }
-// }
 
 export function Subject(props){
   const id = props.subject.id;
@@ -156,6 +138,7 @@ export default class Course {
     this.name = name;
     this.grade = grade;
     this.subject = subject;
+    this.subjectObj = {};
     this.start_date = start_date;
     this.end_date = end_date;
     this.teacher = teacher;
@@ -199,13 +182,30 @@ export default class Course {
     location.replace(`/courses/detail/${this.id}`);
   }
 
+  async getSubject(){
+    try {
+      let reqObj = new RequestHandler(`/courses/subjects/${this.subject}/`);
+      var subject = await reqObj.sendRequest();
+    } catch(error){
+      console.log("Something went wrong when trying to get course's Subject!");
+      console.error(error);
+    }
+    console.log({subject});
+    return subject;
+  }
+
   to_detail_component() {
+    this.getSubject().then((subject) => { 
+      this.subjectObj = subject;
+      console.log(this.subjectObj, subject) 
+    });
+    console.log(this.subjectObj);
     return (
       <section className="course-detail">
         <h3 className="course-title">{this.name}</h3>
         <ul className="course-attribute-list">
           <li className="course-attribute">Grade: {this.grade}</li>
-          <li className="course-attribute">Subject: {this.subject.name}</li>
+          <li className="course-attribute">Subject: {this.subjectObj.name}</li>
           <li className="course-attribute">Start date: {this.start_date}</li>
           <li className="course-attribute">End date: {this.end_date}</li>
           <li className="course-attribute">Students: {this.students}</li>

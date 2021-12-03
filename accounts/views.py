@@ -129,7 +129,13 @@ def login_view(request):
         )
 
     login(request, user)
-    teacher = get_object_or_404(Teacher, user=user)
+    try:
+        teacher = get_object_or_404(Teacher, user=user)
+    except Http404 as error:
+        print("Could not find user. Reason: \n", error)
+        return JsonResponse({
+            "isAuthenticated": False,
+        })
     return JsonResponse({
         "isAuthenticated": True,
         "user": TeacherSerializer(instance=teacher).data,
