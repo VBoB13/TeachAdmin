@@ -54,7 +54,6 @@ class TeacherView(generics.GenericAPIView,
         """
         teacher = self.get_object(request.user)
         serializer = self.serializer_class(instance=teacher)
-        pprint(serializer.data)
         return JsonResponse(data=serializer.data, safe=False)
 
     def put(self, request, *args, **kwargs):
@@ -130,7 +129,13 @@ def login_view(request):
         )
 
     login(request, user)
-    teacher = get_object_or_404(Teacher, user=user)
+    try:
+        teacher = get_object_or_404(Teacher, user=user)
+    except Http404 as error:
+        print("Could not find user. Reason: \n", error)
+        return JsonResponse({
+            "isAuthenticated": False,
+        })
     return JsonResponse({
         "isAuthenticated": True,
         "user": TeacherSerializer(instance=teacher).data,

@@ -7,10 +7,6 @@ from students.models import Student
 from courses.models import Subject, Course, CourseEnrollment
 
 
-class CourseSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Course
-        fields = '__all__'
 
 
 class SubjectSerializer(serializers.ModelSerializer):
@@ -18,6 +14,16 @@ class SubjectSerializer(serializers.ModelSerializer):
         model = Subject
         fields = '__all__'
 
+
+class SubjectToCourseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subject
+        fields = ('id',)
+
+class CourseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Course
+        fields = '__all__'
 
 class CourseEnrollmentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -37,9 +43,3 @@ class TeacherCoursesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
         fields = ('courses',)
-
-
-# class CourseDetailSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Course
-#         fields = '__all__'

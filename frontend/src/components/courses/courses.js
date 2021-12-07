@@ -1,12 +1,20 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Switch, Route, useParams, useRouteMatch } from "react-router";
+import {
+  Switch,
+  Route,
+  useParams,
+  useRouteMatch,
+  Redirect,
+} from "react-router";
 import { Link } from "react-router-dom";
 
 import { RequestHandler } from "../../helpers/auth";
 import TextField from "../accounts/forms/fields/TextField";
 import DateField from "../accounts/forms/fields/DateField";
 import NumberField from "../accounts/forms/fields/NumberField";
-import SelectField from "../accounts/forms/fields/SelectField";
+import SelectField, {
+  SubjectSelectField,
+} from "../accounts/forms/fields/SelectField";
 import HiddenTeacherField from "../accounts/forms/fields/HiddenTeacher";
 import Course, { CourseDetailItem, getCourses } from "./logic";
 
@@ -31,11 +39,13 @@ export function CourseForm(props) {
     // Getting values from fields
     let name = document.getElementById("course_name").value;
     let grade = document.getElementById("course_grade").value;
+    let subject = document.getElementById("course_subject").value;
     let start_date = document.getElementById("course_start_date").value;
     let end_date = document.getElementById("course_end_date").value;
     let teacher = document.getElementById("teacher_id").value;
     let students = [];
 
+    let course_update_or_new = null;
     // Putting those values into a Course object
     // which then gets converted to needed format with
     // the Course method 'to_new_course'
@@ -45,9 +55,10 @@ export function CourseForm(props) {
       let id = document.getElementById("course_id").value;
       method = "PUT";
       url = `/courses/${id}/`;
-      var course_update_or_new = new Course({
+      course_update_or_new = new Course({
         id,
         name,
+        subject,
         grade,
         start_date,
         end_date,
@@ -55,8 +66,9 @@ export function CourseForm(props) {
         students,
       }).to_update_course();
     } else {
-      var course_update_or_new = new Course({
+      course_update_or_new = new Course({
         name,
+        subject,
         grade,
         start_date,
         end_date,
@@ -71,9 +83,9 @@ export function CourseForm(props) {
 
     // Making async-call with try-catch block to
     // handle the request to add the course to the server
+    let course_data = {};
     try {
-      var course_data = await reqObj.sendRequest();
-      var created_course = new Course(course_data);
+      course_data = await reqObj.sendRequest();
     } catch (error) {
       if (course) console.log("Could not update course!");
       else console.log("Could not add student!");
@@ -83,6 +95,7 @@ export function CourseForm(props) {
         location.replace("/courses/");
       }, 10000);
     }
+    const created_course = new Course(course_data);
     if (course) console.log(`Successfully edited: \n${created_course}`);
     else console.log(`Successfully added: \n${created_course}`);
     console.log(created_course);
@@ -105,7 +118,11 @@ export function CourseForm(props) {
           init_value={course ? course.name : ""}
           help_text="Anything within 50 characters."
         />
-        {/* INSERT SelectField for Subjects here! */}
+        <SubjectSelectField
+          fieldID="course_subject"
+          fieldname="course_subject"
+          init_value={course?.subject ?? null}
+        />
         <NumberField
           id="course_grade"
           fieldname="course_grade"
@@ -155,7 +172,7 @@ export function CourseForm(props) {
 
 export default function Courses(props) {
   let match = useRouteMatch();
-  const [courses, setCourses] = useState(null);
+  const [courses, setCourses] = useState([]);
   useEffect(() => {
     const fetchCourses = async () => {
       try {
@@ -178,12 +195,8 @@ export default function Courses(props) {
         return course.to_list_component();
       });
     }
-    return;
+    return <Redirect to={"/courses/new/"} />;
   };
-
-  if (courses === "undefined" || courses === null) {
-    return <h1 className="loading">Loading...</h1>;
-  }
 
   console.log("Courses:", courses);
   return (
@@ -191,13 +204,6 @@ export default function Courses(props) {
       <Switch>
         <Route path={`${match.path}/new/`}>
           <CourseForm />
-        </Route>
-        <Route path={`${match.path}/edit/`}>
-          {/* Currently thinking something like
-              <CourseDetail course={courses[i]} />
-              Alternatively, I could use a useRef(courses[i])
-              which would then be the context in which
-            <CourseDetail /> opens. */}
         </Route>
         <Route path={`${match.path}/detail/:id`}>
           <CourseDetailItem />

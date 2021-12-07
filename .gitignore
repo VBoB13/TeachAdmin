@@ -73,6 +73,10 @@ settings.py
 *.code-workspace
 **/frontend/main.js*
 *mydatabase*
+<<<<<<< HEAD
+=======
+.sass-cache
+>>>>>>> subjects
 
 # Flask stuff:
 instance/
