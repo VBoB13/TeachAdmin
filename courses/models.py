@@ -57,6 +57,6 @@ class CourseEnrollment(models.Model):
         unique_together = ['student', 'course']
 
     def __str__(self):
-        return "{} enrolled in {} ({})".format(
+        return "{} enrolled in {} since {}".format(
             self.student, self.course, self.date
         )
