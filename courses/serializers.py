@@ -25,7 +25,7 @@ class CourseSerializer(serializers.ModelSerializer):
         model = Course
         fields = '__all__'
 
-class CourseEnrollmentSerializer(serializers.ModelSerializer):
+class EnrollmentSerializer(serializers.ModelSerializer):
     student = StudentSerializer()
     comment = serializers.CharField(required=False)
     class Meta:
@@ -34,6 +34,7 @@ class CourseEnrollmentSerializer(serializers.ModelSerializer):
 
 
 class StudentCourseSerializer(serializers.ModelSerializer):
+    courses = CourseSerializer(many=True)
     class Meta:
         model = Student
         fields = ('courses',)
