@@ -27,11 +27,10 @@ class CourseSerializer(serializers.ModelSerializer):
 
 class CourseEnrollmentSerializer(serializers.ModelSerializer):
     student = StudentSerializer()
-    course = CourseSerializer()
-    comments = serializers.CharField(required=False)
+    comment = serializers.CharField(required=False)
     class Meta:
         model = CourseEnrollment
-        fields = '__all__'
+        fields = ('student', 'date', 'comment')
 
 
 class StudentCourseSerializer(serializers.ModelSerializer):

@@ -50,7 +50,7 @@ class CourseEnrollment(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     date = models.DateField(default=datetime.date.today)
-    comments = models.TextField(blank=True)
+    comment = models.TextField(blank=True)
 
     class Meta:
         ordering = ['course', 'student']
