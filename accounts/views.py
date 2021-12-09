@@ -73,6 +73,7 @@ class TeacherView(generics.GenericAPIView,
 class RegisterView(generics.GenericAPIView, mixins.CreateModelMixin):
     serializer_class = UserRegisterSerializer
     permission_classes = [permissions.AllowAny]
+    renderer_classes = [JSONRenderer]
 
     def get(self, request, *args, **kwargs):
         """
