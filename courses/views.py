@@ -6,12 +6,13 @@ from django.http import Http404
 from rest_framework import status, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.renderers import JSONRenderer, HTMLFormRenderer
 
 from accounts.models import Teacher
 from students.models import Student
 from .models import Subject, Course
 
-from .serializers import CourseSerializer, TeacherCoursesSerializer, SubjectSerializer
+from .serializers import CourseSerializer, EnrollmentSerializer, TeacherCoursesSerializer, SubjectSerializer
 
 # Create your views here.
 
@@ -86,7 +87,7 @@ class CoursesDetailView(APIView):
 
 class SubjectListCreateView(APIView):
     """
-    List all Subjects available OR create a new Subject.
+    List all Subjects available (GET) OR create a new Subject (POST).
     """
     queryset = Subject.objects.all()
 
@@ -124,3 +125,20 @@ class SubjectDetailView(APIView):
         subject = self.get_object(pk)
         serializer = SubjectSerializer(subject)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class EnrollStudentsView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    renderer_classes = [JSONRenderer]
+
+    def get_teacher(self, user):
+        return Teacher.objects.get(user=user)
+
+    def get(self, request, pk, format=None):
+        teacher = self.get_teacher(request.user)
+        students = teacher.students.all()
+        print("Students:", students)
+        serializer = EnrollmentSerializer()
+        form_renderer = HTMLFormRenderer()
+        form = form_renderer.render(serializer.data)
+        return Response(data={'form': form})
