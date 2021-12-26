@@ -1,4 +1,5 @@
 from pprint import pprint
+from colorama import Fore, Style
 
 from django.shortcuts import render
 from django.http import Http404
@@ -77,8 +78,10 @@ class CoursesDetailView(APIView):
     def delete(self, request, pk, format=None):
         try:
             course = self.get_object(pk)
-        except Course.DoesNotExist:
-            print("Could not delete course because it does not exist!")
+        except Course.DoesNotExist as err:
+            print("Could not delete", Fore.RED,"course", Style.RESET_ALL,
+                "because it", Fore.RED, "does not exist!", Style.RESET_ALL)
+            print("\n", Fore.RED, "ERROR:\n", Style.RESET_ALL, err)
             return Response(status=status.HTTP_404_NOT_FOUND)
         else:
             course.delete()
