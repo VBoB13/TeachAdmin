@@ -208,7 +208,7 @@ export default class Course {
           <li className="course-attribute">Subject: {this.subjectObj.name}</li>
           <li className="course-attribute">Start date: {this.start_date}</li>
           <li className="course-attribute">End date: {this.end_date}</li>
-          <li className="course-attribute">Students: {this.students}</li>
+          <li className="course-attribute">Students: {this.students.length}</li>
         </ul>
       </section>
     );
