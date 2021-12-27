@@ -50,13 +50,13 @@ class CourseEnrollment(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     date = models.DateField(default=datetime.date.today)
-    comments = models.TextField(blank=True)
+    comment = models.TextField(blank=True)
 
     class Meta:
         ordering = ['course', 'student']
         unique_together = ['student', 'course']
 
     def __str__(self):
-        return "{} enrolled in {} ({})".format(
+        return "{} enrolled in {} since {}".format(
             self.student, self.course, self.date
         )

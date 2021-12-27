@@ -32,14 +32,20 @@ function generateNavLinks() {
   return navlinks_list;
 }
 
+function loadLogo() {
+  return (
+    <Link to="/" className="logo-link">
+      <span style={{ fontSize: 2 + "em" }}>T</span>each<br></br>
+      <span style={{ fontSize: 2 + "em" }}>A</span>dmin
+    </Link>
+  );
+}
+
 function Navbar(props) {
   if (props.isAuthenticated) {
     return (
       <nav className="navlink-container">
-        <Link to="/" className="logo-link">
-          <span style={{ fontSize: 2 + "em" }}>T</span>each<br></br>
-          <span style={{ fontSize: 2 + "em" }}>A</span>dmin
-        </Link>
+        {loadLogo()}
         <div className="dropdown-menu">
           <span className="dropdown-title">Menu</span>
           <div className="dropdown-content">{generateNavLinks()}</div>
@@ -50,9 +56,7 @@ function Navbar(props) {
   }
   return (
     <nav className="navlink-container">
-      <Link to="/" className="logo-link">
-        TeachAdmin
-      </Link>
+      {loadLogo()}
       <NavLink
         to="/about/"
         className="navigation-link"

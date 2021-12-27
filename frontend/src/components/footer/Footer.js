@@ -44,7 +44,7 @@ function FooterLinks() {
       icon: "/static/frontend/svg/kitty(small).svg",
       iconAlt: "Custom GitHub Icon",
       title: "GitHub",
-      text: "View the site's GitHub repository.",
+      text: "View the site's repository.",
     },
   ];
 

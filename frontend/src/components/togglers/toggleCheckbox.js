@@ -1,24 +1,24 @@
 import React from "react";
 
 const ToggleButton = {
-    Info: function Info(props){
-        return (
-          <input
-            type="radio"
-            name="options"
-            id="get"
-            onChange={props.toggleEdit} />
-        );
-    },
-    Edit: function Edit(props){
-        return (
-          <input
-            type="radio"
-            name="options"
-            id="put"
-            onChange={props.toggleEdit} />
-        );
-    }
+  Info: function Info(props){
+    return (
+      <input
+        type="radio"
+        name="options"
+        id="get"
+        onChange={props.toggleEdit} />
+    );
+  },
+  Edit: function Edit(props){
+    return (
+      <input
+        type="radio"
+        name="options"
+        id="put"
+        onChange={props.toggleEdit} />
+    );
+  }
 }
 
 

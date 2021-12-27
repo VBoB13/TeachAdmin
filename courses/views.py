@@ -1,15 +1,19 @@
+from pprint import pprint
+from colorama import Fore, Style
+
 from django.shortcuts import render
 from django.http import Http404
 
 from rest_framework import status, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.renderers import JSONRenderer, HTMLFormRenderer
 
 from accounts.models import Teacher
 from students.models import Student
 from .models import Subject, Course
 
-from .serializers import CourseSerializer, TeacherCoursesSerializer, SubjectSerializer
+from .serializers import CourseSerializer, EnrollmentSerializer, TeacherCoursesSerializer, SubjectSerializer
 
 # Create your views here.
 
@@ -74,8 +78,10 @@ class CoursesDetailView(APIView):
     def delete(self, request, pk, format=None):
         try:
             course = self.get_object(pk)
-        except Course.DoesNotExist:
-            print("Could not delete course!")
+        except Course.DoesNotExist as err:
+            print("Could not delete", Fore.RED,"course", Style.RESET_ALL,
+                "because it", Fore.RED, "does not exist!", Style.RESET_ALL)
+            print("\n", Fore.RED, "ERROR:\n", Style.RESET_ALL, err)
             return Response(status=status.HTTP_404_NOT_FOUND)
         else:
             course.delete()
@@ -84,13 +90,16 @@ class CoursesDetailView(APIView):
 
 class SubjectListCreateView(APIView):
     """
-    List all Subjects available OR create a new Subject.
+    List all Subjects available (GET) OR create a new Subject (POST).
     """
+    queryset = Subject.objects.all()
 
     def get(self, request, format=None):
         subjects = Subject.objects.all()
         serializer = SubjectSerializer(subjects, many=True)
-        return Response(data=serializer.data)
+        for value in serializer.data:
+            print(value)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, format=None):
         serializer = SubjectSerializer(data=request.data)
@@ -99,3 +108,40 @@ class SubjectListCreateView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         print(serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class SubjectDetailView(APIView):
+    """
+    Retrieve a single Subject instance.
+    This will be used mostly for look-ups due to the fact
+        that users cannot add Subjects themselves.
+    """
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_object(self, pk):
+        try:
+            return Subject.objects.get(pk=pk)
+        except Subject.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        subject = self.get_object(pk)
+        serializer = SubjectSerializer(subject)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class EnrollStudentsView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    renderer_classes = [JSONRenderer]
+
+    def get_teacher(self, user):
+        return Teacher.objects.get(user=user)
+
+    def get(self, request, pk, format=None):
+        teacher = self.get_teacher(request.user)
+        students = teacher.students.all()
+        print("Students:", students)
+        serializer = EnrollmentSerializer()
+        form_renderer = HTMLFormRenderer()
+        form = form_renderer.render(serializer.data)
+        return Response(data={'form': form})

@@ -54,7 +54,6 @@ class TeacherView(generics.GenericAPIView,
         """
         teacher = self.get_object(request.user)
         serializer = self.serializer_class(instance=teacher)
-        pprint(serializer.data)
         return JsonResponse(data=serializer.data, safe=False)
 
     def put(self, request, *args, **kwargs):
@@ -74,6 +73,7 @@ class TeacherView(generics.GenericAPIView,
 class RegisterView(generics.GenericAPIView, mixins.CreateModelMixin):
     serializer_class = UserRegisterSerializer
     permission_classes = [permissions.AllowAny]
+    renderer_classes = [JSONRenderer]
 
     def get(self, request, *args, **kwargs):
         """
@@ -131,16 +131,12 @@ def login_view(request):
 
     login(request, user)
     try:
-        teacher = Teacher.objects.get(user=user)
-    except Teacher.DoesNotExist as error:
-        print(error)
-        errormsg = "\
-User found, but no Teacher profile has been assigned with username'{}'".format(
-        username)
-        print(errormsg)
-        return JsonResponse(data={
-            "detail": errormsg    
-        }, status=404)
+        teacher = get_object_or_404(Teacher, user=user)
+    except Http404 as error:
+        print("Could not find user. Reason: \n", error)
+        return JsonResponse({
+            "isAuthenticated": False,
+        })
     return JsonResponse({
         "isAuthenticated": True,
         "user": TeacherSerializer(instance=teacher).data,

@@ -56,12 +56,6 @@ class Accounts extends Component {
     this.setState(data);
   }
 
-  whoami() {
-    let data_obj = new Authenticator("/accounts/me/");
-    let data = data_obj.whoami();
-    return data;
-  }
-
   async updateInfo() {
     let data = await this.whoami();
     data["loaded"] = true;
