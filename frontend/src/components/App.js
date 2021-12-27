@@ -2,10 +2,9 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 import {
   BrowserRouter as Router,
-  Switch,
+  Routes,
   Route,
-  Link,
-  Redirect,
+  Navigate,
 } from "react-router-dom";
 
 import Cookies from "universal-cookie";
@@ -75,22 +74,14 @@ export default class App extends Component {
               />
             </div>
             <hr />
-            <Switch>
-              <Redirect from="/register" to="/" />
-              <Redirect from="/login" to="/" />
-              <Route path="/account">
-                <Accounts />
-              </Route>
-              <Route path="/courses">
-                <Courses />
-              </Route>
-              <Route path="/students">
-                <Students />
-              </Route>
-              <Route path="/">
-                <HomePage user={this.state.user.user} />
-              </Route>
-            </Switch>
+            <Routes>
+              <Navigate from="/register" to="/" replace />
+              <Navigate from="/login" to="/" replace />
+              <Route path="/account" element={<Accounts />} />
+              <Route path="/courses" element={<Courses />} />
+              <Route path="/students" element={<Students />} />
+              <Route path="/" element={<HomePage user={this.state.user.user} />} />
+            </Routes>
             <hr />
             <Footer />
           </TeacherContext.Provider>
@@ -103,21 +94,13 @@ export default class App extends Component {
             <Navbar isAuthenticated={this.state.isAuthenticated} />
           </div>
           <hr />
-          <Switch>
-            <Route path="/about">
-              <About />
-            </Route>
-            <Route path="/login">
-              <Login login={this.login} error={this.state.error} />
-            </Route>
-            <Route path="/register">
-              <Register />
-            </Route>
-            <Route path="/">
-              <GuestHome />
-            </Route>
-            <Redirect to="/" />
-          </Switch>
+          <Routes>
+            <Route path="/about" element={<About />} />
+            <Route path="/login" element={<Login login={this.login} error={this.state.error} />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/" element={<GuestHome />} />
+            <Navigate to="/" />
+          </Routes>
           <hr />
           <Footer />
         </div>
@@ -129,21 +112,13 @@ export default class App extends Component {
           <Navbar isAuthenticated={this.state.isAuthenticated} />
         </div>
         <hr />
-        <Switch>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/login">
-            <Login login={this.login} />
-          </Route>
-          <Route path="/register">
-            <Register />
-          </Route>
-          <Route path="/">
-            <GuestHome />
-          </Route>
-          <Redirect to="/" />
-        </Switch>
+        <Routes>
+          <Route path="/about" element={<About />} />
+          <Route path="/login" element={<Login login={this.login} />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/" element={<GuestHome />} />
+          <Navigate to="/" />
+        </Routes>
         <hr />
         <Footer />
       </div>

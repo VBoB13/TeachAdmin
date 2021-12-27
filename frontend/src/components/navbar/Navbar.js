@@ -25,6 +25,9 @@ function LogoutButton(props) {
   );
 }
 
+// Implement code to check if the current URL matches the link's.
+// If so, pass on a prop called 'isActive'.
+// See <NavbarLink> for details.
 function generateNavLinks() {
   let navlinks_list = NAVLINKS.map((url_string, index) => {
     return <NavbarLink key={index} url_string={url_string} />;

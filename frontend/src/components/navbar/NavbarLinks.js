@@ -5,8 +5,7 @@ export default function NavbarLink(props) {
   return (
     <NavLink
       to={props.url_string}
-      className="navigation-link"
-      activeClassName="navigation-link-active"
+      className={({isActive}) => isActive ? "navigation-link-active" : "navigation-link"}
     >
       {`${props.url_string[1].toLocaleUpperCase()}${props.url_string.substring(
         2,
