@@ -2,6 +2,9 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 
 from students.serializers import StudentSerializer
+
+from teachadmin.helpers.serializers.encryptedid import EncryptedModelSerializer
+
 from accounts.models import Teacher
 from students.models import Student
 from courses.models import Subject, Course, CourseEnrollment
