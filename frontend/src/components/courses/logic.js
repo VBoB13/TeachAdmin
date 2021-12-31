@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useParams, useRouteMatch, Switch, Route } from "react-router";
 import { RequestHandler } from "../../helpers/auth";
+
 
 import SelectField, {
   SelectOption,
@@ -64,6 +65,7 @@ export function CourseListItem(props) {
 
 export function CourseDetailItem(props) {
   const { id } = useParams();
+  const match = useRouteMatch();
   const [course, setCourse] = useState(null);
   const [loaded, setLoaded] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -77,6 +79,9 @@ export function CourseDetailItem(props) {
       try {
         const current_course = await getCourses(`/courses/${id}/`);
         setCourse(new Course(current_course));
+        // Insert setSubject() method here
+        // It should call the methods already
+        // (wrongly) implemented: getSubject()
         setLoaded(true);
       } catch (error) {
         console.error(error);
@@ -89,10 +94,20 @@ export function CourseDetailItem(props) {
   if ((course !== null) && loaded) {
     if (edit === false)
       return (
-        <div className="course-detail">
-          <ToggleCheckBox stateEdit={edit} toggleEdit={toggleEdit} />
-          {course.to_detail_component()}
-        </div>
+        <Switch>
+          <Route path={`${match.path}`}>
+            <div className="course-detail">
+              <ToggleCheckBox stateEdit={edit} toggleEdit={toggleEdit} />
+              {course.to_detail_component()}
+            </div>
+          </Route>
+          <Route path={`${match.path}/enroll`}>
+            <div className="course-enroll">
+              {course}
+            </div>
+          </Route>
+        </Switch>
+        
       );
     return (
       <div className="course-detail">
@@ -190,16 +205,20 @@ export default class Course {
       console.log("Something went wrong when trying to get course's Subject!");
       console.error(error);
     }
-    console.log({subject});
     return subject;
   }
 
-  to_detail_component() {
+  retrieveSubject(){
     this.getSubject().then((subject) => { 
       this.subjectObj = subject;
-      console.log(this.subjectObj, subject) 
+      console.log(`Getting subject: ${this.subjectObj}`);
+      console.log(this.subjectObj, subject);
     });
-    console.log(this.subjectObj);
+  }
+
+  to_detail_component() {
+    this.retrieveSubject();
+    console.log(`Got subject? ${this.subjectObj}`);
     return (
       <section className="course-detail">
         <h3 className="course-title">{this.name}</h3>
