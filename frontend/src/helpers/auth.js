@@ -63,10 +63,10 @@ export default class Authenticator extends RequestHandler {
         error: "",
       };
     } catch (error) {
-      console.error(error.toJSON());
+      console.log(error.response.data.detail);
       return {
         isAuthenticated: false,
-        error: "Wrong username or password!",
+        error: `${error.response.data.detail}`,
       };
     }
   }

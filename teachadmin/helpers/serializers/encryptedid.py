@@ -1,23 +1,20 @@
 from django.core.signing import Signer
+from cryptography.fernet import Fernet
 from rest_framework.serializers import ModelSerializer
+
+
+SIGNER = Signer('encryptID')
+CRYPT_KEY = Fernet.generate_key()
+CRYPT_OBJ = Fernet(CRYPT_KEY)
+
 
 class EncryptedModelSerializer(ModelSerializer):
     """
     ModelSerializer with encrypted ID.
     """
-    def __init__(self, instance=None, data=..., **kwargs):
-        super().__init__(instance=instance, data=data, **kwargs)
-        self.signer = Signer('encryptID')
-
     def to_representation(self, instance):
         ret = super().to_representation(instance)
-        if hasattr(ret, "id"):
-            value = self.signer.sign(ret['id'])
+        if "id" in ret.keys():
+            value = CRYPT_OBJ.encrypt(ret['id'].encode())
             ret['id'] = value
         return ret
-
-    def validate_id(self, value):
-        value = super().validate_id()
-        if isinstance(value, int):
-            value = self.signer.unsign(value)
-        return value

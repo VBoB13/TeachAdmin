@@ -88,12 +88,12 @@ export function CourseForm(props) {
       course_data = await reqObj.sendRequest();
     } catch (error) {
       if (course) console.log("Could not update course!");
-      else console.log("Could not add student!");
+      else console.log("Could not add course!");
       console.error(error);
       console.log("You will be redirected on a second...");
       setTimeout(() => {
         location.replace("/courses/");
-      }, 10000);
+      }, 3000);
     }
     const created_course = new Course(course_data);
     if (course) console.log(`Successfully edited: \n${created_course}`);
@@ -190,7 +190,7 @@ export default function Courses(props) {
   }, []);
 
   const emptyListOrNot = () => {
-    if (courses.length >= 0) {
+    if (courses.length > 0) {
       return courses.map((course) => {
         return course.to_list_component();
       });
