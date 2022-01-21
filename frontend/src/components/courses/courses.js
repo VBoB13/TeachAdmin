@@ -16,7 +16,7 @@ import SelectField, {
   SubjectSelectField,
 } from "../accounts/forms/fields/SelectField";
 import HiddenTeacherField from "../accounts/forms/fields/HiddenTeacher";
-import Course, { CourseDetailItem, getCourses } from "./logic";
+import Course, { CourseDetail, getCourses } from "./logic";
 
 export const CourseDetailContext = React.createContext();
 
@@ -206,7 +206,7 @@ export default function Courses(props) {
           <CourseForm />
         </Route>
         <Route path={`${match.path}/detail/:id`}>
-          <CourseDetailItem />
+          <CourseDetail />
           <Link to={`${match.path}/`}>Back</Link>
         </Route>
         <Route path={`${match.path}/`} exact={true}>

@@ -63,10 +63,26 @@ export function CourseListItem(props) {
   );
 }
 
-export function CourseDetailItem(props) {
+export function CourseDetailItem(props){
+  return (
+    <section className="course-detail">
+      <h3 className="course-title">{props.course.name}</h3>
+      <ul className="course-attribute-list">
+        <li className="course-attribute">Grade: {props.course.grade}</li>
+        <li className="course-attribute">Subject: {props.course.subjectObj.name}</li>
+        <li className="course-attribute">Start date: {props.course.start_date}</li>
+        <li className="course-attribute">End date: {props.course.end_date}</li>
+        <li className="course-attribute">Students: {props.course.students.length}</li>
+      </ul>
+    </section>
+  );
+}
+
+export function CourseDetail(props) {
   const { id } = useParams();
   const match = useRouteMatch();
   const [course, setCourse] = useState(null);
+  const [subject, setSubject] = useState(null);
   const [loaded, setLoaded] = useState(false);
   const [edit, setEdit] = useState(false);
 
@@ -78,27 +94,48 @@ export function CourseDetailItem(props) {
     const getCourse = async () => {
       try {
         const current_course = await getCourses(`/courses/${id}/`);
-        setCourse(new Course(current_course));
-        // Insert setSubject() method here
-        // It should call the methods already
-        // (wrongly) implemented: getSubject()
-        setLoaded(true);
+        return current_course;
       } catch (error) {
+        console.log("Something went wrong when trying to get the course's data.");
         console.error(error);
         setLoaded(false);
       }
     };
-    getCourse();
+
+    const getSubject = async () => {
+      try {
+        let reqObj = new RequestHandler(`/courses/subjects/${this.subject}/`);
+        const subject = await reqObj.sendRequest();
+        return subject;
+      } catch(error){
+        console.log("Something went wrong when trying to get course's Subject!");
+        console.error(error);
+        setLoaded(false);
+      }
+    };
+    
+    let results = Promise.allSettled([
+      getCourse(),
+      getSubject()
+    ]);
+    setCourse(new Course(results[0]));
+    setSubject(results[1]);
+    if ((course !== null) && (subject !== null)) setLoaded(true);
+    
   }, []);
 
-  if ((course !== null) && loaded) {
+  useEffect(() => {
+    course.subjectObj = subject;
+  }, [loaded]);
+
+  if (loaded) {
     if (edit === false)
       return (
         <Switch>
           <Route path={`${match.path}`}>
             <div className="course-detail">
               <ToggleCheckBox stateEdit={edit} toggleEdit={toggleEdit} />
-              {course.to_detail_component()}
+              <CourseDetailItem course={course} />
             </div>
           </Route>
           <Route path={`${match.path}/enroll`}>
@@ -195,41 +232,5 @@ export default class Course {
 
   nav_to_detail() {
     location.replace(`/courses/detail/${this.id}`);
-  }
-
-  async getSubject(){
-    try {
-      let reqObj = new RequestHandler(`/courses/subjects/${this.subject}/`);
-      var subject = await reqObj.sendRequest();
-    } catch(error){
-      console.log("Something went wrong when trying to get course's Subject!");
-      console.error(error);
-    }
-    return subject;
-  }
-
-  retrieveSubject(){
-    this.getSubject().then((subject) => { 
-      this.subjectObj = subject;
-      console.log(`Getting subject: ${this.subjectObj}`);
-      console.log(this.subjectObj, subject);
-    });
-  }
-
-  to_detail_component() {
-    this.retrieveSubject();
-    console.log(`Got subject? ${this.subjectObj}`);
-    return (
-      <section className="course-detail">
-        <h3 className="course-title">{this.name}</h3>
-        <ul className="course-attribute-list">
-          <li className="course-attribute">Grade: {this.grade}</li>
-          <li className="course-attribute">Subject: {this.subjectObj.name}</li>
-          <li className="course-attribute">Start date: {this.start_date}</li>
-          <li className="course-attribute">End date: {this.end_date}</li>
-          <li className="course-attribute">Students: {this.students.length}</li>
-        </ul>
-      </section>
-    );
   }
 }
