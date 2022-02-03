@@ -21,7 +21,7 @@ export default function HomePage(props) {
         </Link>
       </section>
       <section className="link-slot">
-        <Link to="/students/">
+        <Link to="/students">
           <LinkCard
             title="Students"
             logo="/static/frontend/svg/red_beard_avatar.svg"
@@ -31,7 +31,7 @@ export default function HomePage(props) {
         </Link>
       </section>
       <section className="link-slot">
-        <Link to="/courses/">
+        <Link to="/courses">
           <LinkCard
             title="Courses"
             logo="/static/frontend/svg/teaching_guy.svg"
@@ -41,14 +41,14 @@ export default function HomePage(props) {
         </Link>
       </section>
       <section className="link-slot">
-        <Link to="/courses/">
+        <Link to="/courses">
           <LinkCard
             title="Courses"
             logo="/static/frontend/svg/teaching_guy.svg"
             img_alt="Teacher in Classroom"
             text="Shows all your courses"
           />
-          {/* TWEAK THIS TOMORROW! */}
+          {/* TWEAK THESE */}
         </Link>
       </section>
     </main>

@@ -9,7 +9,7 @@ body {
   display: flex; }
 
 footer article.footer-link-container, footer article.footer-link-container div.footer-link-content, main.container-guesthome-main, div.form-content,
-div.form-content form, div.card-base, section.student-delete, section.student-detail, section.course-list, div.navlink-container, .navlink-container, footer.footer, main.container-main, main.container-main-center {
+div.form-content form, div.card-base, section.student-delete, section.student-detail, section.course-list, div.navlink-container, .navlink-container, footer.footer, main.container-main, main.container-main-center, section.add-student {
   display: flex; }
 
 footer article.footer-link-container, footer article.footer-link-container div.footer-link-content, main.container-guesthome-main, div.form-content,
@@ -403,7 +403,10 @@ button.standard-button-delete-small {
 
 /* ------------------- Add Students -------------------- */
 section.add-student {
-  width: 80%; }
+  width: 80%;
+  justify-content: center;
+  align-content: center;
+  align-items: center; }
 
 /* ------------------- Delete Students -------------------- */
 section.student-delete {

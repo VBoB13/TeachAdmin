@@ -557,6 +557,10 @@ button.standard-button-delete-small {
 /* ------------------- Add Students -------------------- */
 section.add-student {
   width: 80%;
+  @extend %flex-container;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
 }
 
 /* ------------------- Delete Students -------------------- */

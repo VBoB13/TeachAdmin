@@ -50,11 +50,11 @@ export function CourseForm(props) {
     // which then gets converted to needed format with
     // the Course method 'to_new_course'
     let method = "POST";
-    let url = "/courses/all/";
+    let url = "/courses/all";
     if (course) {
       let id = document.getElementById("course_id").value;
       method = "PUT";
-      url = `/courses/${id}/`;
+      url = `/courses/${id}`;
       course_update_or_new = new Course({
         id,
         name,
@@ -92,7 +92,7 @@ export function CourseForm(props) {
       console.error(error);
       console.log("You will be redirected on a second...");
       setTimeout(() => {
-        location.replace("/courses/");
+        location.replace("/courses");
       }, 3000);
     }
     const created_course = new Course(course_data);
@@ -100,7 +100,7 @@ export function CourseForm(props) {
     else console.log(`Successfully added: \n${created_course}`);
     console.log(created_course);
     setTimeout(() => {
-      location.replace("/courses/");
+      location.replace("/courses");
     }, 1000);
   };
 
@@ -173,6 +173,7 @@ export function CourseForm(props) {
 export default function Courses(props) {
   let match = useRouteMatch();
   const [courses, setCourses] = useState([]);
+  const [loaded, setLoaded] = useState(false);
   useEffect(() => {
     const fetchCourses = async () => {
       try {
@@ -182,36 +183,41 @@ export default function Courses(props) {
             return new Course(course);
           })
         );
+        setLoaded(true);
       } catch (error) {
         console.error(error);
+        setLoaded(false);
       }
     };
     fetchCourses();
   }, []);
 
   const emptyListOrNot = () => {
-    if (courses.length > 0) {
-      return courses.map((course) => {
-        return course.to_list_component();
-      });
+    if (loaded) {
+      if(courses !== []){
+        return courses.map((course) => {
+          return course.to_list_component();
+        });
+      }
+      return <Redirect to={"/courses/new"} />;
     }
-    return <Redirect to={"/courses/new/"} />;
+    return <h4>Loading...</h4>;
   };
 
   console.log("Courses:", courses);
   return (
     <main className="content-section">
       <Switch>
-        <Route path={`${match.path}/new/`}>
+        <Route path={`${match.path}/new`}>
           <CourseForm />
         </Route>
         <Route path={`${match.path}/detail/:id`}>
           <CourseDetail />
-          <Link to={`${match.path}/`}>Back</Link>
+          <Link to={`${match.path}`}>Back</Link>
         </Route>
-        <Route path={`${match.path}/`} exact={true}>
+        <Route path={`${match.path}`}>
           <CourseList>{emptyListOrNot()}</CourseList>
-          <Link to={`${match.path}/new/`}>Add new course?</Link>
+          <Link to={`${match.path}/new`}>Add new course?</Link>
         </Route>
       </Switch>
     </main>
