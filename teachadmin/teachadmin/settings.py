@@ -9,18 +9,45 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+import os
+from functools import lru_cache
 
 from pathlib import Path
+
+from pydantic import BaseSettings
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+class Settings(BaseSettings):
+    # Path-related
+    base_dir = BASE_DIR
+
+    # Django
+    django_secret_key: str
+
+    #DB
+    db_name: str
+    db_user: str
+    db_pass: str
+    db_host: str
+    db_port: str
+
+    class Config:
+        env_file = '.env'
+
+
+@lru_cache()
+def get_settings():
+    return Settings()
+
+SETTINGS = get_settings()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-))@q%2f^+d_j7k3r46xz8x8*mtm^22kq!=4^2%b9g=_a$10#=l'
+SECRET_KEY = SETTINGS.django_secret_key
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -75,8 +102,12 @@ WSGI_APPLICATION = 'teachadmin.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": SETTINGS.db_name,
+        "USER": SETTINGS.db_user,
+        "PASSWORD": SETTINGS.db_pass,
+        "HOST": SETTINGS.db_host,
+        "PORT": SETTINGS.db_port,
     }
 }
 
