@@ -37,7 +37,7 @@ class Course(models.Model):
     )
 
 
-class Assistance(models.Model):
+class Assistant(models.Model):
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     desc = models.TextField(
