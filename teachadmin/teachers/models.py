@@ -1,6 +1,7 @@
 from datetime import date
 
 from django.db import models
+from django.contrib.auth.models import User
 from django_countries.fields import CountryField
 
 from schools.models import School
@@ -8,7 +9,8 @@ from schools.models import School
 # Create your models here.
 
 class Teacher(models.Model):
-    name = models.CharField(max_length=100)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    alias = models.CharField(max_length=50, blank=True, default="")
     schools = models.ManyToManyField(
         School,
         through="Employment",
